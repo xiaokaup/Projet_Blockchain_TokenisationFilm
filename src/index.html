@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>test_web3.js</title>
+
+    <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+    <script src="../node_modules/web3/dist/web3.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        <form>
+            <div>
+                <h3>Insert User</h3>
+                <h4 id="instructor"></h4>
+            </div>
+            
+            <div class="form-group">
+                <label for="address" class="col-lg-2 control-label">User address</label>
+                <input id="address" type="text">
+            </div>
+            <div class="form-group">
+                <label for="name" class="col-lg-2 control-label">User Name</label>
+                <input id="name" type="text">
+            </div>
+            <div class="form-group">
+                <label for="identity" class="col-lg-2 control-label">User Age</label>
+                <input id="identity" type="text">
+            </div>
+            <div class="form-group">
+                <label for="sold" class="col-lg-2 control-label">User sold</label>
+                <input id="sold" type="text">
+            </div>
+
+            <button id="button" class="btn btn-primary">Insert User</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script>
+       if (typeof web3 !== 'undefined') {
+            web3 = new Web3(web3.currentProvider);
+        } else {
+            // set the provider you want from Web3.providers
+            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+        }
+
+        web3.eth.defaultAccount = web3.eth.accounts[0];
+        console.log("user accounts:")
+        console.log(web3.eth.accounts);
+
+        var userManagerContrat = web3.eth.contract(
+[
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "userAddress",
+                "type": "address"
+            }
+        ],
+        "name": "deleteUser",
+        "outputs": [
+            {
+                "name": "userIndex",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "userAddress",
+                "type": "address"
+            },
+            {
+                "name": "userName",
+                "type": "string"
+            },
+            {
+                "name": "userIdentity",
+                "type": "string"
+            },
+            {
+                "name": "userSold",
+                "type": "uint256"
+            }
+        ],
+        "name": "insertUser",
+        "outputs": [
+            {
+                "name": "userIndex",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "userAddress",
+                "type": "address"
+            },
+            {
+                "name": "userName",
+                "type": "string"
+            },
+            {
+                "name": "userIdentity",
+                "type": "string"
+            },
+            {
+                "name": "userSold",
+                "type": "uint256"
+            }
+        ],
+        "name": "updateUser",
+        "outputs": [
+            {
+                "name": "success",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "name": "userIndex",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "name": "userAddress",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "name": "userName",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "name": "userIdentity",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "name": "userSold",
+                "type": "uint256"
+            }
+        ],
+        "name": "logUser",
+        "type": "event"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "get_test",
+        "outputs": [
+            {
+                "name": "a",
+                "type": "string"
+            },
+            {
+                "name": "b",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "userAddress",
+                "type": "address"
+            }
+        ],
+        "name": "getUser",
+        "outputs": [
+            {
+                "name": "userIndex",
+                "type": "uint256"
+            },
+            {
+                "name": "userName",
+                "type": "string"
+            },
+            {
+                "name": "userIdentity",
+                "type": "string"
+            },
+            {
+                "name": "userSold",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "userIndex",
+                "type": "uint256"
+            }
+        ],
+        "name": "getUserAtIndex",
+        "outputs": [
+            {
+                "name": "userAddress",
+                "type": "address"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "getUserCount",
+        "outputs": [
+            {
+                "name": "count",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "userAddress",
+                "type": "address"
+            }
+        ],
+        "name": "isUser",
+        "outputs": [
+            {
+                "name": "isIndeed",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "userIndexAddresses",
+        "outputs": [
+            {
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }
+]
+            );
+        var userManager = userManagerContrat.at("0xfde1689c5e34a4b008344592c5f03eac37970cea");
+        console.log("contract:")
+        console.log(userManager);
+
+        // userManager.insertUser(0x0b8902ecab0f8857e407c93c382f0230141513bb, "test_name", "investor", 100);
+
+        userManager.get_test(function(error, result) {
+            if(!error){
+                console.log("result:");
+                console.log(result);
+            } else {
+                console.log("error:");
+                console.log(error);
+            }
+        });
+    </script>
+
+</body>
+</html>
