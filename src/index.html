@@ -48,7 +48,7 @@
             web3 = new Web3(web3.currentProvider);
         } else {
             // set the provider you want from Web3.providers
-            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+            web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/76ba8681b14b4f1bac44c41e5e0e843a"));
         }
 
         web3.eth.defaultAccount = web3.eth.accounts[0];
@@ -292,7 +292,7 @@
     }
 ]
             );
-        var userManager = userManagerContrat.at("0xfde1689c5e34a4b008344592c5f03eac37970cea");
+        var userManager = userManagerContrat.at("0xb641bd706550f0b498a8b37f51a0bb6e27e2685c");
         console.log("contract:")
         console.log(userManager);
 
