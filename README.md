@@ -31,3 +31,7 @@ GitHub https://github.com/JieanYang/Projet_Blockchain_TokenisationFilm
 - Web3.js et UI web, Developing Ethereum Smart Contracts for Beginners https://coursetro.com/courses/20/Developing-Ethereum-Smart-Contracts-for-Beginners
 - smartContract, Solidity CRUD part 1 https://medium.com/@robhitchens/solidity-crud-part-1-824ffa69509a
 - smartContract, Solidity CRUD part 2 https://medium.com/@robhitchens/solidity-crud-part-2-ed8d8b4f74ec
+
+---
+#### Image of class smartContract:
+![Img_ubicentrex](https://raw.githubusercontent.com/JieanYang/Projet_Blockchain_TokenisationFilm/master/ConceptBDD/database_smartContract.jpg)
