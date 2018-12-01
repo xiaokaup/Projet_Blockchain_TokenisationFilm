@@ -3,27 +3,28 @@ pragma solidity ^0.4.18;
 contract FilmManager {
     struct FilmStruct {
         uint filmIndex;
-        address filmAddress; // user_producer
         string filmName;
         string filmDescription;
         string filmUrl; // droit de diffusion
         uint filmPrice;
         uint filmNumberVoir;
         uint filmNotation;
+        address userAddressProducer;
     }
     
     event logFilm(
         uint filmIndex,
-        address filmAddress,
         string filmName,
         string filmDescription,
         string filmUrl, // droit de diffusion
         uint filmNumberVoir,
-        uint filmNotation
+        uint filmNotation,
+        address userAddressProducer
     );
     
-    mapping(address => FilmStruct) filmStructs;
-    address[] public filmIndexAddresses;
+    mapping(uint => FilmStruct) filmStructs;
+    uint[] filmIndexAddresses;
+    uint count;
     
     /* Constructor */
     // function FilmManager() public {
@@ -31,62 +32,71 @@ contract FilmManager {
     // }
 
     // verify the existence of film
-    function isFilm(address filmAddress) public constant returns(bool isIndeed) {
+    function isFilm(uint filmIndex) public constant returns(bool isIndeed) {
         if(filmIndexAddresses.length == 0) return false;
-        return (filmIndexAddresses[filmStructs[filmAddress].filmIndex] == filmAddress);
+        return (filmIndexAddresses[filmStructs[filmIndex].filmIndex] == filmIndex);
     }
 
-    function insertFilm(address filmAddress, string filmName, string filmDescription, 
-        string filmUrl, uint filmNumberVoir, uint filmNotation) public returns(uint filmIndex) {
-        if(isFilm(filmAddress)) revert();
+    function insertFilm(string filmName, string filmDescription, 
+        string filmUrl, uint filmNumberVoir, uint filmNotation,
+        address userAddressProducer) public returns(uint filmIndex) {
+        var fimIndex = count;
+        count ++;
+        if(isFilm(fimIndex)) revert(); // ?
 
-        filmStructs[filmAddress].filmIndex = filmIndexAddresses.push(filmAddress) - 1;
-        filmStructs[filmAddress].filmAddress = filmAddress;
-        filmStructs[filmAddress].filmName = filmName;
-        filmStructs[filmAddress].filmDescription = filmDescription;
-        filmStructs[filmAddress].filmUrl = filmUrl;
-        filmStructs[filmAddress].filmNumberVoir = filmNumberVoir;
-        filmStructs[filmAddress].filmNotation = filmNotation;
+        filmStructs[fimIndex].filmIndex = filmIndexAddresses.push(fimIndex) - 1;
+        filmStructs[fimIndex].filmName = filmName;
+        filmStructs[fimIndex].filmDescription = filmDescription;
+        filmStructs[fimIndex].filmUrl = filmUrl;
+        filmStructs[fimIndex].filmNumberVoir = filmNumberVoir;
+        filmStructs[fimIndex].filmNotation = filmNotation;
+        filmStructs[fimIndex].userAddressProducer = userAddressProducer;
 
-        logFilm(filmStructs[filmAddress].filmIndex, filmAddress, filmName, filmDescription, 
-            filmUrl, filmNumberVoir, filmNotation);
+
+        logFilm(filmStructs[filmIndex].filmIndex, filmName, filmDescription, 
+            filmUrl, filmNumberVoir, filmNotation, userAddressProducer);
         return filmIndexAddresses.length-1;
     }
 
-    function getFilm(address filmAddress) public constant returns(
-        uint filmIndex; string filmName; string filmDescription; string filmUrl; 
-        uint filmNumberVoir; uint filmNotation) {
-        if(!isFilm(filmAddress)) revert();
+    function getFilm(uint filmIndex) public constant returns(
+        string filmName, string filmDescription, string filmUrl, 
+        uint filmNumberVoir, uint filmNotation, 
+        address userAddressProducer) {
+        if(!isFilm(filmIndex)) revert();
         return(
-            filmStructs[filmAddress].filmIndex,
-            filmStructs[filmAddress].filmName,
-            filmStructs[filmAddress].filmDescription,
-            filmStructs[filmAddress].filmUrl,
-            filmStructs[filmAddress].filmNumberVoir,
-            filmStructs[filmAddress].filmNotation
+            filmStructs[filmIndex].filmName,
+            filmStructs[filmIndex].filmDescription,
+            filmStructs[filmIndex].filmUrl,
+            filmStructs[filmIndex].filmNumberVoir,
+            filmStructs[filmIndex].filmNotation,
+            filmStructs[filmIndex].userAddressProducer
         );
     }
 
-    function updateFilm(address filmAddress, string filmName, string filmDescription, 
+
+    function updateFilm(uint filmIndex, string filmName, string filmDescription, 
         string filmUrl, uint filmNumberVoir, uint filmNotation) public returns(bool success) {
-        if(!isFilm(filmAddress)) revert();
+        if(!isFilm(filmIndex)) revert();
 
-        filmStructs[filmAddress].filmName = filmName;
-        filmStructs[filmAddress].filmDescription = filmDescription;
-        filmStructs[filmAddress].filmUrl = filmUrl;
-        filmStructs[filmAddress].filmNumberVoir = filmNumberVoir;
-        filmStructs[filmAddress].filmNotation = filmNotation;
+        filmStructs[filmIndex].filmName = filmName;
+        filmStructs[filmIndex].filmDescription = filmDescription;
+        filmStructs[filmIndex].filmUrl = filmUrl;
+        filmStructs[filmIndex].filmNumberVoir = filmNumberVoir;
+        filmStructs[filmIndex].filmNotation = filmNotation;
 
-        logFilm(filmStructs[filmAddress].filmIndex, filmAddress, filmName, filmDescription, 
-            filmUrl, filmNumberVoir, filmNotation);
+
+
+        logFilm(filmStructs[filmIndex].filmIndex, filmName, filmDescription, 
+            filmUrl, filmNumberVoir, filmNotation, 
+            filmStructs[filmIndex].userAddressProducer);
         return true;
     }
 
-    function deleteFilm(address filmAddress) public returns(uint filmIndex) {
-        if(!isFilm(filmAddress)) revert();
+    function deleteFilm(uint fimIndex) public returns(uint filmIndex) {
+        if(!isFilm(fimIndex)) revert();
 
-        uint rowToDelete = filmStructs[filmAddress].filmIndex;
-        address keyToMove = filmIndexAddresses[filmIndexAddresses.length-1];
+        uint rowToDelete = filmStructs[fimIndex].filmIndex;
+        uint keyToMove = filmIndexAddresses[filmIndexAddresses.length-1];
         filmIndexAddresses[rowToDelete] = keyToMove;
         filmStructs[keyToMove].filmIndex = rowToDelete;
         filmIndexAddresses.length--;
@@ -98,8 +108,24 @@ contract FilmManager {
         return filmIndexAddresses.length;
     }
 
-    function getFilmAtIndex(uint filmIndex) public constant returns(address filmAddress) {
-        return filmIndexAddresses[filmIndex];
+    function getFilmIndexAddresses(uint index) public constant returns(uint filmIndex) {
+        return filmIndexAddresses[index];
     }
+
+    // function getFilmTest(uint filmIndex) public constant returns(
+    //     uint filmIndex_return, string filmName, string filmDescription, string filmUrl, 
+    //     uint filmNumberVoir, uint filmNotation, 
+    //     address userAddressProducer) {
+    //     if(!isFilm(filmIndex)) revert();
+    //     return(
+    //         filmStructs[filmIndex].filmIndex,
+    //         filmStructs[filmIndex].filmName,
+    //         filmStructs[filmIndex].filmDescription,
+    //         filmStructs[filmIndex].filmUrl,
+    //         filmStructs[filmIndex].filmNumberVoir,
+    //         filmStructs[filmIndex].filmNotation,
+    //         filmStructs[filmIndex].userAddressProducer
+    //     );
+    // }
 
 }

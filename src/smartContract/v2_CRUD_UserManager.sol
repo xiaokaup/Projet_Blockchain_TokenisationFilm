@@ -8,6 +8,7 @@ contract UserManager {
         string userName;
         string userIdentity; // producer,investor,consumer
         uint256 userBalance;
+        uint[] userBoughtFilm;
     }
     
     event logUser(
@@ -15,7 +16,8 @@ contract UserManager {
         address userAddress,
         string userName,
         string userIdentity, // producer,investor,consumer
-        uint256 userBalance
+        uint256 userBalance,
+        uint[] userBoughtFilm
     );
     
     mapping(address => UserStruct) userStructs;
@@ -47,18 +49,19 @@ contract UserManager {
         userStructs[userAddress].userIdentity = userIdentity;
         userStructs[userAddress].userBalance = userBalance;
         
-        logUser(userStructs[userAddress].userIndex, userAddress, userName, userIdentity, userBalance);
+        logUser(userStructs[userAddress].userIndex, userAddress, userName, userIdentity, userBalance, userStructs[userAddress].userBoughtFilm);
         return userIndexAddresses.length-1;
     }
     
     function getUser(address userAddress, uint256 userPassword) public view returns(uint userIndex, string userName, 
-    string userIdentity, uint256 userBalance) {
+    string userIdentity, uint256 userBalance, uint[] userBoughtFilm) {
         if(!isUser(userAddress, userPassword)) revert();
         return(
             userStructs[userAddress].userIndex,
             userStructs[userAddress].userName,
             userStructs[userAddress].userIdentity,
-            userStructs[userAddress].userBalance
+            userStructs[userAddress].userBalance,
+            userStructs[userAddress].userBoughtFilm
         );
     }
     
@@ -71,17 +74,17 @@ contract UserManager {
         userStructs[userAddress].userIdentity = userIdentity;
         userStructs[userAddress].userBalance = userBalance;
         
-        logUser(userStructs[userAddress].userIndex, userAddress, userName, userIdentity, userBalance);
+        logUser(userStructs[userAddress].userIndex, userAddress, userName, userIdentity, userBalance, userStructs[userAddress].userBoughtFilm);
         return true;
     }
 
     function updateUserPassword(address userAddress, uint256 userOldPassword, uint256 userNewPassword) 
     public returns(bool success) {
-    	if(!isUser(userAddress, userOldPassword)) revert();
+        if(!isUser(userAddress, userOldPassword)) revert();
         
         userStructs[userAddress].userPassword = userNewPassword;
         
-        logUser(userStructs[userAddress].userIndex, userAddress, "null", "null", 0);
+        logUser(userStructs[userAddress].userIndex, userAddress, "null", "null", 0, userStructs[userAddress].userBoughtFilm);
         return true;
     }
     
@@ -103,6 +106,14 @@ contract UserManager {
     
     function getUserAtIndex(uint userIndex) public view returns(address userAddress) {
         return userIndexAddresses[userIndex];
+    }
+
+    function buyFilm(address userAddress, uint256 userPassword, uint filmIndex) public returns(bool success) {
+        if(!isUser(userAddress, userPassword)) revert();
+            
+        userStructs[userAddress].userBoughtFilm.push(filmIndex);
+
+        return true;
     }
 
     function get_test() public view returns(string a, uint b) {
