@@ -188,13 +188,30 @@
 											"height": 13,
 											"text": "+address[] userIndexAddresses",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAFndE/eNuGp+7E=",
+											"_parent": {
+												"$ref": "AAAAAAFnT6Cn6lbq8is="
+											},
+											"model": {
+												"$ref": "AAAAAAFndE/eFuGmalU="
+											},
+											"font": "Arial;13;0",
+											"left": 173,
+											"top": 754,
+											"width": 907.20068359375,
+											"height": 13,
+											"text": "+uint256 totalSupplyEthereum",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 168,
 									"top": 689,
 									"width": 917.20068359375,
-									"height": 68
+									"height": 83
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -217,7 +234,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 173,
-											"top": 762,
+											"top": 777,
 											"width": 907.20068359375,
 											"height": 13,
 											"text": "+isUser(address userAddress, uint256 userPassword): bool isIndeed",
@@ -234,7 +251,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 173,
-											"top": 777,
+											"top": 792,
 											"width": 907.20068359375,
 											"height": 13,
 											"text": "+insertUser(address userAddress, uint256 userPassword, string userName, string userIdentity, uint256 userBalance): uint userIndex",
@@ -251,7 +268,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 173,
-											"top": 792,
+											"top": 807,
 											"width": 907.20068359375,
 											"height": 13,
 											"text": "+getUser(address userAddress, uint256 userPassword): uint userIndex; string userName; string userIdentity; uint256 userBalance; uintArray userBoughtFilm",
@@ -268,7 +285,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 173,
-											"top": 807,
+											"top": 822,
 											"width": 907.20068359375,
 											"height": 13,
 											"text": "+updateUser(address userAddress, uint256 userPassword, string userName, string userIdentity, uint256 userBalance): bool success",
@@ -285,7 +302,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 173,
-											"top": 822,
+											"top": 837,
 											"width": 907.20068359375,
 											"height": 13,
 											"text": "+updateUserPassword(address userAddress, uint256 userOldPassword, uint256 userNewPassword): bool success",
@@ -302,7 +319,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 173,
-											"top": 837,
+											"top": 852,
 											"width": 907.20068359375,
 											"height": 13,
 											"text": "+deleteUser(address userAddress, uint256 userPassword): uint userIndex",
@@ -319,7 +336,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 173,
-											"top": 852,
+											"top": 867,
 											"width": 907.20068359375,
 											"height": 13,
 											"text": "+getUserCount(): uint count",
@@ -336,7 +353,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 173,
-											"top": 867,
+											"top": 882,
 											"width": 907.20068359375,
 											"height": 13,
 											"text": "+getUserAtIndex(uint userIndex): address userAddress",
@@ -353,10 +370,27 @@
 											},
 											"font": "Arial;13;0",
 											"left": 173,
-											"top": 882,
+											"top": 897,
 											"width": 907.20068359375,
 											"height": 13,
-											"text": "+buyFilm(address userAddress, uint256 userPassword, uint filmIndex): bool success",
+											"text": "+buyFilm(address userAddress, uint256 userPassword, address userAddressProducer, uint filmIndex, uint filmPrice): bool success",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAFndFNuuOLwfDs=",
+											"_parent": {
+												"$ref": "AAAAAAFnT6Cn6lbro/s="
+											},
+											"model": {
+												"$ref": "AAAAAAFndFNutOLtLes="
+											},
+											"font": "Arial;13;0",
+											"left": 173,
+											"top": 912,
+											"width": 907.20068359375,
+											"height": 13,
+											"text": "-sendTokenEthereum(address _from, address _to, uint256 _value): bool success",
 											"horizontalAlignment": 0
 										},
 										{
@@ -370,7 +404,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 173,
-											"top": 897,
+											"top": 927,
 											"width": 907.20068359375,
 											"height": 13,
 											"text": "+get_test(): string a; uint b",
@@ -379,9 +413,9 @@
 									],
 									"font": "Arial;13;0",
 									"left": 168,
-									"top": 757,
+									"top": 772,
 									"width": 917.20068359375,
-									"height": 158
+									"height": 173
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -4079,6 +4113,14 @@
 							},
 							"name": "address[] userIndexAddresses",
 							"type": ""
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAFndE/eFuGmalU=",
+							"_parent": {
+								"$ref": "AAAAAAFnT6Cn6VbinTM="
+							},
+							"name": "uint256 totalSupplyEthereum"
 						}
 					],
 					"operations": [
@@ -4428,8 +4470,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnbA82jWlWnCg="
 									},
-									"name": "address userAddress",
-									"type": ""
+									"name": "address userAddress"
 								},
 								{
 									"_type": "UMLParameter",
@@ -4437,12 +4478,28 @@
 									"_parent": {
 										"$ref": "AAAAAAFnbA82jWlWnCg="
 									},
-									"name": "uint256 userPassword",
-									"type": ""
+									"name": "uint256 userPassword"
 								},
 								{
 									"_type": "UMLParameter",
 									"_id": "AAAAAAFnbA+FY2mKZbs=",
+									"_parent": {
+										"$ref": "AAAAAAFnbA82jWlWnCg="
+									},
+									"name": "address userAddressProducer"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFnbA+FY2mLOW0=",
+									"_parent": {
+										"$ref": "AAAAAAFnbA82jWlWnCg="
+									},
+									"type": "bool success",
+									"direction": "return"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFndFK7d+JWA/8=",
 									"_parent": {
 										"$ref": "AAAAAAFnbA82jWlWnCg="
 									},
@@ -4451,9 +4508,53 @@
 								},
 								{
 									"_type": "UMLParameter",
-									"_id": "AAAAAAFnbA+FY2mLOW0=",
+									"_id": "AAAAAAFndFK7d+JXftA=",
 									"_parent": {
 										"$ref": "AAAAAAFnbA82jWlWnCg="
+									},
+									"name": "uint filmPrice",
+									"type": ""
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAFndFNutOLtLes=",
+							"_parent": {
+								"$ref": "AAAAAAFnT6Cn6VbinTM="
+							},
+							"name": "sendTokenEthereum",
+							"visibility": "private",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFndFP6V+Od67Q=",
+									"_parent": {
+										"$ref": "AAAAAAFndFNutOLtLes="
+									},
+									"name": "address _from"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFndFP6V+OeeGQ=",
+									"_parent": {
+										"$ref": "AAAAAAFndFNutOLtLes="
+									},
+									"name": "address _to"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFndFP6V+Ofa1s=",
+									"_parent": {
+										"$ref": "AAAAAAFndFNutOLtLes="
+									},
+									"name": "uint256 _value"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFndFXMLORMS/k=",
+									"_parent": {
+										"$ref": "AAAAAAFndFNutOLtLes="
 									},
 									"type": "bool success",
 									"direction": "return"
@@ -4854,7 +4955,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFnT6ZtL1ecqz8="
 							},
-							"name": "struct TokenStruct"
+							"name": "struct TokenStruct",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4862,7 +4964,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFnT6ZtL1ecqz8="
 							},
-							"name": "event logToken"
+							"name": "event logToken",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4870,7 +4973,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFnT6ZtL1ecqz8="
 							},
-							"name": "mapping--uint_to_TokenStruct tokenStructs"
+							"name": "mapping--uint_to_TokenStruct tokenStructs",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4878,7 +4982,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFnT6ZtL1ecqz8="
 							},
-							"name": "uint[] tokenIndexWithFilmIndexes"
+							"name": "uint[] tokenIndexWithFilmIndexes",
+							"type": ""
 						}
 					],
 					"operations": [
@@ -5467,7 +5572,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFnbvHkWrHiHbQ="
 							},
-							"name": "uint filmIndex"
+							"name": "uint filmIndex",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -5475,7 +5581,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFnbvHkWrHiHbQ="
 							},
-							"name": "uint filmBudget"
+							"name": "uint filmBudget",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -5483,7 +5590,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFnbvHkWrHiHbQ="
 							},
-							"name": "uint filmPeriode"
+							"name": "uint filmPeriode",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -5491,7 +5599,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFnbvHkWrHiHbQ="
 							},
-							"name": "uint tokenIndex"
+							"name": "uint tokenIndex",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -5499,7 +5608,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFnbvHkWrHiHbQ="
 							},
-							"name": "uint tokenSum"
+							"name": "uint tokenSum",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -5507,7 +5617,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFnbvHkWrHiHbQ="
 							},
-							"name": "uint tokenNumber"
+							"name": "uint tokenNumber",
+							"type": ""
 						}
 					]
 				}
