@@ -111,6 +111,10 @@ contract UserManager {
         return userIndexAddresses.length;
     }
 
+    function getUserAtIndex(uint userIndex) public view returns(address userAddress) {
+         return userIndexAddresses[userIndex];
+    }
+
     function buyFilm(address userAddress, uint256 userPassword,address userAddressProducer, uint filmIndex, 
         uint filmPrice) public returns(bool success) {
         if(!isUser(userAddress, userPassword)) revert();
@@ -122,7 +126,7 @@ contract UserManager {
     }
 
     /* Transfer tokens to another account for payment */
-    function sendTokenEthereum(address _from, address _to, uint256 _value) private {
+    function sendTokenEthereum(address _from, address _to, uint256 _value) private returns(bool success) {
         require(userStructs[_from].userBalance >= _value 
             && 
             userStructs[_to].userBalance + _value >= userStructs[_to].userBalance); // Check if the sender has enough tokens and for overflows 
@@ -130,9 +134,12 @@ contract UserManager {
         userStructs[_from].userBalance -= _value; // subtract the number of tokens from the sender’s balance
         userStructs[_to].userBalance += _value; //add the number of tokens to the receiver’s balance
         // Transfer(msg.sender, _to, _value); // Notify anyone listening that this transfer took place 
+        
+        return true;
     }
 
     function get_test() public view returns(string a, uint b) {
         return("test", 888);
     }
+
 }
