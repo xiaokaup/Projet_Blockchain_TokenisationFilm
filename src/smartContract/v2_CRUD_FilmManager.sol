@@ -40,17 +40,17 @@ contract FilmManager {
     function insertFilm(string filmName, string filmDescription, 
         string filmUrl, uint filmNumberVoir, uint filmNotation,
         address userAddressProducer) public returns(uint filmIndex) {
-        var fimIndex = count;
+        var filmIndex = count;
         count ++;
-        if(isFilm(fimIndex)) revert(); // ?
+        if(isFilm(filmIndex)) revert(); // ?
 
-        filmStructs[fimIndex].filmIndex = filmIndexAddresses.push(fimIndex) - 1;
-        filmStructs[fimIndex].filmName = filmName;
-        filmStructs[fimIndex].filmDescription = filmDescription;
-        filmStructs[fimIndex].filmUrl = filmUrl;
-        filmStructs[fimIndex].filmNumberVoir = filmNumberVoir;
-        filmStructs[fimIndex].filmNotation = filmNotation;
-        filmStructs[fimIndex].userAddressProducer = userAddressProducer;
+        filmStructs[filmIndex].filmIndex = filmIndexAddresses.push(filmIndex) - 1;
+        filmStructs[filmIndex].filmName = filmName;
+        filmStructs[filmIndex].filmDescription = filmDescription;
+        filmStructs[filmIndex].filmUrl = filmUrl;
+        filmStructs[filmIndex].filmNumberVoir = filmNumberVoir;
+        filmStructs[filmIndex].filmNotation = filmNotation;
+        filmStructs[filmIndex].userAddressProducer = userAddressProducer;
 
 
         logFilm(filmStructs[filmIndex].filmIndex, filmName, filmDescription, 
@@ -92,10 +92,10 @@ contract FilmManager {
         return true;
     }
 
-    function deleteFilm(uint fimIndex) public returns(uint filmIndex) {
-        if(!isFilm(fimIndex)) revert();
+    function deleteFilm(uint filmIndex) public returns(uint filmIndex) {
+        if(!isFilm(filmIndex)) revert();
 
-        uint rowToDelete = filmStructs[fimIndex].filmIndex;
+        uint rowToDelete = filmStructs[filmIndex].filmIndex;
         uint keyToMove = filmIndexAddresses[filmIndexAddresses.length-1];
         filmIndexAddresses[rowToDelete] = keyToMove;
         filmStructs[keyToMove].filmIndex = rowToDelete;
