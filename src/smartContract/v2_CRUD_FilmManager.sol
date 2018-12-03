@@ -39,7 +39,7 @@ contract FilmManager {
 
     function insertFilm(string filmName, string filmDescription, 
         string filmUrl, uint filmNumberVoir, uint filmNotation,
-        address userAddressProducer) public returns(uint filmIndex) {
+        address userAddressProducer) public returns(uint filmIndex_return) {
         var filmIndex = count;
         count ++;
         if(isFilm(filmIndex)) revert(); // ?
@@ -92,7 +92,7 @@ contract FilmManager {
         return true;
     }
 
-    function deleteFilm(uint filmIndex) public returns(uint filmIndex) {
+    function deleteFilm(uint filmIndex) public returns(uint filmIndex_return) {
         if(!isFilm(filmIndex)) revert();
 
         uint rowToDelete = filmStructs[filmIndex].filmIndex;
