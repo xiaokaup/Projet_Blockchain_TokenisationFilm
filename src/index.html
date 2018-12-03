@@ -58,30 +58,26 @@
         var userManagerContrat = web3.eth.contract(
 [
     {
-        "constant": false,
+        "constant": true,
         "inputs": [
             {
-                "name": "userAddress",
+                "name": "",
                 "type": "address"
             }
         ],
-        "name": "deleteUser",
+        "name": "userStructs",
         "outputs": [
             {
                 "name": "userIndex",
                 "type": "uint256"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
+            },
             {
                 "name": "userAddress",
                 "type": "address"
+            },
+            {
+                "name": "userPassword",
+                "type": "uint256"
             },
             {
                 "name": "userName",
@@ -92,19 +88,12 @@
                 "type": "string"
             },
             {
-                "name": "userSold",
-                "type": "uint256"
-            }
-        ],
-        "name": "insertUser",
-        "outputs": [
-            {
-                "name": "userIndex",
+                "name": "userBalance",
                 "type": "uint256"
             }
         ],
         "payable": false,
-        "stateMutability": "nonpayable",
+        "stateMutability": "view",
         "type": "function"
     },
     {
@@ -115,6 +104,10 @@
                 "type": "address"
             },
             {
+                "name": "userPassword",
+                "type": "uint256"
+            },
+            {
                 "name": "userName",
                 "type": "string"
             },
@@ -123,7 +116,7 @@
                 "type": "string"
             },
             {
-                "name": "userSold",
+                "name": "userBalance",
                 "type": "uint256"
             }
         ],
@@ -137,38 +130,6 @@
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": false,
-                "name": "userIndex",
-                "type": "uint256"
-            },
-            {
-                "indexed": false,
-                "name": "userAddress",
-                "type": "address"
-            },
-            {
-                "indexed": false,
-                "name": "userName",
-                "type": "string"
-            },
-            {
-                "indexed": false,
-                "name": "userIdentity",
-                "type": "string"
-            },
-            {
-                "indexed": false,
-                "name": "userSold",
-                "type": "uint256"
-            }
-        ],
-        "name": "logUser",
-        "type": "event"
     },
     {
         "constant": true,
@@ -194,6 +155,200 @@
             {
                 "name": "userAddress",
                 "type": "address"
+            },
+            {
+                "name": "userPassword",
+                "type": "uint256"
+            }
+        ],
+        "name": "isUser",
+        "outputs": [
+            {
+                "name": "isIndeed",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "totalSupplyEthereum",
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "userAddress",
+                "type": "address"
+            },
+            {
+                "name": "userPassword",
+                "type": "uint256"
+            },
+            {
+                "name": "userName",
+                "type": "string"
+            },
+            {
+                "name": "userIdentity",
+                "type": "string"
+            },
+            {
+                "name": "userBalance",
+                "type": "uint256"
+            }
+        ],
+        "name": "insertUser",
+        "outputs": [
+            {
+                "name": "userIndex",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "getUserCount",
+        "outputs": [
+            {
+                "name": "count",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "userIndexAddresses",
+        "outputs": [
+            {
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "userAddress",
+                "type": "address"
+            },
+            {
+                "name": "userPassword",
+                "type": "uint256"
+            },
+            {
+                "name": "userAddressProducer",
+                "type": "address"
+            },
+            {
+                "name": "filmIndex",
+                "type": "uint256"
+            },
+            {
+                "name": "filmPrice",
+                "type": "uint256"
+            }
+        ],
+        "name": "buyFilm",
+        "outputs": [
+            {
+                "name": "success",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "userAddress",
+                "type": "address"
+            },
+            {
+                "name": "userPassword",
+                "type": "uint256"
+            }
+        ],
+        "name": "deleteUser",
+        "outputs": [
+            {
+                "name": "userIndex",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "userAddress",
+                "type": "address"
+            },
+            {
+                "name": "userOldPassword",
+                "type": "uint256"
+            },
+            {
+                "name": "userNewPassword",
+                "type": "uint256"
+            }
+        ],
+        "name": "updateUserPassword",
+        "outputs": [
+            {
+                "name": "success",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "userAddress",
+                "type": "address"
+            },
+            {
+                "name": "userPassword",
+                "type": "uint256"
             }
         ],
         "name": "getUser",
@@ -211,8 +366,12 @@
                 "type": "string"
             },
             {
-                "name": "userSold",
+                "name": "userBalance",
                 "type": "uint256"
+            },
+            {
+                "name": "userBoughtFilm",
+                "type": "uint256[]"
             }
         ],
         "payable": false,
@@ -239,56 +398,41 @@
         "type": "function"
     },
     {
-        "constant": true,
-        "inputs": [],
-        "name": "getUserCount",
-        "outputs": [
-            {
-                "name": "count",
-                "type": "uint256"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
+        "anonymous": false,
         "inputs": [
             {
+                "indexed": false,
+                "name": "userIndex",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
                 "name": "userAddress",
                 "type": "address"
-            }
-        ],
-        "name": "isUser",
-        "outputs": [
+            },
             {
-                "name": "isIndeed",
-                "type": "bool"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [
+                "indexed": false,
+                "name": "userName",
+                "type": "string"
+            },
             {
-                "name": "",
+                "indexed": false,
+                "name": "userIdentity",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "name": "userBalance",
                 "type": "uint256"
-            }
-        ],
-        "name": "userIndexAddresses",
-        "outputs": [
+            },
             {
-                "name": "",
-                "type": "address"
+                "indexed": false,
+                "name": "userBoughtFilm",
+                "type": "uint256[]"
             }
         ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
+        "name": "logUser",
+        "type": "event"
     }
 ]
             );
@@ -300,64 +444,6 @@
         "constant": false,
         "inputs": [
             {
-                "name": "fimIndex",
-                "type": "uint256"
-            }
-        ],
-        "name": "deleteFilm",
-        "outputs": [
-            {
-                "name": "filmIndex",
-                "type": "uint256"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "name": "filmName",
-                "type": "string"
-            },
-            {
-                "name": "filmDescription",
-                "type": "string"
-            },
-            {
-                "name": "filmUrl",
-                "type": "string"
-            },
-            {
-                "name": "filmNumberVoir",
-                "type": "uint256"
-            },
-            {
-                "name": "filmNotation",
-                "type": "uint256"
-            },
-            {
-                "name": "userAddressProducer",
-                "type": "address"
-            }
-        ],
-        "name": "insertFilm",
-        "outputs": [
-            {
-                "name": "filmIndex",
-                "type": "uint256"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
                 "name": "filmIndex",
                 "type": "uint256"
             },
@@ -370,8 +456,16 @@
                 "type": "string"
             },
             {
+                "name": "filmImageUrl",
+                "type": "string"
+            },
+            {
                 "name": "filmUrl",
                 "type": "string"
+            },
+            {
+                "name": "filmPrice",
+                "type": "uint256"
             },
             {
                 "name": "filmNumberVoir",
@@ -380,6 +474,14 @@
             {
                 "name": "filmNotation",
                 "type": "uint256"
+            },
+            {
+                "name": "filmPublished",
+                "type": "bool"
+            },
+            {
+                "name": "filmIco",
+                "type": "bool"
             }
         ],
         "name": "updateFilm",
@@ -394,59 +496,55 @@
         "type": "function"
     },
     {
-        "anonymous": false,
-        "inputs": [
+        "constant": true,
+        "inputs": [],
+        "name": "getFilmCount",
+        "outputs": [
             {
-                "indexed": false,
-                "name": "filmIndex",
+                "name": "count",
                 "type": "uint256"
-            },
-            {
-                "indexed": false,
-                "name": "filmName",
-                "type": "string"
-            },
-            {
-                "indexed": false,
-                "name": "filmDescription",
-                "type": "string"
-            },
-            {
-                "indexed": false,
-                "name": "filmUrl",
-                "type": "string"
-            },
-            {
-                "indexed": false,
-                "name": "filmNumberVoir",
-                "type": "uint256"
-            },
-            {
-                "indexed": false,
-                "name": "filmNotation",
-                "type": "uint256"
-            },
-            {
-                "indexed": false,
-                "name": "userAddressProducer",
-                "type": "address"
             }
         ],
-        "name": "logFilm",
-        "type": "event"
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
     },
     {
         "constant": true,
         "inputs": [
             {
-                "name": "",
+                "name": "filmIndex",
                 "type": "uint256"
             }
         ],
-        "name": "filmIndexAddresses",
+        "name": "getFilm",
         "outputs": [
             {
-                "name": "",
+                "name": "filmName",
+                "type": "string"
+            },
+            {
+                "name": "filmDescription",
+                "type": "string"
+            },
+            {
+                "name": "filmImageUrl",
+                "type": "string"
+            },
+            {
+                "name": "filmUrl",
+                "type": "string"
+            },
+            {
+                "name": "filmPrice",
+                "type": "uint256"
+            },
+            {
+                "name": "filmNumberVoir",
+                "type": "uint256"
+            },
+            {
+                "name": "filmNotation",
                 "type": "uint256"
             }
         ],
@@ -477,6 +575,10 @@
                 "type": "string"
             },
             {
+                "name": "filmImageUrl",
+                "type": "string"
+            },
+            {
                 "name": "filmUrl",
                 "type": "string"
             },
@@ -493,12 +595,39 @@
                 "type": "uint256"
             },
             {
+                "name": "filmPublished",
+                "type": "bool"
+            },
+            {
+                "name": "filmIco",
+                "type": "bool"
+            },
+            {
                 "name": "userAddressProducer",
                 "type": "address"
             }
         ],
         "payable": false,
         "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "filmIndex",
+                "type": "uint256"
+            }
+        ],
+        "name": "deleteFilm",
+        "outputs": [
+            {
+                "name": "delete_index_filmIndexAddresses",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -509,8 +638,20 @@
                 "type": "uint256"
             }
         ],
-        "name": "getFilm",
+        "name": "isFilm",
         "outputs": [
+            {
+                "name": "isIndeed",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
             {
                 "name": "filmName",
                 "type": "string"
@@ -520,8 +661,16 @@
                 "type": "string"
             },
             {
+                "name": "filmImageUrl",
+                "type": "string"
+            },
+            {
                 "name": "filmUrl",
                 "type": "string"
+            },
+            {
+                "name": "filmPrice",
+                "type": "uint256"
             },
             {
                 "name": "filmNumberVoir",
@@ -532,26 +681,27 @@
                 "type": "uint256"
             },
             {
+                "name": "filmPublished",
+                "type": "bool"
+            },
+            {
+                "name": "filmIco",
+                "type": "bool"
+            },
+            {
                 "name": "userAddressProducer",
                 "type": "address"
             }
         ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [],
-        "name": "getFilmCount",
+        "name": "insertFilm",
         "outputs": [
             {
-                "name": "count",
+                "name": "index_filmIndexAddresses",
                 "type": "uint256"
             }
         ],
         "payable": false,
-        "stateMutability": "view",
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -577,37 +727,127 @@
         "constant": true,
         "inputs": [
             {
-                "name": "filmIndex",
+                "name": "",
                 "type": "uint256"
             }
         ],
-        "name": "isFilm",
+        "name": "filmIndexAddresses",
         "outputs": [
             {
-                "name": "isIndeed",
-                "type": "bool"
+                "name": "",
+                "type": "uint256"
             }
         ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "filmIndex",
+                "type": "uint256"
+            }
+        ],
+        "name": "getFilmInfo_published_ico_producer",
+        "outputs": [
+            {
+                "name": "filmPublished",
+                "type": "bool"
+            },
+            {
+                "name": "filmIco",
+                "type": "bool"
+            },
+            {
+                "name": "userAddressProducer",
+                "type": "address"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "name": "filmIndex",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "name": "filmName",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "name": "filmDescription",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "name": "filmImageUrl",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "name": "filmUrl",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "name": "filmPrice",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "name": "filmNumberVoir",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "name": "filmNotation",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "name": "filmPublished",
+                "type": "bool"
+            },
+            {
+                "indexed": false,
+                "name": "filmIco",
+                "type": "bool"
+            },
+            {
+                "indexed": false,
+                "name": "userAddressProducer",
+                "type": "address"
+            }
+        ],
+        "name": "logFilm",
+        "type": "event"
     }
-]);
+]
+        );
 
 
 
         var userManager = userManagerContrat.at("0xb641bd706550f0b498a8b37f51a0bb6e27e2685c");
-        console.log("contract:")
+        console.log("contract_userManager:");
         console.log(userManager);
 
         // userManager.insertUser(0x0b8902ecab0f8857e407c93c382f0230141513bb, "test_name", "investor", 100);
 
         userManager.get_test(function(error, result) {
             if(!error){
-                console.log("result:");
+                console.log("result_userManager:");
                 console.log(result);
             } else {
-                console.log("error:");
+                console.log("error_userManager:");
                 console.log(error);
             }
         });
@@ -615,18 +855,19 @@
 
 
 
-        var filmManager = filmManagerContrat.at("0x320193fec16778923752939a73d98e600d07f65d");
-        console.log(filmManager);
-        var filmIndex = 0;
-        filmManager.getFilm( filmIndex,function(error, result) {
-            if(!error){
-                console.log("result:");
-                console.log(result);
-            } else {
-                console.log("error:");
-                console.log(error);
-            }
-        });
+        // var filmManager = filmManagerContrat.at("0x692a70d2e424a56d2c6c27aa97d1a86395877b3a");
+        // console.log("contract_filmManager:");
+        // console.log(filmManager);
+        // var filmIndex = 0;
+        // filmManager.getFilm( filmIndex,function(error, result) {
+        //     if(!error){
+        //         console.log("result_filmManager:");
+        //         console.log(result);
+        //     } else {
+        //         console.log("error_filmManager:");
+        //         console.log(error);
+        //     }
+        // });
     </script>
 
 </body>

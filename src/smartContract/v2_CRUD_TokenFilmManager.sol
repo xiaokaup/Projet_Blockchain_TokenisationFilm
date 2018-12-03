@@ -4,25 +4,25 @@ contract TokenFilmManager {
     struct TokenStruct {
         uint filmIndex; 
         uint filmBudget;
-        uint filmPeriode;
+        uint filmMaturity;
 
-        uint tokenIndex; // Index of token
-        uint tokenSum;
+        uint tokenPrice;
         uint tokenNumber;
+        int tokenRecommend;
     }
     
     event logToken(
         uint filmIndex,
         uint filmBudget,
-        uint filmPeriode,
+        uint filmMaturity,
 
-        uint tokenIndex,
-        uint tokenSum,
-        uint tokenNumber
+        uint tokenPrice,
+        uint tokenNumber,
+        int tokenRecommend
     );
     
-    mapping(uint => TokenStruct) tokenStructs; // uint is filmIndex
-    uint[] public tokenIndexWithFilmIndexes; // uint[] is value of filmIndex, tokenIndex is the index of array
+    mapping(uint => TokenStruct) public tokenStructs; // uint is filmIndex
+    uint[] public filmIndexAddresses;
 
     /* Constructor */
     // function TokenFilmManager() public {
@@ -31,69 +31,72 @@ contract TokenFilmManager {
 
     // verify the existence of token
     function isToken(uint filmIndex) public constant returns(bool isIndeed) {
-        if(tokenIndexWithFilmIndexes.length == 0) return false;
-        return (tokenIndexWithFilmIndexes[tokenStructs[filmIndex].tokenIndex] == filmIndex);
+        if(filmIndexAddresses.length == 0) return false;
+        return (filmIndexAddresses[tokenStructs[filmIndex].filmIndex] == filmIndex);
     }
 
-    function insertToken(uint filmIndex, uint filmBudget, uint filmPeriode, uint tokenSum, 
-    uint tokenNumber) public returns(uint tokenIndex) {
+    function insertToken(uint filmIndex, uint filmBudget, uint filmMaturity, uint tokenPrice, 
+    uint tokenNumber, int tokenRecommend) public returns(uint index_filmIndexAddresses) {
         if(isToken(filmIndex)) revert();
 
-        tokenStructs[filmIndex].filmIndex = filmIndex;
+        tokenStructs[filmIndex].filmIndex = filmIndexAddresses.push(filmIndex) - 1;
         tokenStructs[filmIndex].filmBudget = filmBudget;
-        tokenStructs[filmIndex].filmPeriode = filmPeriode;
-        tokenStructs[filmIndex].tokenIndex = tokenIndexWithFilmIndexes.push(filmIndex)-1;
-        tokenStructs[filmIndex].tokenSum = tokenSum;
+        tokenStructs[filmIndex].filmMaturity = filmMaturity;
+        tokenStructs[filmIndex].tokenPrice = tokenPrice;
         tokenStructs[filmIndex].tokenNumber = tokenNumber;
+        tokenStructs[filmIndex].tokenRecommend = 0;
 
-        logToken(filmIndex, filmBudget, filmPeriode, tokenStructs[filmIndex].tokenIndex, 
-        tokenSum, tokenNumber);
-        return tokenIndexWithFilmIndexes.length-1;
+        logToken(tokenStructs[filmIndex].filmIndex, filmBudget, filmMaturity, tokenPrice, tokenNumber, 0);
+        return filmIndexAddresses.length-1;
     }
 
-    function getToken(uint filmIndex) public constant returns(uint filmBudget, uint filmPeriode, 
-    uint tokenIndex, uint tokenSum, uint tokenNumber) {
+    function getToken(uint filmIndex) public constant returns(uint filmBudget, uint filmMaturity, 
+        uint tokenPrice, uint tokenNumber, int tokenRecommend) {
         if(!isToken(filmIndex)) revert();
         return(
             tokenStructs[filmIndex].filmBudget,
-            tokenStructs[filmIndex].filmPeriode,
-            tokenStructs[filmIndex].tokenIndex,
-            tokenStructs[filmIndex].tokenSum,
-            tokenStructs[filmIndex].tokenNumber
+            tokenStructs[filmIndex].filmMaturity,
+            tokenStructs[filmIndex].tokenPrice,
+            tokenStructs[filmIndex].tokenNumber, 
+            tokenStructs[filmIndex].tokenRecommend
         );
     }
 
-    function updateToken(uint filmIndex, uint filmBudget, uint filmPeriode, uint tokenSum, 
+    function updateToken(uint filmIndex, uint filmBudget, uint filmMaturity, uint tokenPrice, 
     uint tokenNumber) public returns(bool success) {
         if(!isToken(filmIndex)) revert();
 
         tokenStructs[filmIndex].filmBudget = filmBudget;
-        tokenStructs[filmIndex].filmPeriode = filmPeriode;
-        tokenStructs[filmIndex].tokenSum = tokenSum;
+        tokenStructs[filmIndex].filmMaturity = filmMaturity;
+        tokenStructs[filmIndex].tokenPrice = tokenPrice;
         tokenStructs[filmIndex].tokenNumber = tokenNumber;
 
-        logToken(filmIndex, filmBudget, filmPeriode, tokenStructs[filmIndex].tokenIndex, 
-        tokenSum, tokenNumber);
+        logToken(tokenStructs[filmIndex].filmIndex, filmBudget, filmMaturity, tokenPrice, tokenNumber, 
+            tokenStructs[filmIndex].tokenRecommend);
         return true;
     }
 
-    function deleteToken(uint filmIndex) public returns(uint tokenIndex) {
+    function addOneTokenRecommend(uint filmIndex) public { tokenStructs[filmIndex].tokenRecommend++; }
+
+    function minusOneTokenRecommend(uint filmIndex) public { tokenStructs[filmIndex].tokenRecommend--; }
+
+    function deleteToken(uint filmIndex) public returns(uint delete_index_filmIndexAddresses) {
         if(!isToken(filmIndex)) revert();
 
-        uint rowToDelete = tokenStructs[filmIndex].tokenIndex;
-        uint keyToMove = tokenIndexWithFilmIndexes[tokenIndexWithFilmIndexes.length-1];
-        tokenIndexWithFilmIndexes[rowToDelete] = keyToMove;
-        tokenStructs[keyToMove].tokenIndex = rowToDelete;
-        tokenIndexWithFilmIndexes.length--;
+        uint rowToDelete = tokenStructs[filmIndex].filmIndex;
+        uint keyToMove = filmIndexAddresses[filmIndexAddresses.length-1];
+        filmIndexAddresses[rowToDelete] = keyToMove;
+        tokenStructs[keyToMove].filmIndex = rowToDelete;
+        filmIndexAddresses.length--;
 
         return rowToDelete;
     }
 
     function getTokenCount() public constant returns(uint count) {
-        return tokenIndexWithFilmIndexes.length;
+        return filmIndexAddresses.length;
     }
 
-    function getTokenAtTokenIndex(uint tokenIndex) public constant returns(uint filmIndex) {
-        return tokenIndexWithFilmIndexes[tokenIndex];
+    function getFilmIndexAddresses(uint index) public constant returns(uint filmIndex) {
+        return filmIndexAddresses[index];
     }
 }

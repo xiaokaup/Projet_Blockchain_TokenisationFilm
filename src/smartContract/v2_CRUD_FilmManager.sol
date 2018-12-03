@@ -5,10 +5,13 @@ contract FilmManager {
         uint filmIndex;
         string filmName;
         string filmDescription;
+        string filmImageUrl;
         string filmUrl; // droit de diffusion
         uint filmPrice;
         uint filmNumberVoir;
         uint filmNotation;
+        bool filmPublished;
+        bool filmIco;
         address userAddressProducer;
     }
     
@@ -16,9 +19,13 @@ contract FilmManager {
         uint filmIndex,
         string filmName,
         string filmDescription,
+        string filmImageUrl,
         string filmUrl, // droit de diffusion
+        uint filmPrice,
         uint filmNumberVoir,
         uint filmNotation,
+        bool filmPublished,
+        bool filmIco,
         address userAddressProducer
     );
     
@@ -37,62 +44,81 @@ contract FilmManager {
         return (filmIndexAddresses[filmStructs[filmIndex].filmIndex] == filmIndex);
     }
 
-    function insertFilm(string filmName, string filmDescription, 
-        string filmUrl, uint filmNumberVoir, uint filmNotation,
-        address userAddressProducer) public returns(uint filmIndex_return) {
+    function insertFilm(string filmName, string filmDescription, string filmImageUrl,
+        string filmUrl, uint filmPrice, uint filmNumberVoir, uint filmNotation, 
+        bool filmPublished, bool filmIco, address userAddressProducer) 
+    public returns(uint index_filmIndexAddresses) {
         var filmIndex = count;
         count ++;
-        if(isFilm(filmIndex)) revert(); // ?
+        if(isFilm(filmIndex)) revert(); 
 
         filmStructs[filmIndex].filmIndex = filmIndexAddresses.push(filmIndex) - 1;
         filmStructs[filmIndex].filmName = filmName;
         filmStructs[filmIndex].filmDescription = filmDescription;
+        filmStructs[filmIndex].filmImageUrl = filmImageUrl;
         filmStructs[filmIndex].filmUrl = filmUrl;
+        filmStructs[filmIndex].filmPrice = filmPrice;
         filmStructs[filmIndex].filmNumberVoir = filmNumberVoir;
         filmStructs[filmIndex].filmNotation = filmNotation;
+        filmStructs[filmIndex].filmPublished = filmPublished;
+        filmStructs[filmIndex].filmIco = filmIco;
         filmStructs[filmIndex].userAddressProducer = userAddressProducer;
 
 
         logFilm(filmStructs[filmIndex].filmIndex, filmName, filmDescription, 
-            filmUrl, filmNumberVoir, filmNotation, userAddressProducer);
+            filmImageUrl, filmUrl, filmPrice, filmNumberVoir, filmNotation, 
+            filmPublished, filmIco, userAddressProducer);
         return filmIndexAddresses.length-1;
     }
 
     function getFilm(uint filmIndex) public constant returns(
-        string filmName, string filmDescription, string filmUrl, 
-        uint filmNumberVoir, uint filmNotation, 
-        address userAddressProducer) {
+        string filmName, string filmDescription, string filmImageUrl, 
+        string filmUrl, uint filmPrice, uint filmNumberVoir, uint filmNotation) {
         if(!isFilm(filmIndex)) revert();
         return(
             filmStructs[filmIndex].filmName,
             filmStructs[filmIndex].filmDescription,
+            filmStructs[filmIndex].filmImageUrl,
             filmStructs[filmIndex].filmUrl,
+            filmStructs[filmIndex].filmPrice,
             filmStructs[filmIndex].filmNumberVoir,
-            filmStructs[filmIndex].filmNotation,
+            filmStructs[filmIndex].filmNotation
+        );
+    }
+
+    function getFilmInfo_published_ico_producer(uint filmIndex) public constant returns(
+        bool filmPublished, bool filmIco, address userAddressProducer) {
+        if(!isFilm(filmIndex)) revert();
+        return(
+            filmStructs[filmIndex].filmPublished,
+            filmStructs[filmIndex].filmIco,
             filmStructs[filmIndex].userAddressProducer
         );
     }
 
 
     function updateFilm(uint filmIndex, string filmName, string filmDescription, 
-        string filmUrl, uint filmNumberVoir, uint filmNotation) public returns(bool success) {
+        string filmImageUrl, string filmUrl, uint filmPrice, uint filmNumberVoir, 
+        uint filmNotation, bool filmPublished, bool filmIco) public returns(bool success) {
         if(!isFilm(filmIndex)) revert();
 
         filmStructs[filmIndex].filmName = filmName;
         filmStructs[filmIndex].filmDescription = filmDescription;
+        filmStructs[filmIndex].filmImageUrl = filmImageUrl;
         filmStructs[filmIndex].filmUrl = filmUrl;
+        filmStructs[filmIndex].filmPrice = filmPrice;
         filmStructs[filmIndex].filmNumberVoir = filmNumberVoir;
         filmStructs[filmIndex].filmNotation = filmNotation;
-
-
+        filmStructs[filmIndex].filmPublished = filmPublished;
+        filmStructs[filmIndex].filmIco = filmIco;
 
         logFilm(filmStructs[filmIndex].filmIndex, filmName, filmDescription, 
-            filmUrl, filmNumberVoir, filmNotation, 
-            filmStructs[filmIndex].userAddressProducer);
+            filmImageUrl, filmUrl, filmPrice, filmNumberVoir, filmNotation, 
+            filmPublished, filmIco, address(0));
         return true;
     }
 
-    function deleteFilm(uint filmIndex) public returns(uint filmIndex_return) {
+    function deleteFilm(uint filmIndex) public returns(uint delete_index_filmIndexAddresses) {
         if(!isFilm(filmIndex)) revert();
 
         uint rowToDelete = filmStructs[filmIndex].filmIndex;
@@ -111,21 +137,5 @@ contract FilmManager {
     function getFilmIndexAddresses(uint index) public constant returns(uint filmIndex) {
         return filmIndexAddresses[index];
     }
-
-    // function getFilmTest(uint filmIndex) public constant returns(
-    //     uint filmIndex_return, string filmName, string filmDescription, string filmUrl, 
-    //     uint filmNumberVoir, uint filmNotation, 
-    //     address userAddressProducer) {
-    //     if(!isFilm(filmIndex)) revert();
-    //     return(
-    //         filmStructs[filmIndex].filmIndex,
-    //         filmStructs[filmIndex].filmName,
-    //         filmStructs[filmIndex].filmDescription,
-    //         filmStructs[filmIndex].filmUrl,
-    //         filmStructs[filmIndex].filmNumberVoir,
-    //         filmStructs[filmIndex].filmNotation,
-    //         filmStructs[filmIndex].userAddressProducer
-    //     );
-    // }
 
 }
