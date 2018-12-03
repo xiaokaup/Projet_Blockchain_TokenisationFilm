@@ -20,8 +20,9 @@ contract UserManager {
         uint[] userBoughtFilm
     );
     
-    mapping(address => UserStruct) userStructs;
+    mapping(address => UserStruct) public userStructs;
     address[] public userIndexAddresses;
+    uint256 public totalSupplyEthereum;
     
     /* Constructor */
     // function UserManager() public {
@@ -48,8 +49,10 @@ contract UserManager {
         userStructs[userAddress].userName = userName;
         userStructs[userAddress].userIdentity = userIdentity;
         userStructs[userAddress].userBalance = userBalance;
+        totalSupplyEthereum += userBalance;
         
-        logUser(userStructs[userAddress].userIndex, userAddress, userName, userIdentity, userBalance, userStructs[userAddress].userBoughtFilm);
+        logUser(userStructs[userAddress].userIndex, userAddress, userName, userIdentity, userBalance, 
+            userStructs[userAddress].userBoughtFilm);
         return userIndexAddresses.length-1;
     }
     
@@ -72,9 +75,12 @@ contract UserManager {
         userStructs[userAddress].userPassword = userPassword;
         userStructs[userAddress].userName = userName;
         userStructs[userAddress].userIdentity = userIdentity;
+        totalSupplyEthereum += (userBalance-userStructs[userAddress].userBalance);
         userStructs[userAddress].userBalance = userBalance;
+
         
-        logUser(userStructs[userAddress].userIndex, userAddress, userName, userIdentity, userBalance, userStructs[userAddress].userBoughtFilm);
+        logUser(userStructs[userAddress].userIndex, userAddress, userName, userIdentity, userBalance, 
+            userStructs[userAddress].userBoughtFilm);
         return true;
     }
 
@@ -84,7 +90,8 @@ contract UserManager {
         
         userStructs[userAddress].userPassword = userNewPassword;
         
-        logUser(userStructs[userAddress].userIndex, userAddress, "null", "null", 0, userStructs[userAddress].userBoughtFilm);
+        logUser(userStructs[userAddress].userIndex, userAddress, "null", "null", 0, 
+            userStructs[userAddress].userBoughtFilm);
         return true;
     }
     
@@ -103,17 +110,26 @@ contract UserManager {
     function getUserCount() public view returns(uint count) {
         return userIndexAddresses.length;
     }
-    
-    function getUserAtIndex(uint userIndex) public view returns(address userAddress) {
-        return userIndexAddresses[userIndex];
-    }
 
-    function buyFilm(address userAddress, uint256 userPassword, uint filmIndex) public returns(bool success) {
+    function buyFilm(address userAddress, uint256 userPassword,address userAddressProducer, uint filmIndex, 
+        uint filmPrice) public returns(bool success) {
         if(!isUser(userAddress, userPassword)) revert();
             
+        sendTokenEthereum(userAddress, userAddressProducer, filmPrice);
         userStructs[userAddress].userBoughtFilm.push(filmIndex);
 
         return true;
+    }
+
+    /* Transfer tokens to another account for payment */
+    function sendTokenEthereum(address _from, address _to, uint256 _value) private {
+        require(userStructs[_from].userBalance >= _value 
+            && 
+            userStructs[_to].userBalance + _value >= userStructs[_to].userBalance); // Check if the sender has enough tokens and for overflows 
+
+        userStructs[_from].userBalance -= _value; // subtract the number of tokens from the sender’s balance
+        userStructs[_to].userBalance += _value; //add the number of tokens to the receiver’s balance
+        // Transfer(msg.sender, _to, _value); // Notify anyone listening that this transfer took place 
     }
 
     function get_test() public view returns(string a, uint b) {
