@@ -22,8 +22,8 @@ contract FilmManager {
         address userAddressProducer
     );
     
-    mapping(uint => FilmStruct) filmStructs;
-    uint[] filmIndexAddresses;
+    mapping(uint => FilmStruct) public filmStructs;
+    uint[] public filmIndexAddresses;
     uint count;
     
     /* Constructor */

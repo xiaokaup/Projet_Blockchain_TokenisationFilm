@@ -25,7 +25,7 @@
             </div>
             <div class="form-group">
                 <label for="name" class="col-lg-2 control-label">User Name</label>
-                <input id="name" type="text">
+                <input id="name" type="text">   
             </div>
             <div class="form-group">
                 <label for="identity" class="col-lg-2 control-label">User Age</label>
@@ -292,6 +292,310 @@
     }
 ]
             );
+
+
+        var filmManagerContrat = web3.eth.contract(
+[
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "fimIndex",
+                "type": "uint256"
+            }
+        ],
+        "name": "deleteFilm",
+        "outputs": [
+            {
+                "name": "filmIndex",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "filmName",
+                "type": "string"
+            },
+            {
+                "name": "filmDescription",
+                "type": "string"
+            },
+            {
+                "name": "filmUrl",
+                "type": "string"
+            },
+            {
+                "name": "filmNumberVoir",
+                "type": "uint256"
+            },
+            {
+                "name": "filmNotation",
+                "type": "uint256"
+            },
+            {
+                "name": "userAddressProducer",
+                "type": "address"
+            }
+        ],
+        "name": "insertFilm",
+        "outputs": [
+            {
+                "name": "filmIndex",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "filmIndex",
+                "type": "uint256"
+            },
+            {
+                "name": "filmName",
+                "type": "string"
+            },
+            {
+                "name": "filmDescription",
+                "type": "string"
+            },
+            {
+                "name": "filmUrl",
+                "type": "string"
+            },
+            {
+                "name": "filmNumberVoir",
+                "type": "uint256"
+            },
+            {
+                "name": "filmNotation",
+                "type": "uint256"
+            }
+        ],
+        "name": "updateFilm",
+        "outputs": [
+            {
+                "name": "success",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "name": "filmIndex",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "name": "filmName",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "name": "filmDescription",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "name": "filmUrl",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "name": "filmNumberVoir",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "name": "filmNotation",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "name": "userAddressProducer",
+                "type": "address"
+            }
+        ],
+        "name": "logFilm",
+        "type": "event"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "filmIndexAddresses",
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "filmStructs",
+        "outputs": [
+            {
+                "name": "filmIndex",
+                "type": "uint256"
+            },
+            {
+                "name": "filmName",
+                "type": "string"
+            },
+            {
+                "name": "filmDescription",
+                "type": "string"
+            },
+            {
+                "name": "filmUrl",
+                "type": "string"
+            },
+            {
+                "name": "filmPrice",
+                "type": "uint256"
+            },
+            {
+                "name": "filmNumberVoir",
+                "type": "uint256"
+            },
+            {
+                "name": "filmNotation",
+                "type": "uint256"
+            },
+            {
+                "name": "userAddressProducer",
+                "type": "address"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "filmIndex",
+                "type": "uint256"
+            }
+        ],
+        "name": "getFilm",
+        "outputs": [
+            {
+                "name": "filmName",
+                "type": "string"
+            },
+            {
+                "name": "filmDescription",
+                "type": "string"
+            },
+            {
+                "name": "filmUrl",
+                "type": "string"
+            },
+            {
+                "name": "filmNumberVoir",
+                "type": "uint256"
+            },
+            {
+                "name": "filmNotation",
+                "type": "uint256"
+            },
+            {
+                "name": "userAddressProducer",
+                "type": "address"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "getFilmCount",
+        "outputs": [
+            {
+                "name": "count",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "index",
+                "type": "uint256"
+            }
+        ],
+        "name": "getFilmIndexAddresses",
+        "outputs": [
+            {
+                "name": "filmIndex",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "filmIndex",
+                "type": "uint256"
+            }
+        ],
+        "name": "isFilm",
+        "outputs": [
+            {
+                "name": "isIndeed",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }
+]);
+
+
+
         var userManager = userManagerContrat.at("0xb641bd706550f0b498a8b37f51a0bb6e27e2685c");
         console.log("contract:")
         console.log(userManager);
@@ -299,6 +603,22 @@
         // userManager.insertUser(0x0b8902ecab0f8857e407c93c382f0230141513bb, "test_name", "investor", 100);
 
         userManager.get_test(function(error, result) {
+            if(!error){
+                console.log("result:");
+                console.log(result);
+            } else {
+                console.log("error:");
+                console.log(error);
+            }
+        });
+        
+
+
+
+        var filmManager = filmManagerContrat.at("0x320193fec16778923752939a73d98e600d07f65d");
+        console.log(filmManager);
+        var filmIndex = 0;
+        filmManager.getFilm( filmIndex,function(error, result) {
             if(!error){
                 console.log("result:");
                 console.log(result);
