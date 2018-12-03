@@ -836,7 +836,7 @@
 
 
 
-        var userManager = userManagerContrat.at("0xb641bd706550f0b498a8b37f51a0bb6e27e2685c");
+        var userManager = userManagerContrat.at("0x1f930726bb543d7b98fc2e69afdac92dc257be18");
         console.log("contract_userManager:");
         console.log(userManager);
 
@@ -855,19 +855,29 @@
 
 
 
-        // var filmManager = filmManagerContrat.at("0x692a70d2e424a56d2c6c27aa97d1a86395877b3a");
-        // console.log("contract_filmManager:");
-        // console.log(filmManager);
-        // var filmIndex = 0;
-        // filmManager.getFilm( filmIndex,function(error, result) {
-        //     if(!error){
-        //         console.log("result_filmManager:");
-        //         console.log(result);
-        //     } else {
-        //         console.log("error_filmManager:");
-        //         console.log(error);
-        //     }
-        // });
+        var filmManager = filmManagerContrat.at("0x10b13bae120f0f9544cf09a9c0a6bbbdf364573d");
+        console.log("contract_filmManager:");
+        console.log(filmManager);
+        var filmIndex = 0;
+        filmManager.getFilm( filmIndex,function(error, result) {
+            if(!error){
+                console.log("result_filmManager:");
+                console.log(result);
+            } else {
+                console.log("error_filmManager:");
+                console.log(error);
+            }
+        });
+
+        filmManager.getFilmInfo_published_ico_producer( filmIndex,function(error, result) {
+            if(!error){
+                console.log("result_published_ico_producer_filmManager:");
+                console.log(result);
+            } else {
+                console.log("error_published_ico_producer_filmManager:");
+                console.log(error);
+            }
+        });
     </script>
 
 </body>
