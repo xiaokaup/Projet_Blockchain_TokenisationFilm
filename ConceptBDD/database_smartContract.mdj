@@ -6816,6 +6816,64 @@
 							},
 							"lineStyle": 1,
 							"points": "1799:702;1839:717"
+						},
+						{
+							"_type": "UMLNoteView",
+							"_id": "AAAAAAFnhOSDIOwH2Yg=",
+							"_parent": {
+								"$ref": "AAAAAAFF+qBtyKM79qY="
+							},
+							"font": "Arial;13;0",
+							"left": 896,
+							"top": 240,
+							"width": 200,
+							"height": 112,
+							"text": "Constructor will insert automatically 5 film, 2 published, 2 ico, 1 no published and no ico.\nThe userAddressProducer correspond 1 user who is producer in userManager. "
+						},
+						{
+							"_type": "UMLNoteLinkView",
+							"_id": "AAAAAAFnhOWzdu83MZ0=",
+							"_parent": {
+								"$ref": "AAAAAAFF+qBtyKM79qY="
+							},
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAFnT6UE5lc6yhw="
+							},
+							"tail": {
+								"$ref": "AAAAAAFnhOSDIOwH2Yg="
+							},
+							"lineStyle": 1,
+							"points": "1096:282;1167:273"
+						},
+						{
+							"_type": "UMLNoteView",
+							"_id": "AAAAAAFnhOYBQPZFdxY=",
+							"_parent": {
+								"$ref": "AAAAAAFF+qBtyKM79qY="
+							},
+							"font": "Arial;13;0",
+							"left": 2536,
+							"top": 456,
+							"width": 176,
+							"height": 112,
+							"text": "Constructor will insert automatically 2 film ico, their info correspond 2 film which are created in FilmManager."
+						},
+						{
+							"_type": "UMLNoteLinkView",
+							"_id": "AAAAAAFnhOfEg/vthHw=",
+							"_parent": {
+								"$ref": "AAAAAAFF+qBtyKM79qY="
+							},
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAFnT6ZtMFeeFMg="
+							},
+							"tail": {
+								"$ref": "AAAAAAFnhOYBQPZFdxY="
+							},
+							"lineStyle": 1,
+							"points": "2628:568;2634:639"
 						}
 					]
 				},
