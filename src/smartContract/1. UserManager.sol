@@ -22,16 +22,24 @@ contract UserManager {
     
     mapping(address => UserStruct) public userStructs;
     address[] public userIndexAddresses;
+
     uint256 public totalSupplyEthereum;
     
     /* Constructor */
-    // function UserManager() public {
-        
-    // }
+    function UserManager() public {
+        insertUser(0xca35b7d915458ef540ade6068dfe2f44e8fa733c, 123, "Kickflix", "platform", 1);
+
+        insertUser(0x14723a09acff6d2a60dcdf7aa4aff308fddc160c, 123, "customer_user1", "customer", 1000);
+        insertUser(0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db, 123, "customer_user2", "customer", 1000);
+        insertUser(0x583031d1113ad414f02576bd6afabfb302140225, 123, "producer_user3", "producer", 3000);
+        // Must increase gas limit to deploy this contract
+        insertUser(0xdd870fa1b7c4700f2bd7f44238821c26f7392148, 123, "investor_user4", "investor", 10000);
+
+    }
     
     // verify the existence of user
     function isUser(address userAddress, uint256 userPassword) public view returns(bool isIndeed) {
-        if(userIndexAddresses.length == 0) return false;
+        if(userIndexAddresses.length == 0 || userStructs[userAddress].userIndex >= userIndexAddresses.length) return false;
         return (
             userIndexAddresses[userStructs[userAddress].userIndex] == userAddress
         &&
@@ -40,7 +48,7 @@ contract UserManager {
     }
     
     function insertUser(address userAddress, uint256 userPassword, string userName, string userIdentity, 
-    uint256 userBalance) public returns(uint userIndex) {
+    uint256 userBalance) public returns(uint index_userIndexAddresses) {
         if(isUser(userAddress, userPassword)) revert();
         
         userStructs[userAddress].userIndex = userIndexAddresses.push(userAddress) - 1;
@@ -56,7 +64,7 @@ contract UserManager {
         return userIndexAddresses.length-1;
     }
     
-    function getUser(address userAddress, uint256 userPassword) public view returns(uint userIndex, string userName, 
+    function getUser(address userAddress, uint256 userPassword) public view returns(uint index_userIndexAddresses, string userName, 
     string userIdentity, uint256 userBalance, uint[] userBoughtFilm) {
         if(!isUser(userAddress, userPassword)) revert();
         return(
@@ -95,7 +103,7 @@ contract UserManager {
         return true;
     }
     
-    function deleteUser(address userAddress, uint256 userPassword) public returns(uint userIndex) {
+    function deleteUser(address userAddress, uint256 userPassword) public returns(bool success) {
         if(!isUser(userAddress, userPassword)) revert();
         
         uint rowToDelete = userStructs[userAddress].userIndex;
@@ -104,15 +112,15 @@ contract UserManager {
         userStructs[keyToMove].userIndex = rowToDelete;
         userIndexAddresses.length--;
         
-        return rowToDelete;
+        return true;
     }
     
-    function getUserCount() public view returns(uint count) {
+    function getNumberUser() public view returns(uint numberUser) {
         return userIndexAddresses.length;
     }
 
-    function getUserAtIndex(uint userIndex) public view returns(address userAddress) {
-         return userIndexAddresses[userIndex];
+    function getByIndex_userIndexAddresses(uint index_userIndexAddresses) public view returns(address userAddress) {
+         return userIndexAddresses[index_userIndexAddresses];
     }
 
     function buyFilm(address userAddress, uint256 userPassword,address userAddressProducer, uint filmIndex, 
