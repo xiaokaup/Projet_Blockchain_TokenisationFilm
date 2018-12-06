@@ -22,24 +22,25 @@ contract TokenFilmManager {
     );
     
     mapping(uint => TokenStruct) public tokenStructs; // uint is filmIndex
-    uint[] public filmIndexAddresses;
+    uint[] public filmIndexes;
 
     /* Constructor */
-    // function TokenFilmManager() public {
-
-    // }
+    function TokenFilmManager() public {
+        insertToken(3, 2000, 12, 10, 200, 0);
+        insertToken(4, 8000, 30, 20, 400, 0);
+    }
 
     // verify the existence of token
     function isToken(uint filmIndex) public constant returns(bool isIndeed) {
-        if(filmIndexAddresses.length == 0) return false;
-        return (filmIndexAddresses[tokenStructs[filmIndex].filmIndex] == filmIndex);
+        if(filmIndexes.length == 0 || tokenStructs[filmIndex].filmIndex >= filmIndexes.length) return false;
+        return (filmIndexes[tokenStructs[filmIndex].filmIndex] == filmIndex);
     }
 
     function insertToken(uint filmIndex, uint filmBudget, uint filmMaturity, uint tokenPrice, 
-    uint tokenNumber, int tokenRecommend) public returns(uint index_filmIndexAddresses) {
+    uint tokenNumber, int tokenRecommend) public returns(uint index_filmIndexes) {
         if(isToken(filmIndex)) revert();
 
-        tokenStructs[filmIndex].filmIndex = filmIndexAddresses.push(filmIndex) - 1;
+        tokenStructs[filmIndex].filmIndex = filmIndexes.push(filmIndex) - 1;
         tokenStructs[filmIndex].filmBudget = filmBudget;
         tokenStructs[filmIndex].filmMaturity = filmMaturity;
         tokenStructs[filmIndex].tokenPrice = tokenPrice;
@@ -47,13 +48,14 @@ contract TokenFilmManager {
         tokenStructs[filmIndex].tokenRecommend = 0;
 
         logToken(tokenStructs[filmIndex].filmIndex, filmBudget, filmMaturity, tokenPrice, tokenNumber, 0);
-        return filmIndexAddresses.length-1;
+        return filmIndexes.length-1;
     }
 
-    function getToken(uint filmIndex) public constant returns(uint filmBudget, uint filmMaturity, 
-        uint tokenPrice, uint tokenNumber, int tokenRecommend) {
+    function getToken(uint filmIndex) public constant returns(uint index_filmIndexes, uint filmBudget, 
+        uint filmMaturity, uint tokenPrice, uint tokenNumber, int tokenRecommend) {
         if(!isToken(filmIndex)) revert();
         return(
+            tokenStructs[filmIndex].filmIndex, 
             tokenStructs[filmIndex].filmBudget,
             tokenStructs[filmIndex].filmMaturity,
             tokenStructs[filmIndex].tokenPrice,
@@ -80,23 +82,23 @@ contract TokenFilmManager {
 
     function minusOneTokenRecommend(uint filmIndex) public { tokenStructs[filmIndex].tokenRecommend--; }
 
-    function deleteToken(uint filmIndex) public returns(uint delete_index_filmIndexAddresses) {
+    function deleteToken(uint filmIndex) public returns(bool success) {
         if(!isToken(filmIndex)) revert();
 
         uint rowToDelete = tokenStructs[filmIndex].filmIndex;
-        uint keyToMove = filmIndexAddresses[filmIndexAddresses.length-1];
-        filmIndexAddresses[rowToDelete] = keyToMove;
+        uint keyToMove = filmIndexes[filmIndexes.length-1];
+        filmIndexes[rowToDelete] = keyToMove;
         tokenStructs[keyToMove].filmIndex = rowToDelete;
-        filmIndexAddresses.length--;
+        filmIndexes.length--;
 
-        return rowToDelete;
+        return true;
     }
 
-    function getTokenCount() public constant returns(uint count) {
-        return filmIndexAddresses.length;
+    function getNumberToken() public constant returns(uint numberToken) {
+        return filmIndexes.length;
     }
 
-    function getFilmIndexAddresses(uint index) public constant returns(uint filmIndex) {
-        return filmIndexAddresses[index];
+    function getByIndex_filmIndexes(uint index_filmIndexes) public constant returns(uint filmIndex) {
+        return filmIndexes[index_filmIndexes];
     }
 }
