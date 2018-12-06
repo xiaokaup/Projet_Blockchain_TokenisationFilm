@@ -21,8 +21,8 @@ contract TokenFilmManager {
         int tokenRecommend
     );
     
-    mapping(uint => TokenStruct) public tokenStructs; // uint is filmIndex
-    uint[] public filmIndexes;
+    mapping(uint => TokenStruct) tokenStructs; // uint is filmIndex
+    uint[] filmIndexes;
 
     /* Constructor */
     function TokenFilmManager() public {
@@ -31,7 +31,7 @@ contract TokenFilmManager {
     }
 
     // verify the existence of token
-    function isToken(uint filmIndex) public constant returns(bool isIndeed) {
+    function isToken(uint filmIndex) private constant returns(bool isIndeed) {
         if(filmIndexes.length == 0 || tokenStructs[filmIndex].filmIndex >= filmIndexes.length) return false;
         return (filmIndexes[tokenStructs[filmIndex].filmIndex] == filmIndex);
     }

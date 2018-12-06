@@ -20,8 +20,8 @@ contract UserManager {
         uint[] userBoughtFilm
     );
     
-    mapping(address => UserStruct) public userStructs;
-    address[] public userIndexAddresses;
+    mapping(address => UserStruct) userStructs;
+    address[] userIndexAddresses;
 
     uint256 public totalSupplyEthereum;
     
@@ -38,7 +38,7 @@ contract UserManager {
     }
     
     // verify the existence of user
-    function isUser(address userAddress, uint256 userPassword) public view returns(bool isIndeed) {
+    function isUser(address userAddress, uint256 userPassword) private view returns(bool isIndeed) {
         if(userIndexAddresses.length == 0 || userStructs[userAddress].userIndex >= userIndexAddresses.length) return false;
         return (
             userIndexAddresses[userStructs[userAddress].userIndex] == userAddress
@@ -144,10 +144,6 @@ contract UserManager {
         // Transfer(msg.sender, _to, _value); // Notify anyone listening that this transfer took place 
         
         return true;
-    }
-
-    function get_test() public view returns(string a, uint b) {
-        return("test", 888);
     }
 
 }

@@ -29,8 +29,8 @@ contract FilmManager {
         address userAddressProducer
     );
     
-    mapping(uint => FilmStruct) public filmStructs;
-    uint[] public filmIndexes;
+    mapping(uint => FilmStruct) filmStructs;
+    uint[] filmIndexes;
     uint count;
     
     /* Constructor */
@@ -44,7 +44,7 @@ contract FilmManager {
     }
 
     // verify the existence of film
-    function isFilm(uint filmIndex) public constant returns(bool isIndeed) {
+    function isFilm(uint filmIndex) private constant returns(bool isIndeed) {
         if(filmIndexes.length == 0 || filmStructs[filmIndex].filmIndex >= filmIndexes.length) return false;
         return (filmIndexes[filmStructs[filmIndex].filmIndex] == filmIndex);
     }
