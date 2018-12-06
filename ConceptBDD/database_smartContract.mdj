@@ -6551,7 +6551,7 @@
 							"top": 128,
 							"width": 142.12255859375,
 							"height": 66,
-							"text": "filmIndexAddresses, this variable\nsave the filmIndex"
+							"text": "filmIndexes, this variable\nsave the filmIndex"
 						},
 						{
 							"_type": "UMLNoteLinkView",
@@ -6580,7 +6580,7 @@
 							"top": 680,
 							"width": 142.12255859375,
 							"height": 66,
-							"text": "filmIndexAddresses, this variable\nsave the filmIndex"
+							"text": "filmIndexes, this variable\nsave the filmIndex"
 						},
 						{
 							"_type": "UMLNoteLinkView",
