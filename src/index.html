@@ -58,45 +58,6 @@
         var userManagerContrat = web3.eth.contract(
 [
     {
-        "constant": true,
-        "inputs": [
-            {
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "name": "userStructs",
-        "outputs": [
-            {
-                "name": "userIndex",
-                "type": "uint256"
-            },
-            {
-                "name": "userAddress",
-                "type": "address"
-            },
-            {
-                "name": "userPassword",
-                "type": "uint256"
-            },
-            {
-                "name": "userName",
-                "type": "string"
-            },
-            {
-                "name": "userIdentity",
-                "type": "string"
-            },
-            {
-                "name": "userBalance",
-                "type": "uint256"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
         "constant": false,
         "inputs": [
             {
@@ -133,39 +94,17 @@
     },
     {
         "constant": true,
-        "inputs": [],
-        "name": "get_test",
-        "outputs": [
+        "inputs": [
             {
-                "name": "a",
-                "type": "string"
-            },
-            {
-                "name": "b",
+                "name": "index_userIndexAddresses",
                 "type": "uint256"
             }
         ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [
+        "name": "getByIndex_userIndexAddresses",
+        "outputs": [
             {
                 "name": "userAddress",
                 "type": "address"
-            },
-            {
-                "name": "userPassword",
-                "type": "uint256"
-            }
-        ],
-        "name": "isUser",
-        "outputs": [
-            {
-                "name": "isIndeed",
-                "type": "bool"
             }
         ],
         "payable": false,
@@ -213,7 +152,7 @@
         "name": "insertUser",
         "outputs": [
             {
-                "name": "userIndex",
+                "name": "index_userIndexAddresses",
                 "type": "uint256"
             }
         ],
@@ -224,30 +163,11 @@
     {
         "constant": true,
         "inputs": [],
-        "name": "getUserCount",
+        "name": "getNumberUser",
         "outputs": [
             {
-                "name": "count",
+                "name": "numberUser",
                 "type": "uint256"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [
-            {
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "name": "userIndexAddresses",
-        "outputs": [
-            {
-                "name": "",
-                "type": "address"
             }
         ],
         "payable": false,
@@ -304,8 +224,8 @@
         "name": "deleteUser",
         "outputs": [
             {
-                "name": "userIndex",
-                "type": "uint256"
+                "name": "success",
+                "type": "bool"
             }
         ],
         "payable": false,
@@ -354,7 +274,7 @@
         "name": "getUser",
         "outputs": [
             {
-                "name": "userIndex",
+                "name": "index_userIndexAddresses",
                 "type": "uint256"
             },
             {
@@ -379,23 +299,10 @@
         "type": "function"
     },
     {
-        "constant": true,
-        "inputs": [
-            {
-                "name": "userIndex",
-                "type": "uint256"
-            }
-        ],
-        "name": "getUserAtIndex",
-        "outputs": [
-            {
-                "name": "userAddress",
-                "type": "address"
-            }
-        ],
+        "inputs": [],
         "payable": false,
-        "stateMutability": "view",
-        "type": "function"
+        "stateMutability": "nonpayable",
+        "type": "constructor"
     },
     {
         "anonymous": false,
@@ -497,20 +404,6 @@
     },
     {
         "constant": true,
-        "inputs": [],
-        "name": "getFilmCount",
-        "outputs": [
-            {
-                "name": "count",
-                "type": "uint256"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
         "inputs": [
             {
                 "name": "filmIndex",
@@ -553,65 +446,6 @@
         "type": "function"
     },
     {
-        "constant": true,
-        "inputs": [
-            {
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "name": "filmStructs",
-        "outputs": [
-            {
-                "name": "filmIndex",
-                "type": "uint256"
-            },
-            {
-                "name": "filmName",
-                "type": "string"
-            },
-            {
-                "name": "filmDescription",
-                "type": "string"
-            },
-            {
-                "name": "filmImageUrl",
-                "type": "string"
-            },
-            {
-                "name": "filmUrl",
-                "type": "string"
-            },
-            {
-                "name": "filmPrice",
-                "type": "uint256"
-            },
-            {
-                "name": "filmNumberVoir",
-                "type": "uint256"
-            },
-            {
-                "name": "filmNotation",
-                "type": "uint256"
-            },
-            {
-                "name": "filmPublished",
-                "type": "bool"
-            },
-            {
-                "name": "filmIco",
-                "type": "bool"
-            },
-            {
-                "name": "userAddressProducer",
-                "type": "address"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
         "constant": false,
         "inputs": [
             {
@@ -622,31 +456,12 @@
         "name": "deleteFilm",
         "outputs": [
             {
-                "name": "delete_index_filmIndexAddresses",
-                "type": "uint256"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [
-            {
-                "name": "filmIndex",
-                "type": "uint256"
-            }
-        ],
-        "name": "isFilm",
-        "outputs": [
-            {
-                "name": "isIndeed",
+                "name": "success",
                 "type": "bool"
             }
         ],
         "payable": false,
-        "stateMutability": "view",
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -696,7 +511,7 @@
         "name": "insertFilm",
         "outputs": [
             {
-                "name": "index_filmIndexAddresses",
+                "name": "index_filmIndexes",
                 "type": "uint256"
             }
         ],
@@ -706,35 +521,11 @@
     },
     {
         "constant": true,
-        "inputs": [
-            {
-                "name": "index",
-                "type": "uint256"
-            }
-        ],
-        "name": "getFilmIndexAddresses",
+        "inputs": [],
+        "name": "getNumberFilm",
         "outputs": [
             {
-                "name": "filmIndex",
-                "type": "uint256"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [
-            {
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "name": "filmIndexAddresses",
-        "outputs": [
-            {
-                "name": "",
+                "name": "numberFilm",
                 "type": "uint256"
             }
         ],
@@ -753,6 +544,10 @@
         "name": "getFilmInfo_published_ico_producer",
         "outputs": [
             {
+                "name": "filmIndex_return",
+                "type": "uint256"
+            },
+            {
                 "name": "filmPublished",
                 "type": "bool"
             },
@@ -768,6 +563,31 @@
         "payable": false,
         "stateMutability": "view",
         "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "index_filmIndexes",
+                "type": "uint256"
+            }
+        ],
+        "name": "getByIndex_filmIndexes",
+        "outputs": [
+            {
+                "name": "filmIndex",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "constructor"
     },
     {
         "anonymous": false,
@@ -834,50 +654,363 @@
 ]
         );
 
-
-
-        var userManager = userManagerContrat.at("0x1f930726bb543d7b98fc2e69afdac92dc257be18");
-        console.log("contract_userManager:");
-        console.log(userManager);
-
-        // userManager.insertUser(0x0b8902ecab0f8857e407c93c382f0230141513bb, "test_name", "investor", 100);
-
-        userManager.get_test(function(error, result) {
-            if(!error){
-                console.log("result_userManager:");
-                console.log(result);
-            } else {
-                console.log("error_userManager:");
-                console.log(error);
+        var tokenManagerContrat = web3.eth.contract(
+[
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "filmIndex",
+                "type": "uint256"
+            },
+            {
+                "name": "filmBudget",
+                "type": "uint256"
+            },
+            {
+                "name": "filmMaturity",
+                "type": "uint256"
+            },
+            {
+                "name": "tokenPrice",
+                "type": "uint256"
+            },
+            {
+                "name": "tokenNumber",
+                "type": "uint256"
             }
-        });
+        ],
+        "name": "updateToken",
+        "outputs": [
+            {
+                "name": "success",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "filmIndex",
+                "type": "uint256"
+            },
+            {
+                "name": "filmBudget",
+                "type": "uint256"
+            },
+            {
+                "name": "filmMaturity",
+                "type": "uint256"
+            },
+            {
+                "name": "tokenPrice",
+                "type": "uint256"
+            },
+            {
+                "name": "tokenNumber",
+                "type": "uint256"
+            },
+            {
+                "name": "tokenRecommend",
+                "type": "int256"
+            }
+        ],
+        "name": "insertToken",
+        "outputs": [
+            {
+                "name": "index_filmIndexes",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "filmIndex",
+                "type": "uint256"
+            }
+        ],
+        "name": "minusOneTokenRecommend",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "filmIndex",
+                "type": "uint256"
+            }
+        ],
+        "name": "deleteToken",
+        "outputs": [
+            {
+                "name": "success",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "getNumberToken",
+        "outputs": [
+            {
+                "name": "numberToken",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "filmIndex",
+                "type": "uint256"
+            }
+        ],
+        "name": "addOneTokenRecommend",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "index_filmIndexes",
+                "type": "uint256"
+            }
+        ],
+        "name": "getByIndex_filmIndexes",
+        "outputs": [
+            {
+                "name": "filmIndex",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "filmIndex",
+                "type": "uint256"
+            }
+        ],
+        "name": "getToken",
+        "outputs": [
+            {
+                "name": "index_filmIndexes",
+                "type": "uint256"
+            },
+            {
+                "name": "filmBudget",
+                "type": "uint256"
+            },
+            {
+                "name": "filmMaturity",
+                "type": "uint256"
+            },
+            {
+                "name": "tokenPrice",
+                "type": "uint256"
+            },
+            {
+                "name": "tokenNumber",
+                "type": "uint256"
+            },
+            {
+                "name": "tokenRecommend",
+                "type": "int256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "name": "filmIndex",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "name": "filmBudget",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "name": "filmMaturity",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "name": "tokenPrice",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "name": "tokenNumber",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "name": "tokenRecommend",
+                "type": "int256"
+            }
+        ],
+        "name": "logToken",
+        "type": "event"
+    }
+]
+        );
+
+
+        function test_userManager() {
+            var userManager = userManagerContrat.at("0x9a9a168854d6519805285689cf72075a46e831c8");
+            console.log("contract_userManager:");
+            console.log(userManager);
+
+            // userManager.insertUser(0x0b8902ecab0f8857e407c93c382f0230141513bb, "test_name", "investor", 100);
+
+            userManager.getNumberUser(function(error,result) {
+                console.log("numberUser:");
+                console.log(result.c[0]);
+
+                userManager.getByIndex_userIndexAddresses(Math.round(Math.random()*(result.c[0]-1)), function(error,result){
+                    if(!error){
+                        var userAddress_return = result;
+                        console.log("userAddress_return:"+userAddress_return);
+                    } else {
+                        console.log("error_getByIndex_userIndexAddresses:");
+                        console.log(error);
+                    }
+
+                    userManager.getUser(userAddress_return, 123, function(error, result) {
+                        if(!error){
+                            console.log("result_getUser:"+userAddress_return+"->");
+                            console.log(result);
+                        } else {
+                            console.log("error_getUser:"+userAddress_return+"->");
+                            console.log(error);
+                        }
+                    });
+                });
+            });        
+        }
         
 
+        function test_filmManager() {
+            var filmManager = filmManagerContrat.at("0xfadaded098d31cba8af0a2778264e95dc47b02fb");
+            console.log("contract_filmManager:");
+            console.log(filmManager);
+            filmManager.getNumberFilm(function(error,result) {
+                console.log("numberFilm:");
+                console.log(result.c[0]);
 
+                filmManager.getByIndex_filmIndexes(Math.round(Math.random()*(result.c[0]-1)), function(error,result){
+                    if(!error){
+                        var filmIndex_return = result;
+                        console.log("filmIndex_return:"+filmIndex_return);
+                    } else {
+                        console.log("error_getByIndex_filmIndexes:");
+                        console.log(error);
+                    }
 
-        var filmManager = filmManagerContrat.at("0x10b13bae120f0f9544cf09a9c0a6bbbdf364573d");
-        console.log("contract_filmManager:");
-        console.log(filmManager);
-        var filmIndex = 0;
-        filmManager.getFilm( filmIndex,function(error, result) {
-            if(!error){
-                console.log("result_filmManager:");
-                console.log(result);
-            } else {
-                console.log("error_filmManager:");
-                console.log(error);
-            }
-        });
+                    filmManager.getFilm(filmIndex_return, function(error, result) {
+                        if(!error){
+                            console.log("result_getFilm:"+filmIndex_return+"->");
+                            console.log(result);
+                        } else {
+                            console.log("error_getFilm:"+filmIndex_return+"->");
+                            console.log(error);
+                        }
 
-        filmManager.getFilmInfo_published_ico_producer( filmIndex,function(error, result) {
-            if(!error){
-                console.log("result_published_ico_producer_filmManager:");
-                console.log(result);
-            } else {
-                console.log("error_published_ico_producer_filmManager:");
-                console.log(error);
-            }
-        });
+                        filmManager.getFilmInfo_published_ico_producer(filmIndex_return, function(error, result) {
+                            if(!error){
+                                console.log("result_getFilmInfo_published_ico_producer:"+filmIndex_return+"->");
+                                console.log(result);
+                            } else {
+                                console.log("error_getFilmInfo_published_ico_producer:"+filmIndex_return+"->");
+                                console.log(error);
+                            }
+                        });
+                    });
+                });
+            });
+        }
+
+        function test_tokenManager() {
+            var tokenManager = tokenManagerContrat.at("0xf5d29f2c203760fe1bbce1c339d4d37dcc150775");
+            console.log("contract_tokenManager:");
+            console.log(tokenManager);
+            tokenManager.getNumberToken(function(error,result) {
+                console.log("numberToken:");
+                console.log(result.c[0]);
+
+                tokenManager.getByIndex_filmIndexes(Math.round(Math.random()*(result.c[0]-1)), function(error,result){
+                    if(!error){
+                        var filmIndex_return = result;
+                        console.log("filmIndex_return:"+filmIndex_return);
+                    } else {
+                        console.log("error_getByIndex_filmIndexes:");
+                        console.log(error);
+                    }
+
+                    tokenManager.getToken(filmIndex_return, function(error, result) {
+                        if(!error){
+                            console.log("result_getToken:"+filmIndex_return+"->");
+                            console.log(result);
+                        } else {
+                            console.log("error_getToken:"+filmIndex_return+"->");
+                            console.log(error);
+                        }
+                    });
+                });
+            });
+        }
+
+        test_userManager();
+
+        setTimeout(function(){
+            console.log("------------------------------------------------------");
+            test_filmManager();
+        }, 1000);
+
+        setTimeout(function(){
+            console.log("------------------------------------------------------");
+            test_tokenManager();
+        }, 2000);
     </script>
 
 </body>
