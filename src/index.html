@@ -9,7 +9,6 @@
     <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
 
     <script src="../node_modules/web3/dist/web3.js"></script>
-    <!-- <script src="../node_modules/ethjs/dist/ethjs.js"></script> -->
 
 </head>
 <body>
@@ -37,7 +36,11 @@
                 <input id="sold" type="text">
             </div>
 
-            <button id="button" class="btn btn-primary">Insert User</button>
+            <button id="button_insertUser" class="btn btn-primary" onclick="test_insertUser(userManager);">Insert User</button>
+            
+            <button id="button_deleteUser" class="btn btn-primary" onclick="test_deleteUser(userManager);">Delete User</button>
+            
+            <button id="button_transfer" class="btn btn-primary" onclick="test_transfer(web3.eth.defaultAccount, '0x26Ca46E1C3c3f42ac0c04DA265b81Bdc6F5c079e');">transfer</button>
         </form>
     </div>
 
@@ -50,18 +53,20 @@
             // eth = new Eth(web3.currentProvider);
         } else {
             // set the provider you want from Web3.providers
-            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+            web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/76ba8681b14b4f1bac44c41e5e0e843a"));
             // eth = new Eth(web3.currentProvider);
         }
 
         web3.eth.defaultAccount = web3.eth.accounts[0];
         console.log("user accounts:")
+        console.log(web3.eth.accounts);
+        console.log("user default account:")
         console.log(web3.eth.defaultAccount);
 
 
 
 
-        var userManagerContrat_address = "0xed2092469de550a83d17dc723588be1c4e6e8a66";
+        var userManagerContrat_address = "0x45a534cd751a99793fe902b7c455322c370268b6";
         var userManagerContrat_abi = 
 [
     {
@@ -918,7 +923,27 @@
         console.log(tokenManager);
 
 
-
+        // test_transactionBetween two acounts
+        function test_transfer(account1, account2) {
+            console.log("defaultAccount_from:");
+            console.log(account1);
+            console.log("account2_to")
+            console.log(account2);
+            var message = {
+                from: account1, to:account2, 
+                value: web3.toWei(1, 'ether'), 
+                gas: 6000000
+            };
+            web3.eth.sendTransaction(message, (err, res) => {
+                var output = "";
+                if (!err) {
+                    output += res;
+                } else {
+                    output = "Error";
+                }
+            });
+        }
+        
 
         function test_userManager(userManager) {
             userManager.getNumberUser(function(error,result) {
@@ -951,7 +976,7 @@
             userManager.insertUser("0x330b4dADd8a960C358cF49bbB8401eA720270D43","123","test_name","customer","50", 
                 {
                     "from": web3.eth.defaultAccount, 
-                    'gas': 6000000,
+                    'gas': 6000000
                 }
                 ,
                 function(error, result) {
@@ -959,9 +984,8 @@
                             console.log("insertUser:");
                             console.log(result);
                         } else {
-                            // console.log("error_insertUser:");
-                            // console.log(error);
-                            test_deleteUser(userManager);
+                            console.log("error_insertUser:");
+                            console.log(error);
                         }
                 });
         }
@@ -970,8 +994,7 @@
             userManager.deleteUser("0x330b4dADd8a960C358cF49bbB8401eA720270D43","123", 
                 {
                     "from": web3.eth.defaultAccount, 
-                    'gas': 6000000,
-                    "to": "0xed2092469de550a83d17dc723588be1c4e6e8a66"
+                    'gas': 6000000
                 }
                 ,
                 function(error, result) {
@@ -985,77 +1008,73 @@
                 });
         }
         
+        test_userManager(userManager);
 
-        function test_filmManager(filmManager) {
-            filmManager.getNumberFilm(function(error,result) {
-                console.log("numberFilm:");
-                console.log(result.c[0]);
 
-                filmManager.getByIndex_filmIndexes(Math.round(Math.random()*(result.c[0]-1)), function(error,result){
-                    if(!error){
-                        var filmIndex_return = result;
-                        console.log("filmIndex_return:"+filmIndex_return);
-                    } else {
-                        console.log("error_getByIndex_filmIndexes:");
-                        console.log(error);
-                    }
+        
+        // function test_filmManager(filmManager) {
+        //     filmManager.getNumberFilm(function(error,result) {
+        //         console.log("numberFilm:");
+        //         console.log(result.c[0]);
 
-                    filmManager.getFilm(filmIndex_return, function(error, result) {
-                        if(!error){
-                            console.log("result_getFilm:"+filmIndex_return+"->");
-                            console.log(result);
-                        } else {
-                            console.log("error_getFilm:"+filmIndex_return+"->");
-                            console.log(error);
-                        }
+        //         filmManager.getByIndex_filmIndexes(Math.round(Math.random()*(result.c[0]-1)), function(error,result){
+        //             if(!error){
+        //                 var filmIndex_return = result;
+        //                 console.log("filmIndex_return:"+filmIndex_return);
+        //             } else {
+        //                 console.log("error_getByIndex_filmIndexes:");
+        //                 console.log(error);
+        //             }
 
-                        filmManager.getFilmInfo_published_ico_producer(filmIndex_return, function(error, result) {
-                            if(!error){
-                                console.log("result_getFilmInfo_published_ico_producer:"+filmIndex_return+"->");
-                                console.log(result);
-                            } else {
-                                console.log("error_getFilmInfo_published_ico_producer:"+filmIndex_return+"->");
-                                console.log(error);
-                            }
-                        });
-                    });
-                });
-            });
-        }
+        //             filmManager.getFilm(filmIndex_return, function(error, result) {
+        //                 if(!error){
+        //                     console.log("result_getFilm:"+filmIndex_return+"->");
+        //                     console.log(result);
+        //                 } else {
+        //                     console.log("error_getFilm:"+filmIndex_return+"->");
+        //                     console.log(error);
+        //                 }
 
-        function test_tokenManager(tokenManager) {
-            tokenManager.getNumberToken(function(error,result) {
-                console.log("numberToken:");
-                console.log(result.c[0]);
+        //                 filmManager.getFilmInfo_published_ico_producer(filmIndex_return, function(error, result) {
+        //                     if(!error){
+        //                         console.log("result_getFilmInfo_published_ico_producer:"+filmIndex_return+"->");
+        //                         console.log(result);
+        //                     } else {
+        //                         console.log("error_getFilmInfo_published_ico_producer:"+filmIndex_return+"->");
+        //                         console.log(error);
+        //                     }
+        //                 });
+        //             });
+        //         });
+        //     });
+        // }
 
-                tokenManager.getByIndex_filmIndexes(Math.round(Math.random()*(result.c[0]-1)), function(error,result){
-                    if(!error){
-                        var filmIndex_return = result;
-                        console.log("filmIndex_return:"+filmIndex_return);
-                    } else {
-                        console.log("error_getByIndex_filmIndexes:");
-                        console.log(error);
-                    }
+        // function test_tokenManager(tokenManager) {
+        //     tokenManager.getNumberToken(function(error,result) {
+        //         console.log("numberToken:");
+        //         console.log(result.c[0]);
 
-                    tokenManager.getToken(filmIndex_return, function(error, result) {
-                        if(!error){
-                            console.log("result_getToken:"+filmIndex_return+"->");
-                            console.log(result);
-                        } else {
-                            console.log("error_getToken:"+filmIndex_return+"->");
-                            console.log(error);
-                        }
-                    });
-                });
-            });
-        }
+        //         tokenManager.getByIndex_filmIndexes(Math.round(Math.random()*(result.c[0]-1)), function(error,result){
+        //             if(!error){
+        //                 var filmIndex_return = result;
+        //                 console.log("filmIndex_return:"+filmIndex_return);
+        //             } else {
+        //                 console.log("error_getByIndex_filmIndexes:");
+        //                 console.log(error);
+        //             }
 
-        // test_userManager(userManager);
-
-        setTimeout(function(){
-            console.log("------------------------------------------------------");
-            test_insertUser(userManager);
-        }, 2000);
+        //             tokenManager.getToken(filmIndex_return, function(error, result) {
+        //                 if(!error){
+        //                     console.log("result_getToken:"+filmIndex_return+"->");
+        //                     console.log(result);
+        //                 } else {
+        //                     console.log("error_getToken:"+filmIndex_return+"->");
+        //                     console.log(error);
+        //                 }
+        //             });
+        //         });
+        //     });
+        // }
 
         // setTimeout(function(){
         //     console.log("------------------------------------------------------");
@@ -1069,16 +1088,7 @@
 
 
 
-        // test_transactionBetween two acounts
-        // var message = {from: "0xf18772a4ce05E7D1F5752E507de01b0Edd4f5398", to:"0x3C845d0e5cf774475805622CeDEA820923e9F4B9", value: web3.toWei(1, 'ether')};
-        // web3.eth.sendTransaction(message, (err, res) => {
-        //     var output = "";
-        //     if (!err) {
-        //         output += res;
-        //     } else {
-        //         output = "Error";
-        //     }
-        // });
+        
     </script>
 
 </body>

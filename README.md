@@ -20,6 +20,7 @@ GitHub https://github.com/JieanYang/Projet_Blockchain_TokenisationFilm
 #### Technique:
 - Ethereum http://www.ethdocs.org/en/latest/
 - Web3.js https://web3js.readthedocs.io/en/1.0/getting-started.html
+- Lite-server https://github.com/johnpapa/lite-server
 - MetaMask - plugin chrome https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn
   Top up Ethereum to enter account in MetaMask https://faucet.metamask.io/
 - Remix http://remix.ethereum.org/
