@@ -48,12 +48,13 @@
             web3 = new Web3(web3.currentProvider);
         } else {
             // set the provider you want from Web3.providers
-            web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/76ba8681b14b4f1bac44c41e5e0e843a"));
+            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
         }
 
         web3.eth.defaultAccount = web3.eth.accounts[0];
         console.log("user accounts:")
-        console.log(web3.eth.accounts);
+        console.log(web3.eth.defaultAccount);
+
 
         var userManagerContrat = web3.eth.contract(
 [
@@ -896,13 +897,22 @@
         );
 
 
-        function test_userManager() {
-            var userManager = userManagerContrat.at("0x9a9a168854d6519805285689cf72075a46e831c8");
-            console.log("contract_userManager:");
-            console.log(userManager);
+        var userManager = userManagerContrat.at("0xed2092469de550a83d17dc723588be1c4e6e8a66");
+        console.log("contract_userManager:");
+        console.log(userManager);
 
-            // userManager.insertUser(0x0b8902ecab0f8857e407c93c382f0230141513bb, "test_name", "investor", 100);
+        var filmManager = filmManagerContrat.at("0xfadaded098d31cba8af0a2778264e95dc47b02fb");
+        console.log("contract_filmManager:");
+        console.log(filmManager);
 
+        var tokenManager = tokenManagerContrat.at("0xf5d29f2c203760fe1bbce1c339d4d37dcc150775");
+        console.log("contract_tokenManager:");
+        console.log(tokenManager);
+
+
+
+
+        function test_userManager(userManager) {
             userManager.getNumberUser(function(error,result) {
                 console.log("numberUser:");
                 console.log(result.c[0]);
@@ -928,12 +938,47 @@
                 });
             });        
         }
+
+        function test_insertUser(userManager) {
+            userManager.insertUser("0x330b4dADd8a960C358cF49bbB8401eA720270D43","123","test_name","customer","50", 
+                {
+                    "from": web3.eth.defaultAccount, 
+                    'gas': 6000000,
+                }
+                ,
+                function(error, result) {
+                    if(!error){
+                            console.log("insertUser:");
+                            console.log(result);
+                        } else {
+                            // console.log("error_insertUser:");
+                            // console.log(error);
+                            test_deleteUser(userManager);
+                        }
+                });
+        }
+
+        function test_deleteUser(userManager) {
+            userManager.deleteUser("0x330b4dADd8a960C358cF49bbB8401eA720270D43","123", 
+                {
+                    "from": web3.eth.defaultAccount, 
+                    'gas': 6000000,
+                    "to": "0xed2092469de550a83d17dc723588be1c4e6e8a66"
+                }
+                ,
+                function(error, result) {
+                    if(!error){
+                            console.log("deleteUser:");
+                            console.log(result);
+                        } else {
+                            console.log("error_deleteUser:");
+                            console.log(error);
+                        }
+                });
+        }
         
 
-        function test_filmManager() {
-            var filmManager = filmManagerContrat.at("0xfadaded098d31cba8af0a2778264e95dc47b02fb");
-            console.log("contract_filmManager:");
-            console.log(filmManager);
+        function test_filmManager(filmManager) {
             filmManager.getNumberFilm(function(error,result) {
                 console.log("numberFilm:");
                 console.log(result.c[0]);
@@ -970,10 +1015,7 @@
             });
         }
 
-        function test_tokenManager() {
-            var tokenManager = tokenManagerContrat.at("0xf5d29f2c203760fe1bbce1c339d4d37dcc150775");
-            console.log("contract_tokenManager:");
-            console.log(tokenManager);
+        function test_tokenManager(tokenManager) {
             tokenManager.getNumberToken(function(error,result) {
                 console.log("numberToken:");
                 console.log(result.c[0]);
@@ -1000,17 +1042,22 @@
             });
         }
 
-        test_userManager();
+        test_userManager(userManager);
 
         setTimeout(function(){
             console.log("------------------------------------------------------");
-            test_filmManager();
+            test_insertUser(userManager);
         }, 2000);
 
-        setTimeout(function(){
-            console.log("------------------------------------------------------");
-            test_tokenManager();
-        }, 5000);
+        // setTimeout(function(){
+        //     console.log("------------------------------------------------------");
+        //     test_filmManager();
+        // }, 2000);
+
+        // setTimeout(function(){
+        //     console.log("------------------------------------------------------");
+        //     test_tokenManager();
+        // }, 5000);
     </script>
 
 </body>
