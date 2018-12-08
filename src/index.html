@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
 
     <script src="../node_modules/web3/dist/web3.js"></script>
+    <!-- <script src="../node_modules/ethjs/dist/ethjs.js"></script> -->
 
 </head>
 <body>
@@ -46,9 +47,11 @@
     <script>
        if (typeof web3 !== 'undefined') {
             web3 = new Web3(web3.currentProvider);
+            // eth = new Eth(web3.currentProvider);
         } else {
             // set the provider you want from Web3.providers
             web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+            // eth = new Eth(web3.currentProvider);
         }
 
         web3.eth.defaultAccount = web3.eth.accounts[0];
@@ -56,7 +59,10 @@
         console.log(web3.eth.defaultAccount);
 
 
-        var userManagerContrat = web3.eth.contract(
+
+
+        var userManagerContrat_address = "0xed2092469de550a83d17dc723588be1c4e6e8a66";
+        var userManagerContrat_abi = 
 [
     {
         "constant": false,
@@ -342,11 +348,10 @@
         "name": "logUser",
         "type": "event"
     }
-]
-            );
+];
 
-
-        var filmManagerContrat = web3.eth.contract(
+        var filmManagerContrat_address = "0xed2092469de550a83d17dc723588be1c4e6e8a66";
+        var filmManagerContrat_abi = 
 [
     {
         "constant": false,
@@ -652,10 +657,10 @@
         "name": "logFilm",
         "type": "event"
     }
-]
-        );
+];
 
-        var tokenManagerContrat = web3.eth.contract(
+        var tokenManagerContrat_address = "0xed2092469de550a83d17dc723588be1c4e6e8a66";
+        var tokenManagerContrat_abi = 
 [
     {
         "constant": false,
@@ -893,19 +898,22 @@
         "name": "logToken",
         "type": "event"
     }
-]
-        );
+];
 
 
-        var userManager = userManagerContrat.at("0xed2092469de550a83d17dc723588be1c4e6e8a66");
+
+
+
+        // var eth_userManagercontract = eth.contract(userManagerContrat_abi).at(userManagerContrat_address);
+        var userManager = web3.eth.contract(userManagerContrat_abi).at(userManagerContrat_address);
         console.log("contract_userManager:");
         console.log(userManager);
 
-        var filmManager = filmManagerContrat.at("0xfadaded098d31cba8af0a2778264e95dc47b02fb");
+        var filmManager = web3.eth.contract(userManagerContrat_abi).at(filmManagerContrat_address);
         console.log("contract_filmManager:");
         console.log(filmManager);
 
-        var tokenManager = tokenManagerContrat.at("0xf5d29f2c203760fe1bbce1c339d4d37dcc150775");
+        var tokenManager = web3.eth.contract(tokenManagerContrat_abi).at(tokenManagerContrat_address);
         console.log("contract_tokenManager:");
         console.log(tokenManager);
 
@@ -1042,7 +1050,7 @@
             });
         }
 
-        test_userManager(userManager);
+        // test_userManager(userManager);
 
         setTimeout(function(){
             console.log("------------------------------------------------------");
@@ -1058,6 +1066,19 @@
         //     console.log("------------------------------------------------------");
         //     test_tokenManager();
         // }, 5000);
+
+
+
+        // test_transactionBetween two acounts
+        // var message = {from: "0xf18772a4ce05E7D1F5752E507de01b0Edd4f5398", to:"0x3C845d0e5cf774475805622CeDEA820923e9F4B9", value: web3.toWei(1, 'ether')};
+        // web3.eth.sendTransaction(message, (err, res) => {
+        //     var output = "";
+        //     if (!err) {
+        //         output += res;
+        //     } else {
+        //         output = "Error";
+        //     }
+        // });
     </script>
 
 </body>
