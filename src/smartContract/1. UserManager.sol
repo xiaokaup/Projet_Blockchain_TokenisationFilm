@@ -12,12 +12,18 @@ contract UserManager {
     }
     
     event logUser(
+        string function_call, 
         uint userIndex,
         address userAddress,
         string userName,
         string userIdentity, // producer,investor,consumer
         uint256 userBalance,
         uint[] userBoughtFilm
+    );
+
+    event operationUser(
+        string function_call,
+        bool success
     );
     
     mapping(address => UserStruct) userStructs;
@@ -59,7 +65,7 @@ contract UserManager {
         userStructs[userAddress].userBalance = userBalance;
         totalSupplyEthereum += userBalance;
         
-        logUser(userStructs[userAddress].userIndex, userAddress, userName, userIdentity, userBalance, 
+        logUser("insertUser", userStructs[userAddress].userIndex, userAddress, userName, userIdentity, userBalance, 
             userStructs[userAddress].userBoughtFilm);
         return userIndexAddresses.length-1;
     }
@@ -86,8 +92,7 @@ contract UserManager {
         totalSupplyEthereum += (userBalance-userStructs[userAddress].userBalance);
         userStructs[userAddress].userBalance = userBalance;
 
-        
-        logUser(userStructs[userAddress].userIndex, userAddress, userName, userIdentity, userBalance, 
+        logUser("updateUser", userStructs[userAddress].userIndex, userAddress, userName, userIdentity, userBalance, 
             userStructs[userAddress].userBoughtFilm);
         return true;
     }
@@ -96,10 +101,11 @@ contract UserManager {
     public returns(bool success) {
         if(!isUser(userAddress, userOldPassword)) revert();
         
-        userStructs[userAddress].userPassword = userNewPassword;
+        var oneUser = userStructs[userAddress];
+        oneUser.userPassword = userNewPassword;
         
-        logUser(userStructs[userAddress].userIndex, userAddress, "null", "null", 0, 
-            userStructs[userAddress].userBoughtFilm);
+        logUser("updateUserPassword", oneUser.userIndex, userAddress, oneUser.userName, oneUser.userIdentity, 
+            oneUser.userBalance, oneUser.userBoughtFilm);
         return true;
     }
     
@@ -112,6 +118,7 @@ contract UserManager {
         userStructs[keyToMove].userIndex = rowToDelete;
         userIndexAddresses.length--;
         
+        operationUser("deleteUser", true);
         return true;
     }
     
@@ -126,10 +133,11 @@ contract UserManager {
     function buyFilm(address userAddress, uint256 userPassword,address userAddressProducer, uint filmIndex, 
         uint filmPrice) public returns(bool success) {
         if(!isUser(userAddress, userPassword)) revert();
-            
+        
         sendTokenEthereum(userAddress, userAddressProducer, filmPrice);
         userStructs[userAddress].userBoughtFilm.push(filmIndex);
 
+        operationUser("buyFilm", true);
         return true;
     }
 

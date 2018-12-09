@@ -66,7 +66,7 @@
 
 
 
-        var userManagerContrat_address = "0x45a534cd751a99793fe902b7c455322c370268b6";
+        var userManagerContrat_address = "0x45009fde108936870048595bcc4e39d2b4cfb07b";
         var userManagerContrat_abi = 
 [
     {
@@ -321,6 +321,11 @@
         "inputs": [
             {
                 "indexed": false,
+                "name": "function_call",
+                "type": "string"
+            },
+            {
+                "indexed": false,
                 "name": "userIndex",
                 "type": "uint256"
             },
@@ -351,6 +356,23 @@
             }
         ],
         "name": "logUser",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "name": "function_call",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "name": "success",
+                "type": "bool"
+            }
+        ],
+        "name": "operationUser",
         "type": "event"
     }
 ];
@@ -913,6 +935,40 @@
         var userManager = web3.eth.contract(userManagerContrat_abi).at(userManagerContrat_address);
         console.log("contract_userManager:");
         console.log(userManager);
+        
+        var logUserEvent = userManager.logUser();
+        logUserEvent.watch(
+            function(error, result){
+            if (!error) {
+                    console.log("logUserEvent:");
+                    console.log(result);
+                    
+                    console.log("function_call->" + result.args.function_call)
+                    console.log(result.args);
+                    console.log("\n");
+                } else {
+                    console.log("error_logUserEvent:");
+                    console.log(error);
+                }
+            });
+
+        var operationUserEvent = userManager.operationUser();
+        operationUserEvent.watch(
+            function(error, result){
+                if (!error) {
+                        console.log("operationUserEvent:");
+                        console.log(result);
+                        
+                        console.log("function_call->" + result.args.function_call)
+                        console.log(result.args);
+                        console.log("\n");
+                } else {
+                        console.log("error_operationUserEvent:");
+                        console.log(error);
+                }
+            });
+
+
 
         var filmManager = web3.eth.contract(userManagerContrat_abi).at(filmManagerContrat_address);
         console.log("contract_filmManager:");
