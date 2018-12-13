@@ -66,7 +66,7 @@
 
 
 
-        var userManagerContrat_address = "0x45009fde108936870048595bcc4e39d2b4cfb07b";
+        var userManagerContrat_address = "0xb6eb46928be50e15bcc4ece94d87a187d959fb56";
         var userManagerContrat_abi = 
 [
     {
@@ -78,7 +78,77 @@
             },
             {
                 "name": "userPassword",
+                "type": "string"
+            },
+            {
+                "name": "userAddressProducer",
+                "type": "address"
+            },
+            {
+                "name": "filmIndex",
                 "type": "uint256"
+            },
+            {
+                "name": "filmPrice",
+                "type": "uint256"
+            }
+        ],
+        "name": "buyFilm",
+        "outputs": [
+            {
+                "name": "success",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "userAddress",
+                "type": "address"
+            },
+            {
+                "name": "userPassword",
+                "type": "string"
+            },
+            {
+                "name": "userName",
+                "type": "string"
+            },
+            {
+                "name": "userIdentity",
+                "type": "string"
+            },
+            {
+                "name": "userBalance",
+                "type": "uint256"
+            }
+        ],
+        "name": "insertUser",
+        "outputs": [
+            {
+                "name": "index_userIndexAddresses",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "userAddress",
+                "type": "address"
+            },
+            {
+                "name": "userPassword",
+                "type": "string"
             },
             {
                 "name": "userName",
@@ -94,6 +164,29 @@
             }
         ],
         "name": "updateUser",
+        "outputs": [
+            {
+                "name": "success",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "userAddress",
+                "type": "address"
+            },
+            {
+                "name": "userPassword",
+                "type": "string"
+            }
+        ],
+        "name": "deleteUser",
         "outputs": [
             {
                 "name": "success",
@@ -145,119 +238,12 @@
                 "type": "address"
             },
             {
-                "name": "userPassword",
-                "type": "uint256"
-            },
-            {
-                "name": "userName",
-                "type": "string"
-            },
-            {
-                "name": "userIdentity",
-                "type": "string"
-            },
-            {
-                "name": "userBalance",
-                "type": "uint256"
-            }
-        ],
-        "name": "insertUser",
-        "outputs": [
-            {
-                "name": "index_userIndexAddresses",
-                "type": "uint256"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [],
-        "name": "getNumberUser",
-        "outputs": [
-            {
-                "name": "numberUser",
-                "type": "uint256"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "name": "userAddress",
-                "type": "address"
-            },
-            {
-                "name": "userPassword",
-                "type": "uint256"
-            },
-            {
-                "name": "userAddressProducer",
-                "type": "address"
-            },
-            {
-                "name": "filmIndex",
-                "type": "uint256"
-            },
-            {
-                "name": "filmPrice",
-                "type": "uint256"
-            }
-        ],
-        "name": "buyFilm",
-        "outputs": [
-            {
-                "name": "success",
-                "type": "bool"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "name": "userAddress",
-                "type": "address"
-            },
-            {
-                "name": "userPassword",
-                "type": "uint256"
-            }
-        ],
-        "name": "deleteUser",
-        "outputs": [
-            {
-                "name": "success",
-                "type": "bool"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "name": "userAddress",
-                "type": "address"
-            },
-            {
                 "name": "userOldPassword",
-                "type": "uint256"
+                "type": "string"
             },
             {
                 "name": "userNewPassword",
-                "type": "uint256"
+                "type": "string"
             }
         ],
         "name": "updateUserPassword",
@@ -280,7 +266,7 @@
             },
             {
                 "name": "userPassword",
-                "type": "uint256"
+                "type": "string"
             }
         ],
         "name": "getUser",
@@ -304,6 +290,20 @@
             {
                 "name": "userBoughtFilm",
                 "type": "uint256[]"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "getNumberUser",
+        "outputs": [
+            {
+                "name": "numberUser",
+                "type": "uint256"
             }
         ],
         "payable": false,
@@ -939,7 +939,8 @@
         var logUserEvent = userManager.logUser();
         logUserEvent.watch(
             function(error, result){
-            if (!error) {
+                console.log("---------------------------------------");
+                if (!error) {
                     console.log("logUserEvent:");
                     console.log(result);
                     
@@ -955,7 +956,9 @@
         var operationUserEvent = userManager.operationUser();
         operationUserEvent.watch(
             function(error, result){
+                console.log("---------------------------------------");
                 if (!error) {
+
                         console.log("operationUserEvent:");
                         console.log(result);
                         
@@ -1014,8 +1017,10 @@
                         console.log("error_getByIndex_userIndexAddresses:");
                         console.log(error);
                     }
+                    
+                    console.log("---------------------------------------");
 
-                    userManager.getUser(userAddress_return, 123, function(error, result) {
+                    userManager.getUser(userAddress_return, "a123", function(error, result) {
                         if(!error){
                             console.log("result_getUser:"+userAddress_return+"->");
                             console.log(result);
