@@ -4,7 +4,7 @@ contract UserManager {
     struct UserStruct {
         uint userIndex; // index in userIndex
         address userAddress;
-        uint256 userPassword;
+        string userPassword;
         string userName;
         string userIdentity; // producer,investor,consumer
         uint256 userBalance;
@@ -33,27 +33,27 @@ contract UserManager {
     
     /* Constructor */
     function UserManager() public {
-        insertUser(0xca35b7d915458ef540ade6068dfe2f44e8fa733c, 123, "Kickflix", "platform", 1);
+        insertUser(0xca35b7d915458ef540ade6068dfe2f44e8fa733c, "a123", "Kickflix", "platform", 1);
 
-        insertUser(0x14723a09acff6d2a60dcdf7aa4aff308fddc160c, 123, "customer_user1", "customer", 1000);
-        insertUser(0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db, 123, "customer_user2", "customer", 1000);
-        insertUser(0x583031d1113ad414f02576bd6afabfb302140225, 123, "producer_user3", "producer", 3000);
+        insertUser(0x14723a09acff6d2a60dcdf7aa4aff308fddc160c, "a123", "customer_user1", "customer", 1000);
+        insertUser(0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db, "a123", "customer_user2", "customer", 1000);
+        insertUser(0x583031d1113ad414f02576bd6afabfb302140225, "a123", "producer_user3", "producer", 3000);
         // Must increase gas limit to deploy this contract
-        insertUser(0xdd870fa1b7c4700f2bd7f44238821c26f7392148, 123, "investor_user4", "investor", 10000);
+        insertUser(0xdd870fa1b7c4700f2bd7f44238821c26f7392148, "a123", "investor_user4", "investor", 10000);
 
     }
     
     // verify the existence of user
-    function isUser(address userAddress, uint256 userPassword) private view returns(bool isIndeed) {
+    function isUser(address userAddress, string userPassword) private view returns(bool isIndeed) {
         if(userIndexAddresses.length == 0 || userStructs[userAddress].userIndex >= userIndexAddresses.length) return false;
         return (
             userIndexAddresses[userStructs[userAddress].userIndex] == userAddress
         &&
-            userStructs[userAddress].userPassword == userPassword
+            keccak256(userStructs[userAddress].userPassword) == keccak256(userPassword)
         );
     }
     
-    function insertUser(address userAddress, uint256 userPassword, string userName, string userIdentity, 
+    function insertUser(address userAddress, string userPassword, string userName, string userIdentity, 
     uint256 userBalance) public returns(uint index_userIndexAddresses) {
         if(isUser(userAddress, userPassword)) revert();
         
@@ -70,7 +70,7 @@ contract UserManager {
         return userIndexAddresses.length-1;
     }
     
-    function getUser(address userAddress, uint256 userPassword) public view returns(uint index_userIndexAddresses, string userName, 
+    function getUser(address userAddress, string userPassword) public view returns(uint index_userIndexAddresses, string userName, 
     string userIdentity, uint256 userBalance, uint[] userBoughtFilm) {
         if(!isUser(userAddress, userPassword)) revert();
         return(
@@ -82,7 +82,7 @@ contract UserManager {
         );
     }
     
-    function updateUser(address userAddress, uint256 userPassword, string userName, string userIdentity, 
+    function updateUser(address userAddress, string userPassword, string userName, string userIdentity, 
     uint256 userBalance) public returns(bool success) {
         if(!isUser(userAddress, userPassword)) revert();
         
@@ -97,7 +97,7 @@ contract UserManager {
         return true;
     }
 
-    function updateUserPassword(address userAddress, uint256 userOldPassword, uint256 userNewPassword) 
+    function updateUserPassword(address userAddress, string userOldPassword, string userNewPassword) 
     public returns(bool success) {
         if(!isUser(userAddress, userOldPassword)) revert();
         
@@ -109,7 +109,7 @@ contract UserManager {
         return true;
     }
     
-    function deleteUser(address userAddress, uint256 userPassword) public returns(bool success) {
+    function deleteUser(address userAddress, string userPassword) public returns(bool success) {
         if(!isUser(userAddress, userPassword)) revert();
         
         uint rowToDelete = userStructs[userAddress].userIndex;
@@ -130,7 +130,7 @@ contract UserManager {
          return userIndexAddresses[index_userIndexAddresses];
     }
 
-    function buyFilm(address userAddress, uint256 userPassword,address userAddressProducer, uint filmIndex, 
+    function buyFilm(address userAddress, string userPassword,address userAddressProducer, uint filmIndex, 
         uint filmPrice) public returns(bool success) {
         if(!isUser(userAddress, userPassword)) revert();
         

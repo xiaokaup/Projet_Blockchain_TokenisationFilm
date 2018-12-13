@@ -186,7 +186,7 @@
 											"top": 771,
 											"width": 1001.1396484375,
 											"height": 13,
-											"text": "+mapping--address_to_UserStruct userStructs",
+											"text": "-mapping--address_to_UserStruct userStructs",
 											"horizontalAlignment": 0
 										},
 										{
@@ -203,7 +203,7 @@
 											"top": 786,
 											"width": 1001.1396484375,
 											"height": 13,
-											"text": "+address[] userIndexAddresses",
+											"text": "-address[] userIndexAddresses",
 											"horizontalAlignment": 0
 										},
 										{
@@ -271,7 +271,7 @@
 											"top": 839,
 											"width": 1001.1396484375,
 											"height": 13,
-											"text": "+isUser(address userAddress, uint256 userPassword): bool isIndeed",
+											"text": "-isUser(address userAddress, string userPassword): bool isIndeed",
 											"horizontalAlignment": 0
 										},
 										{
@@ -288,7 +288,7 @@
 											"top": 854,
 											"width": 1001.1396484375,
 											"height": 13,
-											"text": "+insertUser(address userAddress, uint256 userPassword, string userName, string userIdentity, uint256 userBalance): uint index_userIndexAddresses",
+											"text": "+insertUser(address userAddress, string userPassword, string userName, string userIdentity, uint256 userBalance): uint index_userIndexAddresses",
 											"horizontalAlignment": 0
 										},
 										{
@@ -305,7 +305,7 @@
 											"top": 869,
 											"width": 1001.1396484375,
 											"height": 13,
-											"text": "+getUser(address userAddress, uint256 userPassword): uint index_userIndexAddresses; string userName; string userIdentity; uint256 userBalance; uintArray userBoughtFilm",
+											"text": "+getUser(address userAddress, string userPassword): uint index_userIndexAddresses; string userName; string userIdentity; uint256 userBalance; uintArray userBoughtFilm",
 											"horizontalAlignment": 0
 										},
 										{
@@ -322,7 +322,7 @@
 											"top": 884,
 											"width": 1001.1396484375,
 											"height": 13,
-											"text": "+updateUser(address userAddress, uint256 userPassword, string userName, string userIdentity, uint256 userBalance): bool success",
+											"text": "+updateUser(address userAddress, string userPassword, string userName, string userIdentity, uint256 userBalance): bool success",
 											"horizontalAlignment": 0
 										},
 										{
@@ -339,7 +339,7 @@
 											"top": 899,
 											"width": 1001.1396484375,
 											"height": 13,
-											"text": "+updateUserPassword(address userAddress, uint256 userOldPassword, uint256 userNewPassword): bool success",
+											"text": "+updateUserPassword(address userAddress, string userOldPassword, string userNewPassword): bool success",
 											"horizontalAlignment": 0
 										},
 										{
@@ -356,7 +356,7 @@
 											"top": 914,
 											"width": 1001.1396484375,
 											"height": 13,
-											"text": "+deleteUser(address userAddress, uint256 userPassword): bool success",
+											"text": "+deleteUser(address userAddress, string userPassword): bool success",
 											"horizontalAlignment": 0
 										},
 										{
@@ -407,7 +407,7 @@
 											"top": 959,
 											"width": 1001.1396484375,
 											"height": 13,
-											"text": "+buyFilm(address userAddress, uint256 userPassword, address userAddressProducer, uint filmIndex, uint filmPrice): bool success",
+											"text": "+buyFilm(address userAddress, string userPassword, address userAddressProducer, uint filmIndex, uint filmPrice): bool success",
 											"horizontalAlignment": 0
 										},
 										{
@@ -426,30 +426,13 @@
 											"height": 13,
 											"text": "-sendTokenEthereum(address _from, address _to, uint256 _value): bool success",
 											"horizontalAlignment": 0
-										},
-										{
-											"_type": "UMLOperationView",
-											"_id": "AAAAAAFnYASgnViNiBk=",
-											"_parent": {
-												"$ref": "AAAAAAFnT6Cn6lbro/s="
-											},
-											"model": {
-												"$ref": "AAAAAAFnYASgiViKufc="
-											},
-											"font": "Arial;13;0",
-											"left": 181,
-											"top": 989,
-											"width": 1001.1396484375,
-											"height": 13,
-											"text": "+get_test(): string a; uint b",
-											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 176,
 									"top": 819,
 									"width": 1011.1396484375,
-									"height": 188
+									"height": 173
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -489,7 +472,7 @@
 							"left": 176,
 							"top": 696,
 							"width": 1011.1396484375,
-							"height": 311,
+							"height": 296,
 							"nameCompartment": {
 								"$ref": "AAAAAAFnT6Cn6VbldAk="
 							},
@@ -1311,8 +1294,8 @@
 										"$ref": "AAAAAAFnT6rbTVh0k5s="
 									},
 									"font": "Arial;13;0",
-									"left": 1363,
-									"top": 577,
+									"left": 1356,
+									"top": 576,
 									"width": 60.3408203125,
 									"height": 13,
 									"alpha": -4.987388744409527,
@@ -1334,8 +1317,8 @@
 									},
 									"visible": null,
 									"font": "Arial;13;0",
-									"left": 1385,
-									"top": 571,
+									"left": 1378,
+									"top": 570,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -1355,8 +1338,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1399,
-									"top": 614,
+									"left": 1392,
+									"top": 613,
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -1375,7 +1358,7 @@
 										"$ref": "AAAAAAFnT6rbTVh1BqY="
 									},
 									"font": "Arial;13;0",
-									"left": 1112,
+									"left": 1098,
 									"top": 647,
 									"width": 80.57080078125,
 									"height": 13,
@@ -1398,7 +1381,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1152,
+									"left": 1138,
 									"top": 653,
 									"height": 13,
 									"alpha": 0.7853981633974483,
@@ -1418,7 +1401,7 @@
 										"$ref": "AAAAAAFnT6rbTVh1BqY="
 									},
 									"font": "Arial;13;0",
-									"left": 1129,
+									"left": 1115,
 									"top": 664,
 									"width": 7.22998046875,
 									"height": 13,
@@ -1441,7 +1424,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 1519,
-									"top": 501,
+									"top": 499,
 									"width": 133.31982421875,
 									"height": 13,
 									"alpha": -0.4623757117523031,
@@ -1463,7 +1446,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 1619,
-									"top": 493,
+									"top": 491,
 									"height": 13,
 									"alpha": -0.7853981633974483,
 									"distance": 40,
@@ -1482,7 +1465,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 1542,
-									"top": 523,
+									"top": 520,
 									"width": 19.5126953125,
 									"height": 13,
 									"alpha": -0.21307279254563882,
@@ -1533,7 +1516,7 @@
 								"$ref": "AAAAAAFnT6Cn6VbkkHs="
 							},
 							"lineStyle": 1,
-							"points": "1135:695;1655:517",
+							"points": "1121:695;1655:515",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAFnT6rbTVh52CY="
@@ -2635,7 +2618,7 @@
 											"top": 548,
 											"width": 246,
 											"height": 13,
-											"text": "+uint256 userPassword",
+											"text": "+string userPassword",
 											"horizontalAlignment": 0
 										},
 										{
@@ -5295,8 +5278,8 @@
 										"$ref": "AAAAAAFnfqVVkMLtRD8="
 									},
 									"font": "Arial;13;0",
-									"left": 853,
-									"top": 1136,
+									"left": 850,
+									"top": 1127,
 									"width": 53.83447265625,
 									"height": 13,
 									"alpha": -2.5759086923373786,
@@ -5318,8 +5301,8 @@
 									},
 									"visible": null,
 									"font": "Arial;13;0",
-									"left": 971,
-									"top": 1137,
+									"left": 968,
+									"top": 1129,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -5339,8 +5322,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 937,
-									"top": 1166,
+									"left": 934,
+									"top": 1158,
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -5359,8 +5342,8 @@
 										"$ref": "AAAAAAFnfqVVkMLumnk="
 									},
 									"font": "Arial;13;0",
-									"left": 726,
-									"top": 1014,
+									"left": 718,
+									"top": 999,
 									"width": 80.57080078125,
 									"height": 13,
 									"alpha": -2.0079259711247657,
@@ -5382,8 +5365,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 854,
-									"top": 1003,
+									"left": 846,
+									"top": 989,
 									"height": 13,
 									"alpha": 0.7853981633974483,
 									"distance": 40,
@@ -5402,8 +5385,8 @@
 										"$ref": "AAAAAAFnfqVVkMLumnk="
 									},
 									"font": "Arial;13;0",
-									"left": 743,
-									"top": 1030,
+									"left": 735,
+									"top": 1015,
 									"width": 21.68359375,
 									"height": 13,
 									"alpha": -1.829747932091977,
@@ -5424,8 +5407,8 @@
 										"$ref": "AAAAAAFnfqVVkMLvtNk="
 									},
 									"font": "Arial;13;0",
-									"left": 964,
-									"top": 1281,
+									"left": 965,
+									"top": 1280,
 									"width": 80.57080078125,
 									"height": 13,
 									"alpha": 0.4786452848189864,
@@ -5446,7 +5429,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1086,
+									"left": 1088,
 									"top": 1273,
 									"height": 13,
 									"alpha": -0.7853981633974483,
@@ -5465,8 +5448,8 @@
 										"$ref": "AAAAAAFnfqVVkMLvtNk="
 									},
 									"font": "Arial;13;0",
-									"left": 989,
-									"top": 1297,
+									"left": 990,
+									"top": 1296,
 									"width": 19.5126953125,
 									"height": 13,
 									"alpha": 0.6769393394197198,
@@ -5515,7 +5498,7 @@
 								"$ref": "AAAAAAFnT6Cn6VbkkHs="
 							},
 							"lineStyle": 1,
-							"points": "815:1007;1084:1319",
+							"points": "807:992;1085:1319",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAFnfqVVkMLyk6E="
@@ -6526,7 +6509,7 @@
 								"$ref": "AAAAAAFnf/h1Bt4fMb8="
 							},
 							"lineStyle": 1,
-							"points": "158:778;175:780"
+							"points": "158:777;175:779"
 						},
 						{
 							"_type": "UMLNoteView",
@@ -6713,7 +6696,7 @@
 								"$ref": "AAAAAAFngARt+Ygs1dE="
 							},
 							"lineStyle": 1,
-							"points": "977:1144;949:1163"
+							"points": "967:1143;946:1155"
 						},
 						{
 							"_type": "UMLNoteLinkView",
@@ -6803,7 +6786,7 @@
 								"$ref": "AAAAAAFnhHk9MTWetW0="
 							},
 							"lineStyle": 1,
-							"points": "328:644;415:695"
+							"points": "328:643;420:695"
 						},
 						{
 							"_type": "UMLNoteView",
@@ -6992,7 +6975,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFnT6Cn6VbinTM="
 							},
-							"name": "event operationUser"
+							"name": "event operationUser",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -7001,7 +6985,7 @@
 								"$ref": "AAAAAAFnT6Cn6VbinTM="
 							},
 							"name": "mapping--address_to_UserStruct userStructs",
-							"type": ""
+							"visibility": "private"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -7010,7 +6994,7 @@
 								"$ref": "AAAAAAFnT6Cn6VbinTM="
 							},
 							"name": "address[] userIndexAddresses",
-							"type": ""
+							"visibility": "private"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -7038,6 +7022,7 @@
 								"$ref": "AAAAAAFnT6Cn6VbinTM="
 							},
 							"name": "isUser",
+							"visibility": "private",
 							"parameters": [
 								{
 									"_type": "UMLParameter",
@@ -7045,8 +7030,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnX/gm6lMOOZw="
 									},
-									"name": "address userAddress",
-									"type": ""
+									"name": "address userAddress"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7054,8 +7038,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnX/gm6lMOOZw="
 									},
-									"name": "uint256 userPassword",
-									"type": ""
+									"name": "string userPassword"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7082,8 +7065,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnX/mdG1PrnFc="
 									},
-									"name": "address userAddress",
-									"type": ""
+									"name": "address userAddress"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7091,8 +7073,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnX/mdG1PrnFc="
 									},
-									"name": "uint256 userPassword",
-									"type": ""
+									"name": "string userPassword"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7100,8 +7081,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnX/mdG1PrnFc="
 									},
-									"name": "string userName",
-									"type": ""
+									"name": "string userName"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7109,8 +7089,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnX/mdG1PrnFc="
 									},
-									"name": "string userIdentity",
-									"type": ""
+									"name": "string userIdentity"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7118,8 +7097,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnX/mdG1PrnFc="
 									},
-									"name": "uint256 userBalance",
-									"type": ""
+									"name": "uint256 userBalance"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7146,8 +7124,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnX/pUoVR+qGA="
 									},
-									"name": "address userAddress",
-									"type": ""
+									"name": "address userAddress"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7155,8 +7132,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnX/pUoVR+qGA="
 									},
-									"name": "uint256 userPassword",
-									"type": ""
+									"name": "string userPassword"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7183,8 +7159,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnYAKCalZKKGU="
 									},
-									"name": "address userAddress",
-									"type": ""
+									"name": "address userAddress"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7192,8 +7167,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnYAKCalZKKGU="
 									},
-									"name": "uint256 userPassword",
-									"type": ""
+									"name": "string userPassword"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7201,8 +7175,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnYAKCalZKKGU="
 									},
-									"name": "string userName",
-									"type": ""
+									"name": "string userName"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7210,8 +7183,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnYAKCalZKKGU="
 									},
-									"name": "string userIdentity",
-									"type": ""
+									"name": "string userIdentity"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7219,8 +7191,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnYAKCalZKKGU="
 									},
-									"name": "uint256 userBalance",
-									"type": ""
+									"name": "uint256 userBalance"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7247,8 +7218,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnYANfxFcmCCo="
 									},
-									"name": "address userAddress",
-									"type": ""
+									"name": "address userAddress"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7256,8 +7226,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnYANfxFcmCCo="
 									},
-									"name": "uint256 userOldPassword",
-									"type": ""
+									"name": "string userOldPassword"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7265,8 +7234,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnYANfxFcmCCo="
 									},
-									"name": "uint256 userNewPassword",
-									"type": ""
+									"name": "string userNewPassword"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7293,8 +7261,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnYAPENleWNrQ="
 									},
-									"name": "address userAddress",
-									"type": ""
+									"name": "address userAddress"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7302,8 +7269,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnYAPENleWNrQ="
 									},
-									"name": "uint256 userPassword",
-									"type": ""
+									"name": "string userPassword"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7377,8 +7343,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnbA82jWlWnCg="
 									},
-									"name": "address userAddress",
-									"type": ""
+									"name": "address userAddress"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7386,8 +7351,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnbA82jWlWnCg="
 									},
-									"name": "uint256 userPassword",
-									"type": ""
+									"name": "string userPassword"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7395,8 +7359,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnbA82jWlWnCg="
 									},
-									"name": "address userAddressProducer",
-									"type": ""
+									"name": "address userAddressProducer"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7413,8 +7376,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnbA82jWlWnCg="
 									},
-									"name": "uint filmIndex",
-									"type": ""
+									"name": "uint filmIndex"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7422,8 +7384,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnbA82jWlWnCg="
 									},
-									"name": "uint filmPrice",
-									"type": ""
+									"name": "uint filmPrice"
 								}
 							]
 						},
@@ -7470,25 +7431,6 @@
 										"$ref": "AAAAAAFndFNutOLtLes="
 									},
 									"type": "bool success",
-									"direction": "return"
-								}
-							]
-						},
-						{
-							"_type": "UMLOperation",
-							"_id": "AAAAAAFnYASgiViKufc=",
-							"_parent": {
-								"$ref": "AAAAAAFnT6Cn6VbinTM="
-							},
-							"name": "get_test",
-							"parameters": [
-								{
-									"_type": "UMLParameter",
-									"_id": "AAAAAAFnYATjX1ivSb8=",
-									"_parent": {
-										"$ref": "AAAAAAFnYASgiViKufc="
-									},
-									"type": "string a; uint b",
 									"direction": "return"
 								}
 							]
@@ -8605,8 +8547,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFnbur4qF/Krfo="
 							},
-							"name": "uint256 userPassword",
-							"type": ""
+							"name": "string userPassword"
 						},
 						{
 							"_type": "UMLAttribute",
