@@ -47,8 +47,8 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
-    <script>
-       if (typeof web3 !== 'undefined') {
+    <script> // web3 provider
+        if (typeof web3 !== 'undefined') {
             web3 = new Web3(web3.currentProvider);
             // eth = new Eth(web3.currentProvider);
         } else {
@@ -62,10 +62,8 @@
         console.log(web3.eth.accounts);
         console.log("user default account:")
         console.log(web3.eth.defaultAccount);
-
-
-
-
+    </script>
+    <script> // prepare smartContracts
         var userManagerContrat_address = "0xb6eb46928be50e15bcc4ece94d87a187d959fb56";
         var userManagerContrat_abi = 
 [
@@ -377,7 +375,7 @@
     }
 ];
 
-        var filmManagerContrat_address = "0xed2092469de550a83d17dc723588be1c4e6e8a66";
+        var filmManagerContrat_address = "0xcc1f81aca85556e55f21c7b77d85b6984e85e2c1";
         var filmManagerContrat_abi = 
 [
     {
@@ -926,16 +924,21 @@
         "type": "event"
     }
 ];
-
-
-
-
-
-        // var eth_userManagercontract = eth.contract(userManagerContrat_abi).at(userManagerContrat_address);
+    </script>
+    <script> // prepare smartContracts
         var userManager = web3.eth.contract(userManagerContrat_abi).at(userManagerContrat_address);
         console.log("contract_userManager:");
         console.log(userManager);
-        
+
+        var filmManager = web3.eth.contract(filmManagerContrat_abi).at(filmManagerContrat_address);
+        console.log("contract_filmManager:");
+        console.log(filmManager);
+
+        var tokenManager = web3.eth.contract(tokenManagerContrat_abi).at(tokenManagerContrat_address);
+        console.log("contract_tokenManager:");
+        console.log(tokenManager);
+    </script>
+    <script> // watch events returned by smartContract
         var logUserEvent = userManager.logUser();
         logUserEvent.watch(
             function(error, result){
@@ -970,18 +973,17 @@
                         console.log(error);
                 }
             });
+    </script>
+    <script> // prepare functions
 
-
-
-        var filmManager = web3.eth.contract(userManagerContrat_abi).at(filmManagerContrat_address);
-        console.log("contract_filmManager:");
-        console.log(filmManager);
-
-        var tokenManager = web3.eth.contract(tokenManagerContrat_abi).at(tokenManagerContrat_address);
-        console.log("contract_tokenManager:");
-        console.log(tokenManager);
-
-
+        function sleep(milliseconds) {
+          var start = new Date().getTime();
+          for (var i = 0; i < 1e7; i++) {
+            if ((new Date().getTime() - start) > milliseconds){
+              break;
+            }
+          }
+        }
         // test_transactionBetween two acounts
         function test_transfer(account1, account2) {
             console.log("defaultAccount_from:");
@@ -1002,8 +1004,6 @@
                 }
             });
         }
-        
-
         function test_userManager(userManager) {
             userManager.getNumberUser(function(error,result) {
                 console.log("numberUser:");
@@ -1032,7 +1032,6 @@
                 });
             });        
         }
-
         function test_insertUser(userManager) {
             userManager.insertUser("0x330b4dADd8a960C358cF49bbB8401eA720270D43","123","test_name","customer","50", 
                 {
@@ -1050,7 +1049,6 @@
                         }
                 });
         }
-
         function test_deleteUser(userManager) {
             userManager.deleteUser("0x330b4dADd8a960C358cF49bbB8401eA720270D43","123", 
                 {
@@ -1068,47 +1066,63 @@
                         }
                 });
         }
-        
+        function test_filmManager(filmManager) {
+            filmManager.getNumberFilm(function(error,result) {
+                console.log("numberFilm:");
+                console.log(result.c[0]);
+
+                filmManager.getByIndex_filmIndexes(Math.round(Math.random()*(result.c[0]-1)), function(error,result){
+                    if(!error){
+                        var filmIndex_return = result;
+                        console.log("filmIndex_return:"+filmIndex_return);
+                    } else {
+                        console.log("error_getByIndex_filmIndexes:");
+                        console.log(error);
+                    }
+
+                    filmManager.getFilm(filmIndex_return, function(error, result) {
+                        if(!error){
+                            console.log("result_getFilm:"+filmIndex_return+"->");
+                            console.log(result);
+                        } else {
+                            console.log("error_getFilm:"+filmIndex_return+"->");
+                            console.log(error);
+                        }
+
+                        filmManager.getFilmInfo_published_ico_producer(filmIndex_return, function(error, result) {
+                            if(!error){
+                                console.log("result_getFilmInfo_published_ico_producer:"+filmIndex_return+"->");
+                                console.log(result);
+                            } else {
+                                console.log("error_getFilmInfo_published_ico_producer:"+filmIndex_return+"->");
+                                console.log(error);
+                            }
+                        });
+                    });
+                });
+            });
+        }
+    </script>
+    
+    <script>
+
         test_userManager(userManager);
 
 
-        
-        // function test_filmManager(filmManager) {
-        //     filmManager.getNumberFilm(function(error,result) {
-        //         console.log("numberFilm:");
-        //         console.log(result.c[0]);
 
-        //         filmManager.getByIndex_filmIndexes(Math.round(Math.random()*(result.c[0]-1)), function(error,result){
-        //             if(!error){
-        //                 var filmIndex_return = result;
-        //                 console.log("filmIndex_return:"+filmIndex_return);
-        //             } else {
-        //                 console.log("error_getByIndex_filmIndexes:");
-        //                 console.log(error);
-        //             }
+        setTimeout(function() { 
+            console.log("================================================");
+            test_filmManager(filmManager);
 
-        //             filmManager.getFilm(filmIndex_return, function(error, result) {
-        //                 if(!error){
-        //                     console.log("result_getFilm:"+filmIndex_return+"->");
-        //                     console.log(result);
-        //                 } else {
-        //                     console.log("error_getFilm:"+filmIndex_return+"->");
-        //                     console.log(error);
-        //                 }
+            setTimeout(function() {
+                console.log("================================================");
+                console.log("test_tokenManager");
+            }, 5000);
+        }, 5000);
+        // console.log("================================================");
 
-        //                 filmManager.getFilmInfo_published_ico_producer(filmIndex_return, function(error, result) {
-        //                     if(!error){
-        //                         console.log("result_getFilmInfo_published_ico_producer:"+filmIndex_return+"->");
-        //                         console.log(result);
-        //                     } else {
-        //                         console.log("error_getFilmInfo_published_ico_producer:"+filmIndex_return+"->");
-        //                         console.log(error);
-        //                     }
-        //                 });
-        //             });
-        //         });
-        //     });
-        // }
+
+
 
         // function test_tokenManager(tokenManager) {
         //     tokenManager.getNumberToken(function(error,result) {
