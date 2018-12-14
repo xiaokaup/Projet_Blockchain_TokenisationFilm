@@ -16,6 +16,7 @@ contract FilmManager {
     }
     
     event logFilm(
+        string function_call,
         uint filmIndex,
         string filmName,
         string filmDescription,
@@ -23,10 +24,20 @@ contract FilmManager {
         string filmUrl,
         uint filmPrice,
         uint filmNumberVoir,
-        uint filmNotation,
+        uint filmNotation
+    );
+
+    event logFilm_published_ico_producer(
+        string function_call,
+        uint filmIndex,
         bool filmPublished,
         bool filmIco,
         address userAddressProducer
+    );
+
+    event operationFilm(
+        string function_call,
+        bool success
     );
     
     mapping(uint => FilmStruct) filmStructs;
@@ -72,8 +83,9 @@ contract FilmManager {
         filmStructs[filmIndex].userAddressProducer = userAddressProducer;
 
 
-        logFilm(filmStructs[filmIndex].filmIndex, filmName, filmDescription, 
-            filmImageUrl, filmUrl, filmPrice, filmNumberVoir, filmNotation, 
+        logFilm("insertFilm", filmStructs[filmIndex].filmIndex, filmName, filmDescription, 
+            filmImageUrl, filmUrl, filmPrice, filmNumberVoir, filmNotation);
+        logFilm_published_ico_producer("insertFilm", filmStructs[filmIndex].filmIndex, 
             filmPublished, filmIco, userAddressProducer);
         return filmIndexes.length-1;
     }
@@ -95,10 +107,10 @@ contract FilmManager {
     }
 
     function getFilmInfo_published_ico_producer(uint filmIndex) public constant returns(
-        uint filmIndex_return, bool filmPublished, bool filmIco, address userAddressProducer) {
+        uint index_filmIndexes, bool filmPublished, bool filmIco, address userAddressProducer) {
         if(!isFilm(filmIndex)) revert();
         return(
-            filmIndex, 
+            filmStructs[filmIndex].filmIndex, 
             filmStructs[filmIndex].filmPublished,
             filmStructs[filmIndex].filmIco,
             filmStructs[filmIndex].userAddressProducer
@@ -121,8 +133,10 @@ contract FilmManager {
         filmStructs[filmIndex].filmPublished = filmPublished;
         filmStructs[filmIndex].filmIco = filmIco;
 
-        logFilm(filmStructs[filmIndex].filmIndex, filmName, filmDescription, 
-            filmImageUrl, filmUrl, filmPrice, filmNumberVoir, filmNotation, 
+        logFilm("updateFilm", filmStructs[filmIndex].filmIndex, filmName, 
+            filmDescription, filmImageUrl, filmUrl, filmPrice, filmNumberVoir, 
+            filmNotation);
+        logFilm_published_ico_producer("updateFilm", filmStructs[filmIndex].filmIndex, 
             filmPublished, filmIco, address(0));
         return true;
     }
@@ -136,6 +150,7 @@ contract FilmManager {
         filmStructs[keyToMove].filmIndex = rowToDelete;
         filmIndexes.length--;
 
+        operationFilm("deleteFilm", true);
         return true;
     }
 
