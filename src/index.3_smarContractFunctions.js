@@ -121,7 +121,7 @@ function test_deleteFilm(filmManager, index_filmIndexes) {
     filmManager.getByIndex_filmIndexes(index_filmIndexes, function(error, result) {
         if(!error){
             console.log("delete FilmIndex:");
-            console.log(result);
+            console.log(result.c[0]);
             
             filmManager.deleteFilm(result.c[0], 
             {
