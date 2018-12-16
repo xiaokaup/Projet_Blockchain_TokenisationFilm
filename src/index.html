@@ -1076,14 +1076,6 @@
     </script>
     <script> // prepare functions
 
-        function sleep(milliseconds) {
-          var start = new Date().getTime();
-          for (var i = 0; i < 1e7; i++) {
-            if ((new Date().getTime() - start) > milliseconds){
-              break;
-            }
-          }
-        }
         // test_transactionBetween two acounts
         function test_transfer(account1, account2) {
             console.log("defaultAccount_from:");
@@ -1248,9 +1240,6 @@
     <script>
 
         test_userManager(userManager);
-
-
-
         setTimeout(function() { 
             console.log("================================================");
             test_filmManager(filmManager);
@@ -1260,8 +1249,9 @@
             //     console.log("test_tokenManager");
             // }, 5000);
         }, 5000);
-        // console.log("================================================");
+        console.log("================================================");
 
+        
 
 
 
