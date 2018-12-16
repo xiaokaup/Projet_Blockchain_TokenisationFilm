@@ -26,6 +26,9 @@ GitHub https://github.com/JieanYang/Projet_Blockchain_TokenisationFilm
 - Remix http://remix.ethereum.org/
 - infura https://infura.io/
 
+#### Architecture of application:
+![Img_architectureApplication](https://raw.githubusercontent.com/JieanYang/Projet_Blockchain_TokenisationFilm/master/ArchitectureConception/ArchitectureApplication.png)
+
 ---
 
 #### Guide to prepare the environmental:
@@ -34,5 +37,5 @@ GitHub https://github.com/JieanYang/Projet_Blockchain_TokenisationFilm
 - smartContract, Solidity CRUD part 2 https://medium.com/@robhitchens/solidity-crud-part-2-ed8d8b4f74ec
 
 ---
-#### Image of class smartContract:
-![Img_ubicentrex](https://raw.githubusercontent.com/JieanYang/Projet_Blockchain_TokenisationFilm/master/ConceptBDD/database_smartContract.jpg)
+#### Conception of smartContracts:
+![Img_smartContracts](https://raw.githubusercontent.com/JieanYang/Projet_Blockchain_TokenisationFilm/master/ArchitectureConception/database_smartContract.jpg)
