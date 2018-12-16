@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="assets/css/Profile-Card.css">
     <link rel="stylesheet" href="assets/css/Registration-Form-with-Photo.css">
     <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="../node_modules/web3/dist/web3.js"></script>
 </head>
 
 <body>
@@ -28,14 +29,378 @@
         <form method="post">
             <h2 class="sr-only">Login Form</h2>
             <div class="illustration"><i class="icon ion-ios-locked-outline"></i><span style="font-size:49px;font-weight:bold">KICKFLIX</span></div>
-            <div class="form-group"><input class="form-control" type="text" name="address" placeholder="Address" style="margin-top:10px"></div>
-            <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password"></div>
-            <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Log In</button></div><a href="register.html" class="forgot">Don't have an account ? Sign in !</a></form>
+            <div class="form-group"><input class="form-control" type="text" name="address" placeholder="Address" id="address" style="margin-top:10px"></div>
+            <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password" id="password"></div>
+            <div class="form-group"><button class="btn btn-primary btn-block" type="button" onclick="test_user(userManager);">Log In</button></div><a href="register.html" class="forgot">Don't have an account ? Sign in !</a></form>
     </div>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/Animated-Pretty-Product-List-v12.js"></script>
     <script src="assets/js/Grid-and-List-view-V10.js"></script>
+
+    <script> // web3 provider
+            if (typeof web3 !== 'undefined') {
+                web3 = new Web3(web3.currentProvider);
+                // eth = new Eth(web3.currentProvider);
+            } else {
+                // set the provider you want from Web3.providers
+                web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/76ba8681b14b4f1bac44c41e5e0e843a"));
+                // eth = new Eth(web3.currentProvider);
+            }
+    
+            web3.eth.defaultAccount = web3.eth.accounts[0];
+            console.log("user accounts:")
+            console.log(web3.eth.accounts);
+            console.log("user default account:")
+            console.log(web3.eth.defaultAccount);
+    </script>
+
+    <script>
+        var userManagerContrat_address = "0xb6eb46928be50e15bcc4ece94d87a187d959fb56";
+        var userManagerContrat_abi = 
+            [
+                {
+                    "constant": false,
+                    "inputs": [
+                        {
+                            "name": "userAddress",
+                            "type": "address"
+                        },
+                        {
+                            "name": "userPassword",
+                            "type": "string"
+                        },
+                        {
+                            "name": "userAddressProducer",
+                            "type": "address"
+                        },
+                        {
+                            "name": "filmIndex",
+                            "type": "uint256"
+                        },
+                        {
+                            "name": "filmPrice",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "buyFilm",
+                    "outputs": [
+                        {
+                            "name": "success",
+                            "type": "bool"
+                        }
+                    ],
+                    "payable": false,
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "constant": false,
+                    "inputs": [
+                        {
+                            "name": "userAddress",
+                            "type": "address"
+                        },
+                        {
+                            "name": "userPassword",
+                            "type": "string"
+                        },
+                        {
+                            "name": "userName",
+                            "type": "string"
+                        },
+                        {
+                            "name": "userIdentity",
+                            "type": "string"
+                        },
+                        {
+                            "name": "userBalance",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "insertUser",
+                    "outputs": [
+                        {
+                            "name": "index_userIndexAddresses",
+                            "type": "uint256"
+                        }
+                    ],
+                    "payable": false,
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "constant": false,
+                    "inputs": [
+                        {
+                            "name": "userAddress",
+                            "type": "address"
+                        },
+                        {
+                            "name": "userPassword",
+                            "type": "string"
+                        },
+                        {
+                            "name": "userName",
+                            "type": "string"
+                        },
+                        {
+                            "name": "userIdentity",
+                            "type": "string"
+                        },
+                        {
+                            "name": "userBalance",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "updateUser",
+                    "outputs": [
+                        {
+                            "name": "success",
+                            "type": "bool"
+                        }
+                    ],
+                    "payable": false,
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "constant": false,
+                    "inputs": [
+                        {
+                            "name": "userAddress",
+                            "type": "address"
+                        },
+                        {
+                            "name": "userPassword",
+                            "type": "string"
+                        }
+                    ],
+                    "name": "deleteUser",
+                    "outputs": [
+                        {
+                            "name": "success",
+                            "type": "bool"
+                        }
+                    ],
+                    "payable": false,
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "constant": true,
+                    "inputs": [
+                        {
+                            "name": "index_userIndexAddresses",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "getByIndex_userIndexAddresses",
+                    "outputs": [
+                        {
+                            "name": "userAddress",
+                            "type": "address"
+                        }
+                    ],
+                    "payable": false,
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "constant": true,
+                    "inputs": [],
+                    "name": "totalSupplyEthereum",
+                    "outputs": [
+                        {
+                            "name": "",
+                            "type": "uint256"
+                        }
+                    ],
+                    "payable": false,
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "constant": false,
+                    "inputs": [
+                        {
+                            "name": "userAddress",
+                            "type": "address"
+                        },
+                        {
+                            "name": "userOldPassword",
+                            "type": "string"
+                        },
+                        {
+                            "name": "userNewPassword",
+                            "type": "string"
+                        }
+                    ],
+                    "name": "updateUserPassword",
+                    "outputs": [
+                        {
+                            "name": "success",
+                            "type": "bool"
+                        }
+                    ],
+                    "payable": false,
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "constant": true,
+                    "inputs": [
+                        {
+                            "name": "userAddress",
+                            "type": "address"
+                        },
+                        {
+                            "name": "userPassword",
+                            "type": "string"
+                        }
+                    ],
+                    "name": "getUser",
+                    "outputs": [
+                        {
+                            "name": "index_userIndexAddresses",
+                            "type": "uint256"
+                        },
+                        {
+                            "name": "userName",
+                            "type": "string"
+                        },
+                        {
+                            "name": "userIdentity",
+                            "type": "string"
+                        },
+                        {
+                            "name": "userBalance",
+                            "type": "uint256"
+                        },
+                        {
+                            "name": "userBoughtFilm",
+                            "type": "uint256[]"
+                        }
+                    ],
+                    "payable": false,
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "constant": true,
+                    "inputs": [],
+                    "name": "getNumberUser",
+                    "outputs": [
+                        {
+                            "name": "numberUser",
+                            "type": "uint256"
+                        }
+                    ],
+                    "payable": false,
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [],
+                    "payable": false,
+                    "stateMutability": "nonpayable",
+                    "type": "constructor"
+                },
+                {
+                    "anonymous": false,
+                    "inputs": [
+                        {
+                            "indexed": false,
+                            "name": "function_call",
+                            "type": "string"
+                        },
+                        {
+                            "indexed": false,
+                            "name": "userIndex",
+                            "type": "uint256"
+                        },
+                        {
+                            "indexed": false,
+                            "name": "userAddress",
+                            "type": "address"
+                        },
+                        {
+                            "indexed": false,
+                            "name": "userName",
+                            "type": "string"
+                        },
+                        {
+                            "indexed": false,
+                            "name": "userIdentity",
+                            "type": "string"
+                        },
+                        {
+                            "indexed": false,
+                            "name": "userBalance",
+                            "type": "uint256"
+                        },
+                        {
+                            "indexed": false,
+                            "name": "userBoughtFilm",
+                            "type": "uint256[]"
+                        }
+                    ],
+                    "name": "logUser",
+                    "type": "event"
+                },
+                {
+                    "anonymous": false,
+                    "inputs": [
+                        {
+                            "indexed": false,
+                            "name": "function_call",
+                            "type": "string"
+                        },
+                        {
+                            "indexed": false,
+                            "name": "success",
+                            "type": "bool"
+                        }
+                    ],
+                    "name": "operationUser",
+                    "type": "event"
+                }
+            ];
+    </script>
+
+    <script> // prepare smartContracts
+        var userManager = web3.eth.contract(userManagerContrat_abi).at(userManagerContrat_address);
+        console.log("contract_userManager:");
+        console.log(userManager);
+    </script>
+
+<script>
+    function test_user(userManager) {
+                userManager.getUser($("#address").val(), $("#password").val(), function(error, result) {
+                        if(!error){
+                            console.log("result_getUser:"+$("#address").val()+"->");
+                            console.log(result);
+                        
+                        switch(result[2]){
+                        case "consumer":
+                            window.location.replace("./wallet_consumer.html");
+                            break;
+                        case "producer":
+                            window.location.replace("./wallet_producer.html");
+                            break;
+                        case "investor":
+                            window.location.replace("./wallet_investor.html");
+                            break;
+                    }
+                            
+                        } else {
+                            console.log("error_getUser:"+$("#address").val()+"->");
+                            console.log(error);
+                        }
+            });
+    }
+</script>
+
 </body>
 
 </html>
