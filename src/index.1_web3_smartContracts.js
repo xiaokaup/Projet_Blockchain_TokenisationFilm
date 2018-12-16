@@ -1,11 +1,11 @@
 // web3 provider
 if (typeof web3 !== 'undefined') {
+    console.log("Existing instance of web3");
     web3 = new Web3(web3.currentProvider);
-    // eth = new Eth(web3.currentProvider);
 } else {
     // set the provider you want from Web3.providers
-    web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/76ba8681b14b4f1bac44c41e5e0e843a"));
-    // eth = new Eth(web3.currentProvider);
+    console.log("set your providers for web3");
+    // web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/76ba8681b14b4f1bac44c41e5e0e843a"));
 }
 
 web3.eth.defaultAccount = web3.eth.accounts[0];
@@ -920,8 +920,8 @@ var tokenManager = web3.eth.contract(tokenManagerContrat_abi).at(tokenManagerCon
 // console.log
 // console.log("user accounts:")
 // console.log(web3.eth.accounts);
-// console.log("user default account:")
-// console.log(web3.eth.defaultAccount);
+console.log("user default account:")
+console.log(web3.eth.defaultAccount);
 
 // console.log("contract_userManager:");
 // console.log(userManager);
