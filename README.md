@@ -24,6 +24,7 @@ GitHub https://github.com/JieanYang/Projet_Blockchain_TokenisationFilm
 - MetaMask - plugin chrome https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn
   Top up Ethereum to enter account in MetaMask https://faucet.metamask.io/
 - Remix http://remix.ethereum.org/
+- Infura https://infura.io/
 
 #### Architecture of application:
 ![Img_architectureApplication](https://raw.githubusercontent.com/JieanYang/Projet_Blockchain_TokenisationFilm/master/ArchitectureConception/ArchitectureApplication.png)
