@@ -4,6 +4,7 @@ contract UserManager {
     struct UserStruct {
         uint userIndex; // index in userIndex
         address userAddress;
+        string userEmail;
         string userPassword;
         string userName;
         string userIdentity; // producer,investor,consumer
@@ -15,6 +16,7 @@ contract UserManager {
         string function_call, 
         uint userIndex,
         address userAddress,
+        string userEmail,
         string userName,
         string userIdentity, // producer,investor,consumer
         uint256 userBalance,
@@ -26,123 +28,127 @@ contract UserManager {
         bool success
     );
     
-    mapping(address => UserStruct) userStructs;
-    address[] userIndexAddresses;
+    mapping(string => UserStruct) userStructs;
+    string[] userIndexEmails;
 
     uint256 public totalSupplyEthereum;
     
     /* Constructor */
     function UserManager() public {
-        insertUser(0xca35b7d915458ef540ade6068dfe2f44e8fa733c, "a123", "Kickflix", "platform", 1);
+        insertUser("0@gmail.com", "a123", 0xca35b7d915458ef540ade6068dfe2f44e8fa733c, "Kickflix", "platform", 1);
 
-        insertUser(0x14723a09acff6d2a60dcdf7aa4aff308fddc160c, "a123", "customer_user1", "customer", 1000);
-        insertUser(0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db, "a123", "customer_user2", "customer", 1000);
-        insertUser(0x583031d1113ad414f02576bd6afabfb302140225, "a123", "producer_user3", "producer", 3000);
+        insertUser("1.1@gmail.com", "a123", 0x14723a09acff6d2a60dcdf7aa4aff308fddc160c, "consumer_user1", "consumer", 1000);
+        insertUser("1.2@gmail.com", "a123", 0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db, "consumer_user2", "consumer", 1000);
+        insertUser("2@gmail.com", "a123", 0x583031d1113ad414f02576bd6afabfb302140225, "producer_user3", "producer", 3000);
         // Must increase gas limit to deploy this contract
-        insertUser(0xdd870fa1b7c4700f2bd7f44238821c26f7392148, "a123", "investor_user4", "investor", 10000);
+        insertUser("3@gmail.com", "a123", 0xdd870fa1b7c4700f2bd7f44238821c26f7392148, "investor_user4", "investor", 10000);
 
     }
     
     // verify the existence of user
-    function isUser(address userAddress, string userPassword) private view returns(bool isIndeed) {
-        if(userIndexAddresses.length == 0 || userStructs[userAddress].userIndex >= userIndexAddresses.length) return false;
+    function isUser(string userEmail, string userPassword) private view returns(bool isIndeed) {
+        if(userIndexEmails.length == 0 || userStructs[userEmail].userIndex >= userIndexEmails.length) return false;
         return (
-            userIndexAddresses[userStructs[userAddress].userIndex] == userAddress
+            keccak256(userIndexEmails[userStructs[userEmail].userIndex]) == keccak256(userEmail)
         &&
-            keccak256(userStructs[userAddress].userPassword) == keccak256(userPassword)
+            keccak256(userStructs[userEmail].userPassword) == keccak256(userPassword)
         );
     }
     
-    function insertUser(address userAddress, string userPassword, string userName, string userIdentity, 
-    uint256 userBalance) public returns(uint index_userIndexAddresses) {
-        if(isUser(userAddress, userPassword)) revert();
+    function insertUser(string userEmail, string userPassword, address userAddress, string userName, string userIdentity, 
+    uint256 userBalance) public returns(uint index_userIndexEmails) {
+        if(isUser(userEmail, userPassword)) revert();
         
-        userStructs[userAddress].userIndex = userIndexAddresses.push(userAddress) - 1;
-        userStructs[userAddress].userAddress = userAddress;
-        userStructs[userAddress].userPassword = userPassword;
-        userStructs[userAddress].userName = userName;
-        userStructs[userAddress].userIdentity = userIdentity;
-        userStructs[userAddress].userBalance = userBalance;
+        userStructs[userEmail].userIndex = userIndexEmails.push(userEmail) - 1;
+        userStructs[userEmail].userAddress = userAddress;
+        userStructs[userEmail].userEmail = userEmail;
+        userStructs[userEmail].userPassword = userPassword;
+        userStructs[userEmail].userName = userName;
+        userStructs[userEmail].userIdentity = userIdentity;
+        userStructs[userEmail].userBalance = userBalance;
         totalSupplyEthereum += userBalance;
         
-        logUser("insertUser", userStructs[userAddress].userIndex, userAddress, userName, userIdentity, userBalance, 
-            userStructs[userAddress].userBoughtFilm);
-        return userIndexAddresses.length-1;
+        logUser("insertUser", userStructs[userEmail].userIndex, userAddress, userEmail, userName, userIdentity, userBalance, 
+            userStructs[userEmail].userBoughtFilm);
+        return userIndexEmails.length-1;
     }
     
-    function getUser(address userAddress, string userPassword) public view returns(uint index_userIndexAddresses, string userName, 
-    string userIdentity, uint256 userBalance, uint[] userBoughtFilm) {
-        if(!isUser(userAddress, userPassword)) revert();
+    function getUser(string userEmail, string userPassword) public view returns(uint index_userIndexEmails, address userAddress, 
+        string userName, string userIdentity, uint256 userBalance, uint[] userBoughtFilm) {
+        if(!isUser(userEmail, userPassword)) revert();
         return(
-            userStructs[userAddress].userIndex,
-            userStructs[userAddress].userName,
-            userStructs[userAddress].userIdentity,
-            userStructs[userAddress].userBalance,
-            userStructs[userAddress].userBoughtFilm
+            userStructs[userEmail].userIndex,
+            userStructs[userEmail].userAddress,
+            userStructs[userEmail].userName,
+            userStructs[userEmail].userIdentity,
+            userStructs[userEmail].userBalance,
+            userStructs[userEmail].userBoughtFilm
         );
     }
     
-    function updateUser(address userAddress, string userPassword, string userName, string userIdentity, 
+    function updateUser(string userEmail, string userPassword, address userAddress, string userName, string userIdentity, 
     uint256 userBalance) public returns(bool success) {
-        if(!isUser(userAddress, userPassword)) revert();
+        if(!isUser(userEmail, userPassword)) revert();
         
-        userStructs[userAddress].userPassword = userPassword;
-        userStructs[userAddress].userName = userName;
-        userStructs[userAddress].userIdentity = userIdentity;
-        totalSupplyEthereum += (userBalance-userStructs[userAddress].userBalance);
-        userStructs[userAddress].userBalance = userBalance;
+        userStructs[userEmail].userAddress = userAddress;
+        userStructs[userEmail].userName = userName;
+        userStructs[userEmail].userIdentity = userIdentity;
+        totalSupplyEthereum += (userBalance-userStructs[userEmail].userBalance);
+        userStructs[userEmail].userBalance = userBalance;
 
-        logUser("updateUser", userStructs[userAddress].userIndex, userAddress, userName, userIdentity, userBalance, 
-            userStructs[userAddress].userBoughtFilm);
+        logUser("updateUser", userStructs[userEmail].userIndex, userAddress, userEmail, userName, userIdentity, userBalance, 
+            userStructs[userEmail].userBoughtFilm);
         return true;
     }
 
-    function updateUserPassword(address userAddress, string userOldPassword, string userNewPassword) 
+    function updateUserPassword(string userEmail, string userOldPassword, string userNewPassword) 
     public returns(bool success) {
-        if(!isUser(userAddress, userOldPassword)) revert();
+        if(!isUser(userEmail, userOldPassword)) revert();
         
-        var oneUser = userStructs[userAddress];
+        var oneUser = userStructs[userEmail];
         oneUser.userPassword = userNewPassword;
         
-        logUser("updateUserPassword", oneUser.userIndex, userAddress, oneUser.userName, oneUser.userIdentity, 
+        logUser("updateUserPassword", oneUser.userIndex, oneUser.userAddress, userEmail, oneUser.userName, oneUser.userIdentity, 
             oneUser.userBalance, oneUser.userBoughtFilm);
         return true;
     }
     
-    function deleteUser(address userAddress, string userPassword) public returns(bool success) {
-        if(!isUser(userAddress, userPassword)) revert();
+    function deleteUser(string userEmail, string userPassword) public returns(bool success) {
+        if(!isUser(userEmail, userPassword)) revert();
         
-        uint rowToDelete = userStructs[userAddress].userIndex;
-        address keyToMove = userIndexAddresses[userIndexAddresses.length-1];
-        userIndexAddresses[rowToDelete] = keyToMove;
+        totalSupplyEthereum -= userStructs[userEmail].userBalance;
+
+        uint rowToDelete = userStructs[userEmail].userIndex;
+        string keyToMove = userIndexEmails[userIndexEmails.length-1];
+        userIndexEmails[rowToDelete] = keyToMove;
         userStructs[keyToMove].userIndex = rowToDelete;
-        userIndexAddresses.length--;
+        userIndexEmails.length--;
         
         operationUser("deleteUser", true);
         return true;
     }
     
     function getNumberUser() public view returns(uint numberUser) {
-        return userIndexAddresses.length;
+        return userIndexEmails.length;
     }
 
-    function getByIndex_userIndexAddresses(uint index_userIndexAddresses) public view returns(address userAddress) {
-         return userIndexAddresses[index_userIndexAddresses];
+    function getByIndex_userIndexEmails(uint index_userIndexEmails) public view returns(string userEmail) {
+         return userIndexEmails[index_userIndexEmails];
     }
 
-    function buyFilm(address userAddress, string userPassword,address userAddressProducer, uint filmIndex, 
-        uint filmPrice) public returns(bool success) {
-        if(!isUser(userAddress, userPassword)) revert();
+    function buyFilm(string userEmail, string userPassword, string userEmailProducer, uint filmIndex, 
+    uint filmPrice) public returns(bool success) {
+        if(!isUser(userEmail, userPassword)) revert();
         
-        sendTokenEthereum(userAddress, userAddressProducer, filmPrice);
-        userStructs[userAddress].userBoughtFilm.push(filmIndex);
+        sendTokenEthereum(userEmail, userEmailProducer, filmPrice);
+        userStructs[userEmail].userBoughtFilm.push(filmIndex);
 
         operationUser("buyFilm", true);
         return true;
     }
 
     /* Transfer tokens to another account for payment */
-    function sendTokenEthereum(address _from, address _to, uint256 _value) private returns(bool success) {
+    function sendTokenEthereum(string _from, string _to, uint256 _value) private returns(bool success) {
         require(userStructs[_from].userBalance >= _value 
             && 
             userStructs[_to].userBalance + _value >= userStructs[_to].userBalance); // Check if the sender has enough tokens and for overflows 

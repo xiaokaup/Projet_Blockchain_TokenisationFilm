@@ -12,89 +12,23 @@ web3.eth.defaultAccount = web3.eth.accounts[0];
 
 
 // prepare smartContracts
-var userManagerContrat_address = "0xb6eb46928be50e15bcc4ece94d87a187d959fb56";
+var userManagerContrat_address = "0x33959e68bee703668c7bb62b5c04cd97cfeabbb1";
 var userManagerContrat_abi = 
     [
         {
             "constant": false,
             "inputs": [
                 {
-                    "name": "userAddress",
-                    "type": "address"
+                    "name": "userEmail",
+                    "type": "string"
                 },
                 {
                     "name": "userPassword",
                     "type": "string"
                 },
                 {
-                    "name": "userAddressProducer",
-                    "type": "address"
-                },
-                {
-                    "name": "filmIndex",
-                    "type": "uint256"
-                },
-                {
-                    "name": "filmPrice",
-                    "type": "uint256"
-                }
-            ],
-            "name": "buyFilm",
-            "outputs": [
-                {
-                    "name": "success",
-                    "type": "bool"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
                     "name": "userAddress",
                     "type": "address"
-                },
-                {
-                    "name": "userPassword",
-                    "type": "string"
-                },
-                {
-                    "name": "userName",
-                    "type": "string"
-                },
-                {
-                    "name": "userIdentity",
-                    "type": "string"
-                },
-                {
-                    "name": "userBalance",
-                    "type": "uint256"
-                }
-            ],
-            "name": "insertUser",
-            "outputs": [
-                {
-                    "name": "index_userIndexAddresses",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "name": "userAddress",
-                    "type": "address"
-                },
-                {
-                    "name": "userPassword",
-                    "type": "string"
                 },
                 {
                     "name": "userName",
@@ -124,15 +58,27 @@ var userManagerContrat_abi =
             "constant": false,
             "inputs": [
                 {
-                    "name": "userAddress",
-                    "type": "address"
+                    "name": "userEmail",
+                    "type": "string"
                 },
                 {
                     "name": "userPassword",
                     "type": "string"
+                },
+                {
+                    "name": "userEmailProducer",
+                    "type": "string"
+                },
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmPrice",
+                    "type": "uint256"
                 }
             ],
-            "name": "deleteUser",
+            "name": "buyFilm",
             "outputs": [
                 {
                     "name": "success",
@@ -144,22 +90,42 @@ var userManagerContrat_abi =
             "type": "function"
         },
         {
-            "constant": true,
+            "constant": false,
             "inputs": [
                 {
-                    "name": "index_userIndexAddresses",
-                    "type": "uint256"
-                }
-            ],
-            "name": "getByIndex_userIndexAddresses",
-            "outputs": [
+                    "name": "userEmail",
+                    "type": "string"
+                },
+                {
+                    "name": "userPassword",
+                    "type": "string"
+                },
                 {
                     "name": "userAddress",
                     "type": "address"
+                },
+                {
+                    "name": "userName",
+                    "type": "string"
+                },
+                {
+                    "name": "userIdentity",
+                    "type": "string"
+                },
+                {
+                    "name": "userBalance",
+                    "type": "uint256"
+                }
+            ],
+            "name": "insertUser",
+            "outputs": [
+                {
+                    "name": "index_userIndexEmails",
+                    "type": "uint256"
                 }
             ],
             "payable": false,
-            "stateMutability": "view",
+            "stateMutability": "nonpayable",
             "type": "function"
         },
         {
@@ -177,11 +143,54 @@ var userManagerContrat_abi =
             "type": "function"
         },
         {
-            "constant": false,
+            "constant": true,
             "inputs": [
+                {
+                    "name": "userEmail",
+                    "type": "string"
+                },
+                {
+                    "name": "userPassword",
+                    "type": "string"
+                }
+            ],
+            "name": "getUser",
+            "outputs": [
+                {
+                    "name": "index_userIndexEmails",
+                    "type": "uint256"
+                },
                 {
                     "name": "userAddress",
                     "type": "address"
+                },
+                {
+                    "name": "userName",
+                    "type": "string"
+                },
+                {
+                    "name": "userIdentity",
+                    "type": "string"
+                },
+                {
+                    "name": "userBalance",
+                    "type": "uint256"
+                },
+                {
+                    "name": "userBoughtFilm",
+                    "type": "uint256[]"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "userEmail",
+                    "type": "string"
                 },
                 {
                     "name": "userOldPassword",
@@ -204,38 +213,41 @@ var userManagerContrat_abi =
             "type": "function"
         },
         {
-            "constant": true,
+            "constant": false,
             "inputs": [
                 {
-                    "name": "userAddress",
-                    "type": "address"
+                    "name": "userEmail",
+                    "type": "string"
                 },
                 {
                     "name": "userPassword",
                     "type": "string"
                 }
             ],
-            "name": "getUser",
+            "name": "deleteUser",
             "outputs": [
                 {
-                    "name": "index_userIndexAddresses",
+                    "name": "success",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "index_userIndexEmails",
                     "type": "uint256"
-                },
+                }
+            ],
+            "name": "getByIndex_userIndexEmails",
+            "outputs": [
                 {
-                    "name": "userName",
+                    "name": "userEmail",
                     "type": "string"
-                },
-                {
-                    "name": "userIdentity",
-                    "type": "string"
-                },
-                {
-                    "name": "userBalance",
-                    "type": "uint256"
-                },
-                {
-                    "name": "userBoughtFilm",
-                    "type": "uint256[]"
                 }
             ],
             "payable": false,
@@ -282,6 +294,11 @@ var userManagerContrat_abi =
                 },
                 {
                     "indexed": false,
+                    "name": "userEmail",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
                     "name": "userName",
                     "type": "string"
                 },
@@ -321,7 +338,7 @@ var userManagerContrat_abi =
             "name": "operationUser",
             "type": "event"
         }
-    ];
+    ]
 
 var filmManagerContrat_address = "0xc6703cbe713e1651f099afd70a76f6ca1b26265e";
 var filmManagerContrat_abi = 
