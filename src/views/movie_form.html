@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blockchain</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Actor">
@@ -21,49 +24,499 @@
     <link rel="stylesheet" href="assets/css/Profile-Card.css">
     <link rel="stylesheet" href="assets/css/Registration-Form-with-Photo.css">
     <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.css"></script>
+    <script src="assets/js/Animated-Pretty-Product-List-v12.js"></script>
+    <script src="assets/js/Grid-and-List-view-V10.js"></script>
 </head>
 
-<body>
+<body>        
     <div>
         <nav class="navbar navbar-light navbar-expand-md navigation-clean">
             <div class="container"><a class="navbar-brand" href="waller_producer.html">Username</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                 <div
                     class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav ml-auto"></ul>
+                </div>
             </div>
+        </nav>
     </div>
-    </nav>
-    </div>
+
+          
+          
     <div class="row register-form">
+             
         <div class="col-md-8 offset-md-2">
             <form class="custom-form">
+               
+                <div id = "success" class="alert alert-success alert-dismissible" role="alert">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Success!</strong> New film added successfully 
+                    <a href="./wallet_producer.html">Click here to return to My Page (or wait 5s)</a>
+                </div>
+
+                <div id="error" class="alert alert-danger alert-dismissible" role="alert"> 
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Error!</strong> Please check again your input
+                </div>          
+                <script>
+                   
+                $('#success').hide();
+                $('#error').hide();
+                    
+                </script>
                 <h1>Upload My Movie</h1>
                 <div class="form-row form-group">
                     <div class="col-sm-4 label-column"><label class="col-form-label" for="name-input-field">Movie Title</label></div>
-                    <div class="col-sm-6 input-column"><input class="form-control" type="text"></div>
+                    <div class="col-sm-6 input-column"><input class="form-control" type="text" name="title" id="title" placeholder="Movie Title"></div>
                 </div>
                 <div class="form-row form-group">
                     <div class="col-sm-4 label-column"><label class="col-form-label" for="name-input-field">Movie Synopsis</label></div>
-                    <div class="col-sm-6 input-column"><input class="form-control" type="text"></div>
+                    <div class="col-sm-6 input-column"><input class="form-control" type="text" name="synopsis" id="synopsis" placeholder="Movie Synopsis"></div>
                 </div>
                 <div class="form-row form-group">
                     <div class="col-sm-4 label-column"><label class="col-form-label" for="name-input-field">Secured Link</label></div>
-                    <div class="col-sm-6 input-column"><input class="form-control" type="text"></div>
+                    <div class="col-sm-6 input-column"><input class="form-control" type="text" name="link_film" id="link_film" placeholder="Link of the film"></div>
                 </div>
                 <div class="form-row form-group">
                     <div class="col-sm-4 label-column"><label class="col-form-label" for="name-input-field">Link to Image</label></div>
-                    <div class="col-sm-6 input-column"><input class="form-control" type="text"></div>
+                    <div class="col-sm-6 input-column"><input class="form-control" type="text" name="link_image" id="link_image" placeholder="Link of film poster"></div>
                 </div>
                 <div class="form-row form-group">
                     <div class="col-sm-4 label-column"><label class="col-form-label" for="pawssword-input-field">Price</label></div>
-                    <div class="col-sm-6 input-column"><input class="form-control" type="number"></div>
-                </div><button class="btn btn-light submit-button" type="button">Upload My New Movie</button></form>
+                    <div class="col-sm-6 input-column"><input class="form-control" type="number" name="price" id="price" placeholder="Price"></div>
+                </div><button class="btn btn-light submit-button" type="button" onclick="insertFilm(filmManager);">Upload My New Movie</button></form>
         </div>
     </div>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/Animated-Pretty-Product-List-v12.js"></script>
-    <script src="assets/js/Grid-and-List-view-V10.js"></script>
+
+    <script> // web3 provider
+        if (typeof web3 !== 'undefined') {
+            web3 = new Web3(web3.currentProvider);
+            // eth = new Eth(web3.currentProvider);
+        } else {
+            // set the provider you want from Web3.providers
+            web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/76ba8681b14b4f1bac44c41e5e0e843a"));
+            // eth = new Eth(web3.currentProvider);
+        }
+
+        web3.eth.defaultAccount = web3.eth.accounts[0];
+        console.log("user accounts:")
+        console.log(web3.eth.accounts);
+        console.log("user default account:")
+        console.log(web3.eth.defaultAccount);
+
+// prepare smartContracts
+var filmManagerContrat_address = "0xc6703cbe713e1651f099afd70a76f6ca1b26265e";
+var filmManagerContrat_abi = 
+    [
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "deleteFilm",
+            "outputs": [
+                {
+                    "name": "success",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "filmName",
+                    "type": "string"
+                },
+                {
+                    "name": "filmDescription",
+                    "type": "string"
+                },
+                {
+                    "name": "filmImageUrl",
+                    "type": "string"
+                },
+                {
+                    "name": "filmUrl",
+                    "type": "string"
+                },
+                {
+                    "name": "filmPrice",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmNumberVoir",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmNotation",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmPublished",
+                    "type": "bool"
+                },
+                {
+                    "name": "filmIco",
+                    "type": "bool"
+                },
+                {
+                    "name": "userAddressProducer",
+                    "type": "address"
+                }
+            ],
+            "name": "insertFilm",
+            "outputs": [
+                {
+                    "name": "index_filmIndexes",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmName",
+                    "type": "string"
+                },
+                {
+                    "name": "filmDescription",
+                    "type": "string"
+                },
+                {
+                    "name": "filmImageUrl",
+                    "type": "string"
+                },
+                {
+                    "name": "filmUrl",
+                    "type": "string"
+                },
+                {
+                    "name": "filmPrice",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmNumberVoir",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmNotation",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmPublished",
+                    "type": "bool"
+                },
+                {
+                    "name": "filmIco",
+                    "type": "bool"
+                }
+            ],
+            "name": "updateFilm",
+            "outputs": [
+                {
+                    "name": "success",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "function_call",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "name": "filmIndex",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "filmName",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "name": "filmDescription",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "name": "filmImageUrl",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "name": "filmUrl",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "name": "filmPrice",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "filmNumberVoir",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "filmNotation",
+                    "type": "uint256"
+                }
+            ],
+            "name": "logFilm",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "function_call",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "name": "filmIndex",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "filmPublished",
+                    "type": "bool"
+                },
+                {
+                    "indexed": false,
+                    "name": "filmIco",
+                    "type": "bool"
+                },
+                {
+                    "indexed": false,
+                    "name": "userAddressProducer",
+                    "type": "address"
+                }
+            ],
+            "name": "logFilm_published_ico_producer",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "function_call",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "name": "success",
+                    "type": "bool"
+                }
+            ],
+            "name": "operationFilm",
+            "type": "event"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "index_filmIndexes",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getByIndex_filmIndexes",
+            "outputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getFilm",
+            "outputs": [
+                {
+                    "name": "filmName",
+                    "type": "string"
+                },
+                {
+                    "name": "filmDescription",
+                    "type": "string"
+                },
+                {
+                    "name": "filmImageUrl",
+                    "type": "string"
+                },
+                {
+                    "name": "filmUrl",
+                    "type": "string"
+                },
+                {
+                    "name": "filmPrice",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmNumberVoir",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmNotation",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getFilmInfo_published_ico_producer",
+            "outputs": [
+                {
+                    "name": "index_filmIndexes",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmPublished",
+                    "type": "bool"
+                },
+                {
+                    "name": "filmIco",
+                    "type": "bool"
+                },
+                {
+                    "name": "userAddressProducer",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getNumberFilm",
+            "outputs": [
+                {
+                    "name": "numberFilm",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ];
+</script>
+
+<script> 
+    // prepare smartContracts
+    var filmManager = web3.eth.contract(filmManagerContrat_abi).at(filmManagerContrat_address);
+    console.log("contract_filmManager:");
+    console.log(filmManager);
+    
+    var logFilmEvent = filmManager.logFilm();
+    logFilmEvent.watch(
+    function(error, result){
+        console.log("*********************************************");
+        if (!error) {
+            console.log("logFilmEvent:");
+            console.log(result);
+            console.log(result.args);
+            console.log("\n");
+        } else {
+            console.log("error_logFilmEvent:");
+            console.log(error);
+        }
+        }
+    );
+
+    function sleep(milliseconds) {
+      var start = new Date().getTime();
+      for (var i = 0; i < 1e7; i++) {
+        if ((new Date().getTime() - start) > milliseconds){
+          break;
+        }
+      }
+    }
+
+    function insertFilm(filmManager) {
+        console.log($("#title").val());
+        console.log($("#synopsis").val());
+        console.log($("#link_film").val());
+        console.log($("#link_image").val());
+        console.log($("#price").val());
+
+        filmManager.insertFilm($("#title").val(),$("#synopsis").val(),$("#link_image").val(), $("#link_film").val(),$("#price").val(),"0","0","true","false",web3.eth.defaultAccount,
+            {
+                "from": web3.eth.defaultAccount, 
+                'gas': 6000000
+            }, function(error, result) {
+                if(!error){
+                    $('#success').css("display","block");
+                    console.log("insertFilm:");
+                    console.log(result);
+                    
+                } else {
+                    $('#error').css("display","block");
+                    console.log("error_insertFilm:");
+                    console.log(error);
+                    
+                }
+            });
+            //sleep(5000);
+
+            //window.location.replace("./wallet_producer.html");
+        
+    }
+    </script>
+
 </body>
 
 </html>
