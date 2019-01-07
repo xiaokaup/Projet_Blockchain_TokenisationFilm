@@ -477,15 +477,6 @@ var filmManagerContrat_abi =
         }
     );
 
-    function sleep(milliseconds) {
-      var start = new Date().getTime();
-      for (var i = 0; i < 1e7; i++) {
-        if ((new Date().getTime() - start) > milliseconds){
-          break;
-        }
-      }
-    }
-
     function insertFilm(filmManager) {
         console.log($("#title").val());
         console.log($("#synopsis").val());
@@ -510,10 +501,6 @@ var filmManagerContrat_abi =
                     
                 }
             });
-            //sleep(50000);
-
-            //window.location.replace("./wallet_producer.html");
-        
     }
     </script>
 

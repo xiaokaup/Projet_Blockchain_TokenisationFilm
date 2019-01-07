@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blockchain</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Actor">
@@ -73,6 +76,10 @@
                     <div class="col-sm-6 input-column"><input class="form-control" type="text" name="link_image" id="link_image" placeholder="Link image"></div>
                 </div>
                 <div class="form-row form-group">
+                    <div class="col-sm-4 label-column"><label class="col-form-label" for="email-input-field">Issue date</label></div>
+                    <div class="col-sm-6 input-column"><input class="form-control" type="date" name="issue" id="issue" placeholder="Maturity"></div>
+                </div>
+                <div class="form-row form-group">
                     <div class="col-sm-4 label-column"><label class="col-form-label" for="email-input-field">Maturity</label></div>
                     <div class="col-sm-6 input-column"><input class="form-control" type="date" name="maturity" id="maturity" placeholder="Maturity"></div>
                 </div>
@@ -83,7 +90,7 @@
                 <div class="form-row form-group">
                     <div class="col-sm-4 label-column"><label class="col-form-label" for="repeat-pawssword-input-field">Number of Tokens</label></div>
                     <div class="col-sm-6 input-column"><input class="form-control" type="number" name="nb_token" id="nb_token" placeholder="Number of Tokens"></div>
-                </div><button class="btn btn-light submit-button" type="button">Create My ICO</button></form>
+                </div><button class="btn btn-light submit-button" type="button" onclick="insertFilmAndIco(filmManager,tokenManager);">Create My ICO</button></form>
         </div>
     </div>
 
@@ -102,6 +109,666 @@
             console.log(web3.eth.accounts);
             console.log("user default account:")
             console.log(web3.eth.defaultAccount);
+
+            var tokenManagerContrat_address = "0xed2092469de550a83d17dc723588be1c4e6e8a66";
+            var tokenManagerContrat_abi = 
+    [
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmBudget",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmMaturity",
+                    "type": "uint256"
+                },
+                {
+                    "name": "tokenPrice",
+                    "type": "uint256"
+                },
+                {
+                    "name": "tokenNumber",
+                    "type": "uint256"
+                }
+            ],
+            "name": "updateToken",
+            "outputs": [
+                {
+                    "name": "success",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmBudget",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmMaturity",
+                    "type": "uint256"
+                },
+                {
+                    "name": "tokenPrice",
+                    "type": "uint256"
+                },
+                {
+                    "name": "tokenNumber",
+                    "type": "uint256"
+                },
+                {
+                    "name": "tokenRecommend",
+                    "type": "int256"
+                }
+            ],
+            "name": "insertToken",
+            "outputs": [
+                {
+                    "name": "index_filmIndexes",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "minusOneTokenRecommend",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "deleteToken",
+            "outputs": [
+                {
+                    "name": "success",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getNumberToken",
+            "outputs": [
+                {
+                    "name": "numberToken",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "addOneTokenRecommend",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "index_filmIndexes",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getByIndex_filmIndexes",
+            "outputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getToken",
+            "outputs": [
+                {
+                    "name": "index_filmIndexes",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmBudget",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmMaturity",
+                    "type": "uint256"
+                },
+                {
+                    "name": "tokenPrice",
+                    "type": "uint256"
+                },
+                {
+                    "name": "tokenNumber",
+                    "type": "uint256"
+                },
+                {
+                    "name": "tokenRecommend",
+                    "type": "int256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "filmIndex",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "filmBudget",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "filmMaturity",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "tokenPrice",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "tokenNumber",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "tokenRecommend",
+                    "type": "int256"
+                }
+            ],
+            "name": "logToken",
+            "type": "event"
+        }
+    ];
+
+            var filmManagerContrat_address = "0xc6703cbe713e1651f099afd70a76f6ca1b26265e";
+            var filmManagerContrat_abi = 
+            [
+                {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "deleteFilm",
+            "outputs": [
+                {
+                    "name": "success",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "filmName",
+                    "type": "string"
+                },
+                {
+                    "name": "filmDescription",
+                    "type": "string"
+                },
+                {
+                    "name": "filmImageUrl",
+                    "type": "string"
+                },
+                {
+                    "name": "filmUrl",
+                    "type": "string"
+                },
+                {
+                    "name": "filmPrice",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmNumberVoir",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmNotation",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmPublished",
+                    "type": "bool"
+                },
+                {
+                    "name": "filmIco",
+                    "type": "bool"
+                },
+                {
+                    "name": "userAddressProducer",
+                    "type": "address"
+                }
+            ],
+            "name": "insertFilm",
+            "outputs": [
+                {
+                    "name": "index_filmIndexes",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmName",
+                    "type": "string"
+                },
+                {
+                    "name": "filmDescription",
+                    "type": "string"
+                },
+                {
+                    "name": "filmImageUrl",
+                    "type": "string"
+                },
+                {
+                    "name": "filmUrl",
+                    "type": "string"
+                },
+                {
+                    "name": "filmPrice",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmNumberVoir",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmNotation",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmPublished",
+                    "type": "bool"
+                },
+                {
+                    "name": "filmIco",
+                    "type": "bool"
+                }
+            ],
+            "name": "updateFilm",
+            "outputs": [
+                {
+                    "name": "success",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "function_call",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "name": "filmIndex",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "filmName",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "name": "filmDescription",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "name": "filmImageUrl",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "name": "filmUrl",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "name": "filmPrice",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "filmNumberVoir",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "filmNotation",
+                    "type": "uint256"
+                }
+            ],
+            "name": "logFilm",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "function_call",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "name": "filmIndex",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "filmPublished",
+                    "type": "bool"
+                },
+                {
+                    "indexed": false,
+                    "name": "filmIco",
+                    "type": "bool"
+                },
+                {
+                    "indexed": false,
+                    "name": "userAddressProducer",
+                    "type": "address"
+                }
+            ],
+            "name": "logFilm_published_ico_producer",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "function_call",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "name": "success",
+                    "type": "bool"
+                }
+            ],
+            "name": "operationFilm",
+            "type": "event"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "index_filmIndexes",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getByIndex_filmIndexes",
+            "outputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getFilm",
+            "outputs": [
+                {
+                    "name": "filmName",
+                    "type": "string"
+                },
+                {
+                    "name": "filmDescription",
+                    "type": "string"
+                },
+                {
+                    "name": "filmImageUrl",
+                    "type": "string"
+                },
+                {
+                    "name": "filmUrl",
+                    "type": "string"
+                },
+                {
+                    "name": "filmPrice",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmNumberVoir",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmNotation",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getFilmInfo_published_ico_producer",
+            "outputs": [
+                {
+                    "name": "index_filmIndexes",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmPublished",
+                    "type": "bool"
+                },
+                {
+                    "name": "filmIco",
+                    "type": "bool"
+                },
+                {
+                    "name": "userAddressProducer",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getNumberFilm",
+            "outputs": [
+                {
+                    "name": "numberFilm",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ];
+
+                // prepare smartContracts
+            var filmManager = web3.eth.contract(filmManagerContrat_abi).at(filmManagerContrat_address);
+            var tokenManager = web3.eth.contract(tokenManagerContrat_abi).at(tokenManagerContrat_address);
+            
+            console.log("contract_filmManager:");
+            console.log(filmManager);
+    
+            var logFilmEvent = filmManager.logFilm();
+            logFilmEvent.watch(
+            function(error, result){
+                console.log("*********************************************");
+                if (!error) {
+                console.log("logFilmEvent:");
+                console.log(result);
+                console.log(result.args);
+                console.log("\n");
+            } else {
+                console.log("error_logFilmEvent:");
+                console.log(error);
+            }
+        }
+    );
+
+        function insertFilmAndIco(filmManager,tokenManager) {
+        console.log($("#title").val());
+        console.log($("#description").val());
+        console.log($("#issue").val());
+        console.log($("#maturity").val());
+        console.log($("#link_image").val());
+        console.log($("#value").val());
+        console.log($("nb_token").val());
+
+        var filmIndex_local = filmManager.insertFilm($("#title").val(),$("#description").val(),$("#link_image").val(), "NONE","0","0","0","false","true",web3.eth.defaultAccount,
+            {
+                "from": web3.eth.defaultAccount, 
+                'gas': 6000000
+            }, function(error, result) {
+                if(!error){
+                    $('#success').css("display","block");
+                    console.log("insertFilm:");
+                    console.log(result);
+                    
+                } else {
+                    $('#error').css("display","block");
+                    console.log("error_insertFilm:");
+                    console.log(error);
+                    
+                }
+            });
+        var filmIndex = filmManager.getByIndex_filmIndexes(filmIndex_local);
+        var budget = $("#value").val() * $("#nb_token").val();
+        tokenManager.insertToken(filmIndex,budget,$("#maturity").val(),$("#value").val(),$("#nb_token").val(),"0",
+        {
+                "from": web3.eth.defaultAccount, 
+                'gas': 6000000
+            }, function(error, result) {
+                if(!error){
+                    $('#success').css("display","block");
+                    console.log("insertFilm:");
+                    console.log(result);
+                    
+                } else {
+                    $('#error').css("display","block");
+                    console.log("error_insertFilm:");
+                    console.log(error);
+                    
+                }
+            });
+        
+    }
     </script>
 </body>
 
