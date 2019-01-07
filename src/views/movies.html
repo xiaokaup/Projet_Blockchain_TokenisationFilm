@@ -22,11 +22,11 @@
     <link rel="stylesheet" href="assets/css/Registration-Form-with-Photo.css">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-	
+
     <script src="../node_modules/web3/dist/web3.js"></script>
 </head>
 
-<body onload="ajoutLigne();">
+<body id='body'>
     <div>
         <nav class="navbar navbar-light navbar-expand-md navigation-clean">
             <div class="container"><a class="navbar-brand" href="wallet_consumer.html">Username</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
@@ -42,14 +42,14 @@
             <h6 class="text-muted card-subtitle mb-2" style="color:rgb(0,0,0);background-color:#ffffff;">Use your ethers here and enjoy our movie collection !</h6>
             <div class="row">
                 <div class="col-4 py-3 mx-auto col-xl-4 col-lg-6 col-md-6 col-sm-12" style="min-width:300px;min-height:300px;">
-                   <table id="maTable" border=4 cellspacing=4 cellpadding=4 width=30%>
-                      <tr align=left>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Price</th>
-                        <th>Buy</th>
-                      </tr>
-                   </table>
+
+        <div class="container">
+
+            <div id=insertion_film class="row articles">
+
+            </div>
+        </div>
+   
                 </div>            
             </div>
         </div>
@@ -60,429 +60,77 @@
                 <div class="col-4 py-3 mx-auto col-xl-4 col-lg-6 col-md-6 col-sm-12" style="min-width:300px;min-height:300px;">
  
                         
-                            <table id="maTable1" border=4 cellspacing=4 cellpadding=4 width=30%>
-                               <tr align=left>
-                                  <th>Title</th>
-                                  <th>Description</th>
-                                  <th>Price</th>
-                                  <th>Donation</th>
-                               </tr>
-                            </table>
-                
-           
+          <div class="container">
 
+             <div id=insertion_ico class="row articles">
+
+             </div>
+          </div> 
 
             </div>
         </div>
     </div>
-    </div>
-   <script>
-       if (typeof web3 !== 'undefined') {
-            web3 = new Web3(web3.currentProvider);
-        } else {
-            // set the provider you want from Web3.providers
-            web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/76ba8681b14b4f1bac44c41e5e0e843a"));
-        }
-
-        web3.eth.defaultAccount = web3.eth.accounts[0];
-        console.log("user accounts:")
-        console.log(web3.eth.accounts);
-
-        var filmManagerContrat = web3.eth.contract(
-[
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "filmIndex",
-				"type": "uint256"
-			}
-		],
-		"name": "deleteFilm",
-		"outputs": [
-			{
-				"name": "success",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "filmName",
-				"type": "string"
-			},
-			{
-				"name": "filmDescription",
-				"type": "string"
-			},
-			{
-				"name": "filmImageUrl",
-				"type": "string"
-			},
-			{
-				"name": "filmUrl",
-				"type": "string"
-			},
-			{
-				"name": "filmPrice",
-				"type": "uint256"
-			},
-			{
-				"name": "filmNumberVoir",
-				"type": "uint256"
-			},
-			{
-				"name": "filmNotation",
-				"type": "uint256"
-			},
-			{
-				"name": "filmPublished",
-				"type": "bool"
-			},
-			{
-				"name": "filmIco",
-				"type": "bool"
-			},
-			{
-				"name": "userAddressProducer",
-				"type": "address"
-			}
-		],
-		"name": "insertFilm",
-		"outputs": [
-			{
-				"name": "index_filmIndexes",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "filmIndex",
-				"type": "uint256"
-			},
-			{
-				"name": "filmName",
-				"type": "string"
-			},
-			{
-				"name": "filmDescription",
-				"type": "string"
-			},
-			{
-				"name": "filmImageUrl",
-				"type": "string"
-			},
-			{
-				"name": "filmUrl",
-				"type": "string"
-			},
-			{
-				"name": "filmPrice",
-				"type": "uint256"
-			},
-			{
-				"name": "filmNumberVoir",
-				"type": "uint256"
-			},
-			{
-				"name": "filmNotation",
-				"type": "uint256"
-			},
-			{
-				"name": "filmPublished",
-				"type": "bool"
-			},
-			{
-				"name": "filmIco",
-				"type": "bool"
-			}
-		],
-		"name": "updateFilm",
-		"outputs": [
-			{
-				"name": "success",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "filmIndex",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"name": "filmName",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"name": "filmDescription",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"name": "filmImageUrl",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"name": "filmUrl",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"name": "filmPrice",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"name": "filmNumberVoir",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"name": "filmNotation",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"name": "filmPublished",
-				"type": "bool"
-			},
-			{
-				"indexed": false,
-				"name": "filmIco",
-				"type": "bool"
-			},
-			{
-				"indexed": false,
-				"name": "userAddressProducer",
-				"type": "address"
-			}
-		],
-		"name": "logFilm",
-		"type": "event"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "index_filmIndexes",
-				"type": "uint256"
-			}
-		],
-		"name": "getByIndex_filmIndexes",
-		"outputs": [
-			{
-				"name": "filmIndex",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "filmIndex",
-				"type": "uint256"
-			}
-		],
-		"name": "getFilm",
-		"outputs": [
-			{
-				"name": "filmName",
-				"type": "string"
-			},
-			{
-				"name": "filmDescription",
-				"type": "string"
-			},
-			{
-				"name": "filmImageUrl",
-				"type": "string"
-			},
-			{
-				"name": "filmUrl",
-				"type": "string"
-			},
-			{
-				"name": "filmPrice",
-				"type": "uint256"
-			},
-			{
-				"name": "filmNumberVoir",
-				"type": "uint256"
-			},
-			{
-				"name": "filmNotation",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "filmIndex",
-				"type": "uint256"
-			}
-		],
-		"name": "getFilmInfo_published_ico_producer",
-		"outputs": [
-			{
-				"name": "filmIndex_return",
-				"type": "uint256"
-			},
-			{
-				"name": "filmPublished",
-				"type": "bool"
-			},
-			{
-				"name": "filmIco",
-				"type": "bool"
-			},
-			{
-				"name": "userAddressProducer",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getNumberFilm",
-		"outputs": [
-			{
-				"name": "numberFilm",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	}
-]
-);
-   function addButton() 
-   { 
-      var f1 = document.requeteur;
-      var button = document.createElement("input");
-      button.type="submit";
-      button.value="Afficher le Rapport";  
-      f1.appendChild(button);
-   }
-
-     var filmManager = filmManagerContrat.at("0xcfdab4d1af5a5241fb0f54235d409c66a7b03c1f");
-     console.log(filmManager);
-     filmManager.getNumberFilm(function(error, result) {
-         if(!error){
-             return result
-         } else {
-              console.log("error:");
-              console.log(error);
-         }
-      });  
-        
-      filmIndex=5
-         filmManager.getFilm( filmIndex,function(error, result) {
-            if(!error){
-                return result;
-                
-            } else {
-                 console.log("error:");
-                 console.log(error);
-            }
-         });
-         filmManager.getFilmInfo_published_ico_producer( filmIndex,function(error, result) {
-            if(!error){
-                return result;
-                
-            } else {
-                 console.log("error:");
-                 console.log(error);
-            }
-         });
-        
-
-    taille=parseInt(filmManager.getNumberFilm());
-   
-    function ajoutLigne() {
-         for ( i = 1; i < taille+1; i++) {
-             ligne_tableau=1
-             var table1 = document.getElementById("maTable");
-             var table2 = document.getElementById("maTable1");
-             valeur=filmManager.getFilm(i-1)
-             sorti_film=filmManager.getFilmInfo_published_ico_producer(i-1)
-             if (sorti_film[1]==true)
-             {
-                var row = table1.insertRow(ligne_tableau);
-                var cell1 = row.insertCell(0);
-                var cell2 = row.insertCell(1);
-                var cell3 = row.insertCell(2); 
-                var cell4 = row.insertCell(3); 
-                cell1.innerHTML = valeur[0];
-                cell2.innerHTML = valeur[1];
-                cell3.innerHTML = valeur[4];
-                cell4.innerHTML = '<input type="button" value="Validate">';                 
-                ligne_tableau++
-                              
-             }    
-             if (sorti_film[2]==true)
-             {
-                var row = table2.insertRow(ligne_tableau);
-                var cell1 = row.insertCell(0);
-                var cell2 = row.insertCell(1);
-                var cell3 = row.insertCell(2); 
-                var cell4 = row.insertCell(3); 
-                cell1.innerHTML = valeur[0];
-                cell2.innerHTML = valeur[1];
-                cell3.innerHTML = valeur[4];
-                cell4.innerHTML = '<input type="button" value="Validate">';               
-                ligne_tableau++
-                              
-             } 
-        }} 
-   
-
-   
-    </script>
+        </div></div>
+    
+  
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/Animated-Pretty-Product-List-v12.js"></script>
     <script src="assets/js/Grid-and-List-view-V10.js"></script>
-</body>
+    
+    <script src="../index.1_web3_smartContracts.js"></script>
+    <script src="../index.2_smartContract_events.js"></script>
+    <script src="../index.3_smarContractFunctions.js"></script>
+    <script src="../index.4_otherFunctions.js"></script>
+    <script> 
+        
+        filmManager.getNumberFilm(function(error, result) {
+            var nb_film = result.c[0];
+            pas=0;
+            while(pas<nb_film)
+            {     
+                 
+                 filmManager.getByIndex_filmIndexes(pas,function(error, result1) {
+                     
+                     //index_film=result.c[0];
+                     
+                     
+                         
+                         filmManager.getFilmInfo_published_ico_producer(result1,function(error, result2){
+                               
+                             //document.getElementById('insertion').insertAdjacentHTML( 'beforeend',"<div class='col-sm-6 col-md-6 flex-wrap item'><a href='#'><img class='img-fluid' src='assets/img/desk.jpg'></a><h3>nom_film</h3></div> ");
+                             //filmManager.getFilm(result,function(error, result) {
+                      
 
+                             if (result2[1]==true)
+                             {
+                                 filmManager.getFilm(result1,function(error, result3) {
+                                     document.getElementById('insertion_film').insertAdjacentHTML( 'beforeend',"<div class='col-sm-6 col-md-6 flex-wrap item'><a href='#'><img class='img-fluid' src='assets/img/desk.jpg'></a><h3>"+result3[0]+"</h3><h3>"+result3[1]+"</h3><div><input type='button' value='          Buy the movie          '></div></div> ");
+                                 }); 
+                                 
+                             }
+                             else
+                             {
+                                 filmManager.getFilm(result1,function(error, result3) {
+                                     document.getElementById('insertion_ico').insertAdjacentHTML( 'beforeend',"<div class='col-sm-6 col-md-6 flex-wrap item'><a href='#'><img class='img-fluid' src='assets/img/desk.jpg'></a><h3>"+result3[0]+"</h3><h3>"+result3[1]+"</h3><div><input type='button' background-color: green value='   Validate   '><input type='button' value='    Denied    ' > </div></div> ");
+                                 });                                  
+                             }
+                         });   
+                         
+                      
+                 });
+          
+                      
+                     
+                 pas+=1;
+            }
+        });
+        
+  
+
+        
+     
+    </script>
+</body>
+    
 </html>
