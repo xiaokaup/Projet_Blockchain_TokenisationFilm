@@ -5,23 +5,23 @@ function test_userManager(userManager) {
         console.log("numberUser:");
         console.log(result.c[0]);
 
-        userManager.getByIndex_userIndexAddresses(Math.round(Math.random()*(result.c[0]-1)), function(error,result){
+        userManager.getByIndex_userIndexEmails(Math.round(Math.random()*(result.c[0]-1)), function(error,result){
             if(!error){
-                var userAddress_return = result;
-                console.log("userAddress_return:"+userAddress_return);
+                var userEmail_return = result;
+                console.log("userEmail_return:"+userEmail_return);
             } else {
-                console.log("error_getByIndex_userIndexAddresses:");
+                console.log("error_getByIndex_userIndexEmails:");
                 console.log(error);
             }
             
             console.log("---------------------------------------");
 
-            userManager.getUser(userAddress_return, "a123", function(error, result) {
+            userManager.getUser(userEmail_return, "a123", function(error, result) {
                 if(!error){
-                    console.log("result_getUser:"+userAddress_return+"->");
+                    console.log("result_getUser:"+userEmail_return+"->");
                     console.log(result);
                 } else {
-                    console.log("error_getUser:"+userAddress_return+"->");
+                    console.log("error_getUser:"+userEmail_return+"->");
                     console.log(error);
                 }
             });
@@ -29,7 +29,7 @@ function test_userManager(userManager) {
     });        
 }
 function test_insertUser(userManager) {
-    userManager.insertUser("0x330b4dADd8a960C358cF49bbB8401eA720270D43","123","test_name","customer","50", 
+    userManager.insertUser("1.3@gmail.com","a123", "0x4b0897b0513fdc7c541b6d9d7e929c4e5364d200","test_name","customer","50", 
         {
             "from": web3.eth.defaultAccount, 
             'gas': 6000000
@@ -44,7 +44,7 @@ function test_insertUser(userManager) {
         });
 }
 function test_deleteUser(userManager) {
-    userManager.deleteUser("0x330b4dADd8a960C358cF49bbB8401eA720270D43","123", 
+    userManager.deleteUser("1.3@gmail.com","a123", 
         {
             "from": web3.eth.defaultAccount, 
             'gas': 6000000
