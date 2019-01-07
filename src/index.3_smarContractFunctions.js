@@ -1,5 +1,33 @@
 
 // userManager
+function profil(userManager) {
+    userManager.getUser("0x330b4dADd8a960C358cF49bbB8401eA720270D43", "123", function (error, result) {
+        if (!error) {
+            var userAddress_return = result;
+            var balance = result[3].c[0];
+            var nom = result[1];
+            var identite = result[2];
+           document.getElementById('solde').innerHTML = balance + " " + "eth";
+            document.getElementById('username').innerHTML = nom;
+            document.getElementById('identity').innerHTML = identite;
+
+            console.log("SOLDE:");
+            console.log(result);
+            console.log(result[3].c[0]);
+            console.log(result[1]);
+        } else {
+            console.log("error_getbsolde:");
+            console.log(error);
+        }
+
+        //var resultat = result;
+        //document.getElementById(balance).innerHTML = resultat; 
+    });
+   
+
+}
+
+
 function test_userManager(userManager) {
     userManager.getNumberUser(function(error,result) {
         console.log("numberUser:");

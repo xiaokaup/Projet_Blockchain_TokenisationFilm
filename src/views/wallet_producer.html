@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
@@ -29,19 +29,23 @@
     <div></div>
     <div>
         <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
-            <div class="container"><a class="navbar-brand" href="#">USERNAME</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="container">
+                <div id="username"></div><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse"
-                    id="navcol-1">
+                     id="navcol-1">
                     <ul class="nav navbar-nav mr-auto">
-                        <li class="nav-item" role="presentation"><a class="nav-link active" href="#"><span>SOLDE</span></a></li>
-                    </ul><span class="navbar-text actions"> <a class="btn btn-light action-button" role="button" href="index.html">Sign Out</a></span></div>
+                        <li class="nav-item" role="presentation"><a class="nav-link active" href="#"><div id="solde"></div></a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link active" href="#"><div id="identity"></div></a></li>
+                    </ul><span class="navbar-text actions"> <a class="btn btn-light action-button" role="button" href="index.html">Sign Out</a></span>
+                </div>
             </div>
         </nav>
     </div>
     <div>
         <div class="profile-card">
             <div class="profile-back"></div><img class="rounded-circle profile-pic" src="assets/img/2.png">
-            <ul class="social-list"></ul><a class="btn btn-primary" role="button" href="movie_form.html" style="margin:30px;width:272px;background-color:rgb(155,31,31);">Add a Movie</a><a class="btn btn-primary" role="button" href="ico_form.html" style="margin:30px;width:272px;background-color:rgb(155,31,31);">Create ICO's</a></div>
+            <ul class="social-list"></ul><a class="btn btn-primary" role="button" href="movie_form.html" style="margin:30px;width:272px;background-color:rgb(155,31,31);">Add a Movie</a><a class="btn btn-primary" role="button" href="ico_form.html" style="margin:30px;width:272px;background-color:rgb(155,31,31);">Create ICO's</a>
+        </div>
     </div>
     <div class="article-list">
         <div class="container">
@@ -50,14 +54,20 @@
                 <p class="text-center">Here are your investment !</p>
             </div>
             <div class="row articles">
-                <div class="col-sm-6 col-md-4 flex-wrap item"><a href="#"><img class="img-fluid" src="assets/img/desk.jpg"></a>
-                    <h3 class="name">MovieTitle1</h3><span>ico data</span></div>
-                <div class="col-sm-6 col-md-4 item"><a href="#"><img class="img-fluid" src="assets/img/building.jpg"></a>
+                <div class="col-sm-6 col-md-4 flex-wrap item">
+                    <a href="#"><img class="img-fluid" src="assets/img/desk.jpg"></a>
+                    <h3 class="name">MovieTitle1</h3><span>ico data</span>
+                </div>
+                <div class="col-sm-6 col-md-4 item">
+                    <a href="#"><img class="img-fluid" src="assets/img/building.jpg"></a>
                     <h3 class="name">MovieTitle2</h3>
-                    <p class="description">ico data 2</p><a href="#" class="action"></a></div>
-                <div class="col-sm-6 col-md-4 item"><a href="#"><img class="img-fluid" src="assets/img/loft.jpg"></a>
+                    <p class="description">ico data 2</p><a href="#" class="action"></a>
+                </div>
+                <div class="col-sm-6 col-md-4 item">
+                    <a href="#"><img class="img-fluid" src="assets/img/loft.jpg"></a>
                     <h3 class="name">MovieTitle3</h3>
-                    <p class="description">ico data 2</p><a href="#" class="action"></a></div>
+                    <p class="description">ico data 2</p><a href="#" class="action"></a>
+                </div>
             </div>
         </div>
         <div class="container">
@@ -66,14 +76,20 @@
                 <p class="text-center">Your uploaded movies.</p>
             </div>
             <div class="row articles">
-                <div class="col-sm-6 col-md-4 flex-wrap item"><a href="#"><img class="img-fluid" src="assets/img/desk.jpg"></a>
-                    <h3 class="name">MovieTitle1</h3><span>ico data</span></div>
-                <div class="col-sm-6 col-md-4 item"><a href="#"><img class="img-fluid" src="assets/img/building.jpg"></a>
+                <div class="col-sm-6 col-md-4 flex-wrap item">
+                    <a href="#"><img class="img-fluid" src="assets/img/desk.jpg"></a>
+                    <h3 class="name">MovieTitle1</h3><span>ico data</span>
+                </div>
+                <div class="col-sm-6 col-md-4 item">
+                    <a href="#"><img class="img-fluid" src="assets/img/building.jpg"></a>
                     <h3 class="name">MovieTitle2</h3>
-                    <p class="description">ico data 2</p><a href="#" class="action"></a></div>
-                <div class="col-sm-6 col-md-4 item"><a href="#"><img class="img-fluid" src="assets/img/loft.jpg"></a>
+                    <p class="description">ico data 2</p><a href="#" class="action"></a>
+                </div>
+                <div class="col-sm-6 col-md-4 item">
+                    <a href="#"><img class="img-fluid" src="assets/img/loft.jpg"></a>
                     <h3 class="name">MovieTitle3</h3>
-                    <p class="description">ico data 2</p><a href="#" class="action"></a></div>
+                    <p class="description">ico data 2</p><a href="#" class="action"></a>
+                </div>
             </div>
         </div>
     </div>
@@ -110,6 +126,17 @@
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/Animated-Pretty-Product-List-v12.js"></script>
     <script src="assets/js/Grid-and-List-view-V10.js"></script>
+
+
+    <script src="../index.1_web3_smartContracts.js"></script>
+    <script src="../index.2_smartContract_events.js"></script>
+    <script src="../index.3_smarContractFunctions.js"></script>
+    <script src="../index.4_otherFunctions.js"></script>
+
+    <script>
+        profil(userManager);
+    </script>
+
 </body>
 
 </html>
