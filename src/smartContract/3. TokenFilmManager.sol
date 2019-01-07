@@ -4,8 +4,12 @@ contract TokenFilmManager {
     struct TokenStruct {
         uint filmIndex; 
         uint filmBudget;
-        uint filmMaturity;
         uint filmIssueDate;
+        uint filmMaturity;
+<<<<<<< HEAD
+        uint filmIssueDate;
+=======
+>>>>>>> 93404bff895efbb524d78e83dc9875814bac446f
         uint tokenPrice;
         uint tokenNumber;
         int tokenRecommend;
@@ -14,8 +18,12 @@ contract TokenFilmManager {
     event logToken(
         uint filmIndex,
         uint filmBudget,
-        uint filmMaturity,
         uint filmIssueDate,
+        uint filmMaturity,
+<<<<<<< HEAD
+        uint filmIssueDate,
+=======
+>>>>>>> 93404bff895efbb524d78e83dc9875814bac446f
         uint tokenPrice,
         uint tokenNumber,
         int tokenRecommend
@@ -26,8 +34,8 @@ contract TokenFilmManager {
 
     /* Constructor */
     function TokenFilmManager() public {
-        insertToken(3, 2000, 12, 10, 200, 0);
-        insertToken(4, 8000, 30, 20, 400, 0);
+        insertToken(3, 2000, 1 ,12, 10, 200, 0);
+        insertToken(4, 8000, 1 ,30, 20, 400, 0);
     }
 
     // verify the existence of token
@@ -36,28 +44,42 @@ contract TokenFilmManager {
         return (filmIndexes[tokenStructs[filmIndex].filmIndex] == filmIndex);
     }
 
+<<<<<<< HEAD
     function insertToken(uint filmIndex, uint filmBudget, uint filmMaturity, uint filmIssueDate, uint tokenPrice, 
+=======
+    function insertToken(uint filmIndex, uint filmBudget, uint filmIssueDate, uint filmMaturity, uint tokenPrice, 
+>>>>>>> 93404bff895efbb524d78e83dc9875814bac446f
     uint tokenNumber, int tokenRecommend) public returns(uint index_filmIndexes) {
         if(isToken(filmIndex)) revert();
 
         tokenStructs[filmIndex].filmIndex = filmIndexes.push(filmIndex) - 1;
         tokenStructs[filmIndex].filmBudget = filmBudget;
+        tokenStructs[filmIndex].filmIssueDate = filmIssueDate;
         tokenStructs[filmIndex].filmMaturity = filmMaturity;
         tokenStructs[filmIndex].filmIssueDate = filmIssueDate;
         tokenStructs[filmIndex].tokenPrice = tokenPrice;
         tokenStructs[filmIndex].tokenNumber = tokenNumber;
         tokenStructs[filmIndex].tokenRecommend = 0;
 
+<<<<<<< HEAD
         logToken(tokenStructs[filmIndex].filmIndex, filmBudget, filmMaturity, filmIssueDate, tokenPrice, tokenNumber, 0);
+=======
+        logToken(tokenStructs[filmIndex].filmIndex, filmBudget, filmIssueDate, filmMaturity, tokenPrice, tokenNumber, 0);
+>>>>>>> 93404bff895efbb524d78e83dc9875814bac446f
         return filmIndexes.length-1;
     }
 
     function getToken(uint filmIndex) public constant returns(uint index_filmIndexes, uint filmBudget, 
+<<<<<<< HEAD
         uint filmMaturity, uint filmIssueDate, uint tokenPrice, uint tokenNumber, int tokenRecommend) {
+=======
+        uint filmIssueDate, uint filmMaturity, uint tokenPrice, uint tokenNumber, int tokenRecommend) {
+>>>>>>> 93404bff895efbb524d78e83dc9875814bac446f
         if(!isToken(filmIndex)) revert();
         return(
             tokenStructs[filmIndex].filmIndex, 
             tokenStructs[filmIndex].filmBudget,
+            tokenStructs[filmIndex].filmIssueDate,
             tokenStructs[filmIndex].filmMaturity,
             tokenStructs[filmindex].filmIssueDate,
             tokenStructs[filmIndex].tokenPrice,
@@ -66,18 +88,20 @@ contract TokenFilmManager {
         );
     }
 
-    function updateToken(uint filmIndex, uint filmBudget, uint filmMaturity, uint filmIssueDate, uint tokenPrice, 
+
+    function updateToken(uint filmIndex, uint filmBudget, uint filmIssueDate, uint filmMaturity, uint tokenPrice, 
     uint tokenNumber) public returns(bool success) {
         if(!isToken(filmIndex)) revert();
 
         tokenStructs[filmIndex].filmBudget = filmBudget;
+        tokenStructs[filmIndex].filmIssueDate = filmIssueDate;
         tokenStructs[filmIndex].filmMaturity = filmMaturity;
         tokenStructs[filmIndex].filmIssueDate = filmIssueDate;
         tokenStructs[filmIndex].tokenPrice = tokenPrice;
         tokenStructs[filmIndex].tokenNumber = tokenNumber;
 
-        logToken(tokenStructs[filmIndex].filmIndex, filmBudget, filmMaturity, filmIssueDate, tokenPrice, tokenNumber, 
-            tokenStructs[filmIndex].tokenRecommend);
+        logToken(tokenStructs[filmIndex].filmIndex, filmBudget, filmIssueDate, filmMaturity, tokenPrice, tokenNumber, 
+        tokenStructs[filmIndex].tokenRecommend);
         return true;
     }
 

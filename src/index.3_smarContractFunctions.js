@@ -179,29 +179,29 @@ function test_deleteFilm(filmManager, index_filmIndexes) {
 
 
 
-// function test_tokenManager(tokenManager) {
-//     tokenManager.getNumberToken(function(error,result) {
-//         console.log("numberToken:");
-//         console.log(result.c[0]);
+function test_tokenManager(tokenManager) {
+    tokenManager.getNumberToken(function(error,result) {
+        console.log("numberToken:");
+        console.log(result.c[0]);
 
-//         tokenManager.getByIndex_filmIndexes(Math.round(Math.random()*(result.c[0]-1)), function(error,result){
-//             if(!error){
-//                 var filmIndex_return = result;
-//                 console.log("filmIndex_return:"+filmIndex_return);
-//             } else {
-//                 console.log("error_getByIndex_filmIndexes:");
-//                 console.log(error);
-//             }
+        tokenManager.getByIndex_filmIndexes(Math.round(Math.random()*(result.c[0]-1)), function(error,result){
+            if(!error){
+                var filmIndex_return = result;
+                console.log("filmIndex_return:"+filmIndex_return);
+            } else {
+                console.log("error_getByIndex_filmIndexes:");
+                console.log(error);
+            }
 
-//             tokenManager.getToken(filmIndex_return, function(error, result) {
-//                 if(!error){
-//                     console.log("result_getToken:"+filmIndex_return+"->");
-//                     console.log(result);
-//                 } else {
-//                     console.log("error_getToken:"+filmIndex_return+"->");
-//                     console.log(error);
-//                 }
-//             });
-//         });
-//     });
-// }
+            tokenManager.getToken(filmIndex_return, function(error, result) {
+                if(!error){
+                    console.log("result_getToken:"+filmIndex_return+"->");
+                    console.log(result);
+                } else {
+                    console.log("error_getToken:"+filmIndex_return+"->");
+                    console.log(error);
+                }
+            });
+        });
+    });
+}
