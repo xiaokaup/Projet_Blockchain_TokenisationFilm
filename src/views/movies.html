@@ -101,8 +101,8 @@
                              //document.getElementById('insertion').insertAdjacentHTML( 'beforeend',"<div class='col-sm-6 col-md-6 flex-wrap item'><a href='#'><img class='img-fluid' src='assets/img/desk.jpg'></a><h3>nom_film</h3></div> ");
                              //filmManager.getFilm(result,function(error, result) {
                       
-
-                             if (result2[1]==true)
+                            if(result2[1])
+                            //if (result2[1]==true)
                              {
                                  filmManager.getFilm(result1,function(error, result3) {
                                      document.getElementById('insertion_film').insertAdjacentHTML( 'beforeend',"<div class='col-sm-6 col-md-6 flex-wrap item'><a href='#'><img class='img-fluid' src='assets/img/desk.jpg'></a><h3>"+result3[0]+"</h3><h3>"+result3[1]+"</h3><div><input type='button' value='          Buy the movie          '></div></div> ");

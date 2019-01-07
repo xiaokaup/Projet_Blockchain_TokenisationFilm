@@ -484,7 +484,7 @@ var filmManagerContrat_abi =
         console.log($("#link_image").val());
         console.log($("#price").val());
 
-        filmManager.insertFilm($("#title").val(),$("#synopsis").val(),$("#link_image").val(), $("#link_film").val(),$("#price").val(),"0","0","true","false",web3.eth.defaultAccount,
+        filmManager.insertFilm($("#title").val(),$("#synopsis").val(),$("#link_image").val(), $("#link_film").val(),$("#price").val(),0,0,true,false,web3.eth.defaultAccount,
             {
                 "from": web3.eth.defaultAccount, 
                 'gas': 6000000
