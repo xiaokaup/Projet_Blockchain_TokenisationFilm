@@ -110,7 +110,7 @@
             console.log("user default account:")
             console.log(web3.eth.defaultAccount);
 
-            var tokenManagerContrat_address = "0xed2092469de550a83d17dc723588be1c4e6e8a66";
+            var tokenManagerContrat_address = "0x1a366c2f000895e523dece1157e1498f1d65caef";
             var tokenManagerContrat_abi = 
     [
         {
@@ -119,25 +119,23 @@
                 {
                     "name": "filmIndex",
                     "type": "uint256"
-                },
+                }
+            ],
+            "name": "addOneTokenRecommend",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
                 {
-                    "name": "filmBudget",
-                    "type": "uint256"
-                },
-                {
-                    "name": "filmMaturity",
-                    "type": "uint256"
-                },
-                {
-                    "name": "tokenPrice",
-                    "type": "uint256"
-                },
-                {
-                    "name": "tokenNumber",
+                    "name": "filmIndex",
                     "type": "uint256"
                 }
             ],
-            "name": "updateToken",
+            "name": "deleteToken",
             "outputs": [
                 {
                     "name": "success",
@@ -157,6 +155,10 @@
                 },
                 {
                     "name": "filmBudget",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmIssueDate",
                     "type": "uint256"
                 },
                 {
@@ -207,9 +209,29 @@
                 {
                     "name": "filmIndex",
                     "type": "uint256"
+                },
+                {
+                    "name": "filmBudget",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmIssueDate",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmMaturity",
+                    "type": "uint256"
+                },
+                {
+                    "name": "tokenPrice",
+                    "type": "uint256"
+                },
+                {
+                    "name": "tokenNumber",
+                    "type": "uint256"
                 }
             ],
-            "name": "deleteToken",
+            "name": "updateToken",
             "outputs": [
                 {
                     "name": "success",
@@ -221,32 +243,52 @@
             "type": "function"
         },
         {
-            "constant": true,
             "inputs": [],
-            "name": "getNumberToken",
-            "outputs": [
-                {
-                    "name": "numberToken",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "name": "filmIndex",
-                    "type": "uint256"
-                }
-            ],
-            "name": "addOneTokenRecommend",
-            "outputs": [],
             "payable": false,
             "stateMutability": "nonpayable",
-            "type": "function"
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "filmIndex",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "filmBudget",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "filmIssueDate",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "filmMaturity",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "tokenPrice",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "tokenNumber",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "tokenRecommend",
+                    "type": "int256"
+                }
+            ],
+            "name": "logToken",
+            "type": "event"
         },
         {
             "constant": true,
@@ -260,6 +302,20 @@
             "outputs": [
                 {
                     "name": "filmIndex",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getNumberToken",
+            "outputs": [
+                {
+                    "name": "numberToken",
                     "type": "uint256"
                 }
             ],
@@ -286,6 +342,10 @@
                     "type": "uint256"
                 },
                 {
+                    "name": "filmIssueDate",
+                    "type": "uint256"
+                },
+                {
                     "name": "filmMaturity",
                     "type": "uint256"
                 },
@@ -305,49 +365,6 @@
             "payable": false,
             "stateMutability": "view",
             "type": "function"
-        },
-        {
-            "inputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "constructor"
-        },
-        {
-            "anonymous": false,
-            "inputs": [
-                {
-                    "indexed": false,
-                    "name": "filmIndex",
-                    "type": "uint256"
-                },
-                {
-                    "indexed": false,
-                    "name": "filmBudget",
-                    "type": "uint256"
-                },
-                {
-                    "indexed": false,
-                    "name": "filmMaturity",
-                    "type": "uint256"
-                },
-                {
-                    "indexed": false,
-                    "name": "tokenPrice",
-                    "type": "uint256"
-                },
-                {
-                    "indexed": false,
-                    "name": "tokenNumber",
-                    "type": "uint256"
-                },
-                {
-                    "indexed": false,
-                    "name": "tokenRecommend",
-                    "type": "int256"
-                }
-            ],
-            "name": "logToken",
-            "type": "event"
         }
     ];
 
@@ -698,14 +715,20 @@
             "type": "function"
         }
     ];
+</script>
 
+<script> 
                 // prepare smartContracts
             var filmManager = web3.eth.contract(filmManagerContrat_abi).at(filmManagerContrat_address);
             var tokenManager = web3.eth.contract(tokenManagerContrat_abi).at(tokenManagerContrat_address);
             
             console.log("contract_filmManager:");
             console.log(filmManager);
-    
+            console.log("contract_tokenManager:");
+            console.log(tokenManager);
+        
+            
+
             var logFilmEvent = filmManager.logFilm();
             logFilmEvent.watch(
             function(error, result){
@@ -715,12 +738,63 @@
                 console.log(result);
                 console.log(result.args);
                 console.log("\n");
+                var issueDate = new Date($("#issue").val()).getTime() / 1000;
+            var maturity = new Date($("#maturity").val()).getTime() / 1000;
+            console.log(issueDate);
+            console.log(maturity);
+            var value = $("#value").val();
+            var nb_tk = $("#nb_token").val();
+            var budget =  nb_tk * value;
+            console.log("budget: ");
+            console.log(budget);
+
+                var filmIndex = result.args.filmIndex.c[0];
+                console.log(filmIndex);
+
+                tokenManager.insertToken(filmIndex,budget,issueDate,maturity,$("#value").val(),$("#nb_token").val(),0,
+        {
+                "from": web3.eth.defaultAccount, 
+                'gas': 6000000
+            }, function(error, result) {
+                if(!error){
+                    $('#success').css("display","block");
+                    console.log("insertICO:");
+                    console.log(result);
+                    
+                } else {
+                    $('#error').css("display","block");
+                    console.log("error_insertFilm:");
+                    console.log(error);
+                    
+                }
+            });
+            var logFilm_published_ico_producer_Event = filmManager.logFilm_published_ico_producer();
+    logFilm_published_ico_producer_Event.watch(
+    function(error, result){
+        console.log("*********************************************");
+        if (!error) {
+            console.log("logFilm_published_ico_producer_Event:");
+            console.log(result);
+            console.log(result.args);
+            console.log("\n");
+        } else {
+            console.log("error_logFilm_published_ico_producer_Event:");
+            console.log(error);
+        }
+    }
+);
+
+
+
             } else {
                 console.log("error_logFilmEvent:");
                 console.log(error);
             }
         }
     );
+
+
+   
 
         function insertFilmAndIco(filmManager,tokenManager) {
         console.log($("#title").val());
@@ -735,7 +809,7 @@
         console.log(issueDate);
         console.log(maturity);
 
-        var filmIndex_local = filmManager.insertFilm($("#title").val(),$("#description").val(),$("#link_image").val(), "NONE","0","0","0","false","true",web3.eth.defaultAccount,
+        filmManager.insertFilm($("#title").val(),$("#description").val(),$("#link_image").val(), "NONE","0","0","0","false","true",web3.eth.defaultAccount,
             {
                 "from": web3.eth.defaultAccount, 
                 'gas': 6000000
@@ -752,16 +826,16 @@
                     
                 }
             });
-        var filmIndex = filmManager.getByIndex_filmIndexes(filmIndex_local);
-        var budget = $("#value").val() * $("#nb_token").val();
-        tokenManager.insertToken(filmIndex,budget,$("#maturity").val(),$("#value").val(),$("#nb_token").val(),"0",
+        
+
+        /*tokenManager.insertToken(filmIndex,budget,issueDate,maturity,$("#value").val(),$("#nb_token").val(),0,
         {
                 "from": web3.eth.defaultAccount, 
                 'gas': 6000000
             }, function(error, result) {
                 if(!error){
                     $('#success').css("display","block");
-                    console.log("insertFilm:");
+                    console.log("insertICO:");
                     console.log(result);
                     
                 } else {
@@ -770,7 +844,7 @@
                     console.log(error);
                     
                 }
-            });
+            });*/
         
     }
     </script>

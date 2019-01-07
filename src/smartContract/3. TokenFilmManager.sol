@@ -6,10 +6,6 @@ contract TokenFilmManager {
         uint filmBudget;
         uint filmIssueDate;
         uint filmMaturity;
-<<<<<<< HEAD
-        uint filmIssueDate;
-=======
->>>>>>> 93404bff895efbb524d78e83dc9875814bac446f
         uint tokenPrice;
         uint tokenNumber;
         int tokenRecommend;
@@ -20,10 +16,6 @@ contract TokenFilmManager {
         uint filmBudget,
         uint filmIssueDate,
         uint filmMaturity,
-<<<<<<< HEAD
-        uint filmIssueDate,
-=======
->>>>>>> 93404bff895efbb524d78e83dc9875814bac446f
         uint tokenPrice,
         uint tokenNumber,
         int tokenRecommend
@@ -44,11 +36,7 @@ contract TokenFilmManager {
         return (filmIndexes[tokenStructs[filmIndex].filmIndex] == filmIndex);
     }
 
-<<<<<<< HEAD
-    function insertToken(uint filmIndex, uint filmBudget, uint filmMaturity, uint filmIssueDate, uint tokenPrice, 
-=======
     function insertToken(uint filmIndex, uint filmBudget, uint filmIssueDate, uint filmMaturity, uint tokenPrice, 
->>>>>>> 93404bff895efbb524d78e83dc9875814bac446f
     uint tokenNumber, int tokenRecommend) public returns(uint index_filmIndexes) {
         if(isToken(filmIndex)) revert();
 
@@ -56,32 +44,23 @@ contract TokenFilmManager {
         tokenStructs[filmIndex].filmBudget = filmBudget;
         tokenStructs[filmIndex].filmIssueDate = filmIssueDate;
         tokenStructs[filmIndex].filmMaturity = filmMaturity;
-        tokenStructs[filmIndex].filmIssueDate = filmIssueDate;
         tokenStructs[filmIndex].tokenPrice = tokenPrice;
         tokenStructs[filmIndex].tokenNumber = tokenNumber;
         tokenStructs[filmIndex].tokenRecommend = 0;
 
-<<<<<<< HEAD
-        logToken(tokenStructs[filmIndex].filmIndex, filmBudget, filmMaturity, filmIssueDate, tokenPrice, tokenNumber, 0);
-=======
         logToken(tokenStructs[filmIndex].filmIndex, filmBudget, filmIssueDate, filmMaturity, tokenPrice, tokenNumber, 0);
->>>>>>> 93404bff895efbb524d78e83dc9875814bac446f
+
         return filmIndexes.length-1;
     }
 
     function getToken(uint filmIndex) public constant returns(uint index_filmIndexes, uint filmBudget, 
-<<<<<<< HEAD
         uint filmMaturity, uint filmIssueDate, uint tokenPrice, uint tokenNumber, int tokenRecommend) {
-=======
-        uint filmIssueDate, uint filmMaturity, uint tokenPrice, uint tokenNumber, int tokenRecommend) {
->>>>>>> 93404bff895efbb524d78e83dc9875814bac446f
         if(!isToken(filmIndex)) revert();
         return(
             tokenStructs[filmIndex].filmIndex, 
             tokenStructs[filmIndex].filmBudget,
             tokenStructs[filmIndex].filmIssueDate,
             tokenStructs[filmIndex].filmMaturity,
-            tokenStructs[filmindex].filmIssueDate,
             tokenStructs[filmIndex].tokenPrice,
             tokenStructs[filmIndex].tokenNumber, 
             tokenStructs[filmIndex].tokenRecommend
@@ -96,7 +75,6 @@ contract TokenFilmManager {
         tokenStructs[filmIndex].filmBudget = filmBudget;
         tokenStructs[filmIndex].filmIssueDate = filmIssueDate;
         tokenStructs[filmIndex].filmMaturity = filmMaturity;
-        tokenStructs[filmIndex].filmIssueDate = filmIssueDate;
         tokenStructs[filmIndex].tokenPrice = tokenPrice;
         tokenStructs[filmIndex].tokenNumber = tokenNumber;
 
