@@ -64,31 +64,31 @@
 
                 <h1>Create My ICO</h1>
                 <div class="form-row form-group">
-                    <div class="col-sm-4 label-column"><label class="col-form-label" for="name-input-field">Project Title</label></div>
+                    <div class="col-sm-4 label-column"><label class="col-form-label" for="title-input-field">Project Title</label></div>
                     <div class="col-sm-6 input-column"><input class="form-control" type="text" name="title" id="title" placeholder="Project Title"></div>
                 </div>
                 <div class="form-row form-group">
-                    <div class="col-sm-4 label-column"><label class="col-form-label" for="name-input-field">Project Description</label></div>
+                    <div class="col-sm-4 label-column"><label class="col-form-label" for="description">Project Description</label></div>
                     <div class="col-sm-6 input-column"><input class="form-control" type="text" name="description" id="description" placeholder="Description"></div>
                 </div>
                 <div class="form-row form-group">
-                    <div class="col-sm-4 label-column"><label class="col-form-label" for="name-input-field">Link to Image</label></div>
+                    <div class="col-sm-4 label-column"><label class="col-form-label" for="link-image">Link to Image</label></div>
                     <div class="col-sm-6 input-column"><input class="form-control" type="text" name="link_image" id="link_image" placeholder="Link image"></div>
                 </div>
                 <div class="form-row form-group">
-                    <div class="col-sm-4 label-column"><label class="col-form-label" for="email-input-field">Issue date</label></div>
-                    <div class="col-sm-6 input-column"><input class="form-control" type="date" name="issue" id="issue" placeholder="Maturity"></div>
+                    <div class="col-sm-4 label-column"><label class="col-form-label" for="issue-date">Issue Date</label></div>
+                    <div class="col-sm-6 input-column"><input class="form-control" type="date" name="issue" id="issue" placeholder="Issue Date"></div>
                 </div>
                 <div class="form-row form-group">
-                    <div class="col-sm-4 label-column"><label class="col-form-label" for="email-input-field">Maturity</label></div>
+                    <div class="col-sm-4 label-column"><label class="col-form-label" for="Maturity">Maturity</label></div>
                     <div class="col-sm-6 input-column"><input class="form-control" type="date" name="maturity" id="maturity" placeholder="Maturity"></div>
                 </div>
                 <div class="form-row form-group">
-                    <div class="col-sm-4 label-column"><label class="col-form-label" for="pawssword-input-field">Initial Token Value</label></div>
+                    <div class="col-sm-4 label-column"><label class="col-form-label" for="initial-token-value">Initial Token Value</label></div>
                     <div class="col-sm-6 input-column"><input class="form-control" type="number" name="value" id="value" placeholder="Initial Token Value"></div>
                 </div>
                 <div class="form-row form-group">
-                    <div class="col-sm-4 label-column"><label class="col-form-label" for="repeat-pawssword-input-field">Number of Tokens</label></div>
+                    <div class="col-sm-4 label-column"><label class="col-form-label" for="nb-of-token">Number of Tokens</label></div>
                     <div class="col-sm-6 input-column"><input class="form-control" type="number" name="nb_token" id="nb_token" placeholder="Number of Tokens"></div>
                 </div><button class="btn btn-light submit-button" type="button" onclick="insertFilmAndIco(filmManager,tokenManager);">Create My ICO</button></form>
         </div>
@@ -729,7 +729,11 @@
         console.log($("#maturity").val());
         console.log($("#link_image").val());
         console.log($("#value").val());
-        console.log($("nb_token").val());
+        console.log($("#nb_token").val());
+        var issueDate = new Date($("#issue").val()).getTime() / 1000;
+        var maturity = new Date($("#maturity").val()).getTime() / 1000;
+        console.log(issueDate);
+        console.log(maturity);
 
         var filmIndex_local = filmManager.insertFilm($("#title").val(),$("#description").val(),$("#link_image").val(), "NONE","0","0","0","false","true",web3.eth.defaultAccount,
             {
