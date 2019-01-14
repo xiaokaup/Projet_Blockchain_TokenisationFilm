@@ -12,7 +12,7 @@ web3.eth.defaultAccount = web3.eth.accounts[0];
 
 
 // prepare smartContracts
-var userManagerContrat_address = "0x33959e68bee703668c7bb62b5c04cd97cfeabbb1";
+var userManagerContrat_address = "0xbd77d944c6bdfed659f4836458efde8df900b53a";
 var userManagerContrat_abi = 
     [
         {
@@ -266,6 +266,41 @@ var userManagerContrat_abi =
             ],
             "payable": false,
             "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "userEmail",
+                    "type": "string"
+                },
+                {
+                    "name": "userPassword",
+                    "type": "string"
+                },
+                {
+                    "name": "userEmailProducer",
+                    "type": "string"
+                },
+                {
+                    "name": "tokenPrice",
+                    "type": "uint256"
+                },
+                {
+                    "name": "tokenNumber",
+                    "type": "uint256"
+                }
+            ],
+            "name": "buyToken",
+            "outputs": [
+                {
+                    "name": "success",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
             "type": "function"
         },
         {
