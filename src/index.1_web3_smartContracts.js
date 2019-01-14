@@ -375,9 +375,107 @@ var userManagerContrat_abi =
         }
     ]
 
-var filmManagerContrat_address = "0xc6703cbe713e1651f099afd70a76f6ca1b26265e";
+var filmManagerContrat_address = "0x5f3253afad0d2e40412668a8c1e859e04040e83f";
 var filmManagerContrat_abi = 
     [
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmName",
+                    "type": "string"
+                },
+                {
+                    "name": "filmDescription",
+                    "type": "string"
+                },
+                {
+                    "name": "filmImageUrl",
+                    "type": "string"
+                },
+                {
+                    "name": "filmUrl",
+                    "type": "string"
+                },
+                {
+                    "name": "filmPrice",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmNumberVoir",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmNotation",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmPublished",
+                    "type": "bool"
+                },
+                {
+                    "name": "filmIco",
+                    "type": "bool"
+                }
+            ],
+            "name": "updateFilm",
+            "outputs": [
+                {
+                    "name": "success",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getFilm",
+            "outputs": [
+                {
+                    "name": "filmName",
+                    "type": "string"
+                },
+                {
+                    "name": "filmDescription",
+                    "type": "string"
+                },
+                {
+                    "name": "filmImageUrl",
+                    "type": "string"
+                },
+                {
+                    "name": "filmUrl",
+                    "type": "string"
+                },
+                {
+                    "name": "filmPrice",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmNumberVoir",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmNotation",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
         {
             "constant": false,
             "inputs": [
@@ -453,38 +551,31 @@ var filmManagerContrat_abi =
             "type": "function"
         },
         {
-            "constant": false,
+            "constant": true,
+            "inputs": [],
+            "name": "getNumberFilm",
+            "outputs": [
+                {
+                    "name": "numberFilm",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
             "inputs": [
                 {
                     "name": "filmIndex",
                     "type": "uint256"
-                },
+                }
+            ],
+            "name": "getFilmInfo_published_ico_producer",
+            "outputs": [
                 {
-                    "name": "filmName",
-                    "type": "string"
-                },
-                {
-                    "name": "filmDescription",
-                    "type": "string"
-                },
-                {
-                    "name": "filmImageUrl",
-                    "type": "string"
-                },
-                {
-                    "name": "filmUrl",
-                    "type": "string"
-                },
-                {
-                    "name": "filmPrice",
-                    "type": "uint256"
-                },
-                {
-                    "name": "filmNumberVoir",
-                    "type": "uint256"
-                },
-                {
-                    "name": "filmNotation",
+                    "name": "index_filmIndexes",
                     "type": "uint256"
                 },
                 {
@@ -494,17 +585,33 @@ var filmManagerContrat_abi =
                 {
                     "name": "filmIco",
                     "type": "bool"
-                }
-            ],
-            "name": "updateFilm",
-            "outputs": [
+                },
                 {
-                    "name": "success",
-                    "type": "bool"
+                    "name": "userAddressProducer",
+                    "type": "address"
                 }
             ],
             "payable": false,
-            "stateMutability": "nonpayable",
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "index_filmIndexes",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getByIndex_filmIndexes",
+            "outputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
             "type": "function"
         },
         {
@@ -613,115 +720,8 @@ var filmManagerContrat_abi =
             ],
             "name": "operationFilm",
             "type": "event"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "name": "index_filmIndexes",
-                    "type": "uint256"
-                }
-            ],
-            "name": "getByIndex_filmIndexes",
-            "outputs": [
-                {
-                    "name": "filmIndex",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "name": "filmIndex",
-                    "type": "uint256"
-                }
-            ],
-            "name": "getFilm",
-            "outputs": [
-                {
-                    "name": "filmName",
-                    "type": "string"
-                },
-                {
-                    "name": "filmDescription",
-                    "type": "string"
-                },
-                {
-                    "name": "filmImageUrl",
-                    "type": "string"
-                },
-                {
-                    "name": "filmUrl",
-                    "type": "string"
-                },
-                {
-                    "name": "filmPrice",
-                    "type": "uint256"
-                },
-                {
-                    "name": "filmNumberVoir",
-                    "type": "uint256"
-                },
-                {
-                    "name": "filmNotation",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "name": "filmIndex",
-                    "type": "uint256"
-                }
-            ],
-            "name": "getFilmInfo_published_ico_producer",
-            "outputs": [
-                {
-                    "name": "index_filmIndexes",
-                    "type": "uint256"
-                },
-                {
-                    "name": "filmPublished",
-                    "type": "bool"
-                },
-                {
-                    "name": "filmIco",
-                    "type": "bool"
-                },
-                {
-                    "name": "userAddressProducer",
-                    "type": "address"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "getNumberFilm",
-            "outputs": [
-                {
-                    "name": "numberFilm",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
         }
-    ];
+    ]
 
 var tokenManagerContrat_address = "0x1a366c2f000895e523dece1157e1498f1d65caef";
 var tokenManagerContrat_abi = 
