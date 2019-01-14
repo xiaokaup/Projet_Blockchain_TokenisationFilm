@@ -944,7 +944,7 @@ var tokenManagerContrat_abi =
             "stateMutability": "view",
             "type": "function"
         }
-    ]
+    ];
 
 var userManager = web3.eth.contract(userManagerContrat_abi).at(userManagerContrat_address);
 var filmManager = web3.eth.contract(filmManagerContrat_abi).at(filmManagerContrat_address);

@@ -49,11 +49,12 @@ contract TokenFilmManager {
         tokenStructs[filmIndex].tokenRecommend = 0;
 
         logToken(tokenStructs[filmIndex].filmIndex, filmBudget, filmIssueDate, filmMaturity, tokenPrice, tokenNumber, 0);
+
         return filmIndexes.length-1;
     }
 
     function getToken(uint filmIndex) public constant returns(uint index_filmIndexes, uint filmBudget, 
-        uint filmIssueDate, uint filmMaturity, uint tokenPrice, uint tokenNumber, int tokenRecommend) {
+        uint filmMaturity, uint filmIssueDate, uint tokenPrice, uint tokenNumber, int tokenRecommend) {
         if(!isToken(filmIndex)) revert();
         return(
             tokenStructs[filmIndex].filmIndex, 
@@ -66,6 +67,7 @@ contract TokenFilmManager {
         );
     }
 
+
     function updateToken(uint filmIndex, uint filmBudget, uint filmIssueDate, uint filmMaturity, uint tokenPrice, 
     uint tokenNumber) public returns(bool success) {
         if(!isToken(filmIndex)) revert();
@@ -77,7 +79,7 @@ contract TokenFilmManager {
         tokenStructs[filmIndex].tokenNumber = tokenNumber;
 
         logToken(tokenStructs[filmIndex].filmIndex, filmBudget, filmIssueDate, filmMaturity, tokenPrice, tokenNumber, 
-            tokenStructs[filmIndex].tokenRecommend);
+        tokenStructs[filmIndex].tokenRecommend);
         return true;
     }
 
