@@ -18,13 +18,3 @@ function test_transfer(account1, account2) {
         }
     });
 }
-
-function unique(arr){
-  var newArr = [];
-  for(var i = 0, item; item = arr[i++];){
-    if(newArr.indexOf(item) === -1){
-      newArr.push(item);
-    }
-  }
-  return newArr;
-};
