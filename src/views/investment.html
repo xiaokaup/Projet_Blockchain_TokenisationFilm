@@ -37,31 +37,9 @@
         <div class="card-body" style="background-color:#5789bf;">
             <h4 class="card-title" style="color:rgb(255,255,255);">Available ICOS</h4>
             <h6 class="text-muted card-subtitle mb-2" style="color:rgb(0,0,0);background-color:#ffffff;">Use your ethers here and sustain independant pictures!</h6>
-            <div class="row">
-                <div class="col-4 py-3 mx-auto col-xl-4 col-lg-6 col-md-6 col-sm-12" style="min-width:300px;min-height:300px;">
-                    <div class="card" style="width:100%;height:100%;"><a href="#"><img class="img-fluid card-img-top" src="assets/img/bourdelle.jpg" style="height:200px;"></a>
-                        <div class="card-body">
-                            <h5>project name</h5>
-                            <p>description</p><span>PRICE</span></div>
-                        <div class="card-footer text-center"><small></small><button class="btn btn-primary" type="button" style="width:206px;">BUY</button></div>
-                    </div>
-                </div>
-                <div class="col-4 py-3 mx-auto col-xl-4 col-lg-6 col-md-6 col-sm-12" style="min-width:300px;min-height:300px;">
-                    <div class="card" style="width:100%;height:100%;"><a href="#"><img class="img-fluid card-img-top" src="assets/img/bourdelle.jpg" style="height:200px;"></a>
-                        <div class="card-body">
-                            <h5>project name</h5>
-                            <p>description</p><span>PRICE</span></div>
-                        <div class="card-footer text-center"><small></small><button class="btn btn-primary" type="button" style="width:206px;">BUY</button></div>
-                    </div>
-                </div>
-                <div class="col-4 py-3 mx-auto col-xl-4 col-lg-6 col-md-6 col-sm-12" style="min-width:300px;min-height:300px;">
-                    <div class="card" style="width:100%;height:100%;"><a href="#"><img class="img-fluid card-img-top" src="assets/img/bourdelle.jpg" style="height:200px;"></a>
-                        <div class="card-body">
-                            <h5>project name</h5>
-                            <p>description</p><span>PRICE</span></div>
-                        <div class="card-footer text-center"><small></small><button class="btn btn-primary" type="button" style="width:206px;">BUY</button></div>
-                    </div>
-                </div>
+
+            <div id="tokenMarket">
+                
             </div>
         </div>
     </div>
@@ -70,6 +48,100 @@
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/Animated-Pretty-Product-List-v12.js"></script>
     <script src="assets/js/Grid-and-List-view-V10.js"></script>
+
+
+    <script src="../index.1_web3_smartContracts.js"></script>
+    <script src="../index.2_smartContract_events.js"></script>
+    <script src="../index.3_smarContractFunctions.js"></script>
+    <script src="../index.4_otherFunctions.js"></script>
+
+    <script type="text/javascript">
+        tokenManager.getNumberToken(function(error,result) {
+                console.log("numberToken:");
+                console.log(result.c[0]);
+
+                var allToken = [];
+                var allInfoToken = {};
+
+                for(var i =0; i < Number(result.c[0]); i++) {
+                    tokenManager.getByIndex_filmIndexes(i, function(error,result){
+                        if(!error){
+                            var filmIndex_return = result;
+                            allToken.push(filmIndex_return.c[0]);
+                            sessionStorage.setItem("allToken", allToken);
+                            // console.log("filmIndex_return:"+filmIndex_return);
+                        } else {
+                            console.log("error_getByIndex_filmIndexes:");
+                            console.log(error);
+                        }
+
+                        tokenManager.getToken(filmIndex_return, function(error, result) {
+                            if(!error){
+                                // console.log("result_getToken:"+filmIndex_return+"->");
+                                // console.log(result);
+
+                                allInfoToken.filmIndex_return = { 
+                                    "index_filmIndexes": result[0].c[0], 
+                                    "filmIndex": filmIndex_return.c[0], 
+                                    "filmBudget": result[1].c[0], 
+                                    "filmIssueDate": result[2].c[0], 
+                                    "filmMaturity": result[3].c[0],
+                                    "tokenPrice": result[4].c[0],
+                                    "tokenNumber": result[5].c[0], 
+                                    "tokenRecommend": result[6].c[0]
+                                };
+
+                                sessionStorage.setItem("allInfoToken", JSON.stringify(allInfoToken));
+                            } else {
+                                console.log("error_getToken:"+filmIndex_return+"->");
+                                console.log(error);
+                            }
+                        });
+                    });
+                }
+
+
+                console.log("allToken:");
+                allToken = JSON.parse("["+sessionStorage.getItem("allToken")+"]");
+                allToken = unique(allToken);
+                console.log(allToken);
+                console.log("allInfoToken:");
+                allInfoToken = JSON.parse(sessionStorage.getItem("allInfoToken"));
+                console.log(allInfoToken);
+
+                ;
+                var tokenMarket = document.getElementById("tokenMarket");
+                var tokenMarket_html = "<div class='row'>";
+
+                for(var i = 0; i < allToken.length; i++) {
+                    // add cards
+                    tokenMarket_html += "<div class='col-4 py-3 mx-auto col-xl-4 col-lg-6 col-md-6 col-sm-12' style='min-width:300px;min-height:300px;'>"
+                    tokenMarket_html += "<div class='card' style='width:100%;height:100%;'>";
+
+                    tokenMarket_html += "<div class='card-body'>"; 
+                    tokenMarket_html += "<h5>project number: <span>"+allInfoToken[allToken[i]].filmIndex+"</span></h5>"; 
+                    tokenMarket_html += "<br>"; 
+                    tokenMarket_html += "<p>issue date: <span>2019.01.14(Di?)</span></p>"; 
+                    tokenMarket_html += "<p>maturity date: <span>2019.01.15(Di?)</span></p>"; 
+                    tokenMarket_html += "<p>token number: <span>"+allInfoToken[allToken[i]].tokenNumber+"</span></p>"; 
+                    tokenMarket_html += "<p>token price: <span>"+(allInfoToken[allToken[i]].tokenPrice+0.001*allInfoToken[allToken[i]].tokenRecommend)+"</span></p>"; 
+                    tokenMarket_html += "<p>token Recommend: <span>"+allInfoToken[allToken[i]].tokenRecommend+"</span></p>"; 
+                    tokenMarket_html += "</div>"; 
+
+                    tokenMarket_html += "<div class='card-footer text-center'><button class='btn btn-primary' type='button' style='width:206px;'>BUY</button>"
+                    tokenMarket_html += "</div></div></div>";
+
+                    if((i+1)%3 == 0) {
+                        tokenMarket_html += "</div><div class='row'>"; // 3 cards form 1 row
+                    }
+                }
+
+
+                tokenMarket_html += "</div>";
+                tokenMarket.innerHTML = tokenMarket_html
+                console.log(tokenMarket);
+        });
+    </script>
 </body>
 
 </html>
