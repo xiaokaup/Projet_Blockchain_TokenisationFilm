@@ -44,7 +44,7 @@ contract TokenDistributionForTokenManager {
 
 
     // Token
-    function isToken(uint filmIndex) public view returns(bool isIndeed) {
+    function isToken(uint filmIndex) private view returns(bool isIndeed) {
         if(filmIndexes.length == 0 || tokenDistributionsForFilm[filmIndex].filmIndex >= filmIndexes.length) return false;
         return(filmIndexes[tokenDistributionsForFilm[filmIndex].filmIndex] == filmIndex);
     }
@@ -88,7 +88,7 @@ contract TokenDistributionForTokenManager {
 
 
     // TokenDistributionForToken
-    function isUserForToken(uint filmIndex, address userAddress) public view returns(bool isIndeed) {
+    function isUserForToken(uint filmIndex, address userAddress) private view returns(bool isIndeed) {
         var oneToken = tokenDistributionsForFilm[filmIndex];
         if(oneToken.boughtUserAddresses.length == 0 || oneToken.index_boughtUserAddresses[userAddress] >= oneToken.boughtUserAddresses.length) return false;
 
@@ -117,8 +117,15 @@ contract TokenDistributionForTokenManager {
             oneToken.numberToken_thisUser[userAddress],
             oneToken.numberAllToken
         );
+    }
 
+    function updateTokenAndUser(uint filmIndex, address userAddress, uint numberAllToken, uint numberToken_thisUser) public returns(bool success) {
+        var oneToken = tokenDistributionsForFilm[filmIndex];
 
+        oneToken.numberAllToken = numberAllToken;
+        oneToken.numberToken_thisUser[userAddress] = numberToken_thisUser;
+
+        return true;
     }
 
     function deleteUserForToken(uint filmIndex, address userAddress) public returns(uint index_boughtUserAddresses) {
