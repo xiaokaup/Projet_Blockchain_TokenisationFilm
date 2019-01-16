@@ -26,8 +26,9 @@ contract TokenFilmManager {
 
     /* Constructor */
     function TokenFilmManager() public {
-        insertToken(3, 2000, 1 ,12, 10, 200, 0);
-        insertToken(4, 8000, 1 ,30, 20, 400, 0);
+        // insertToken(filmIndex, filmBudget, filmIssueDate, filmMaturity, tokenPrice, tokenNumber, tokenRecommend)
+        insertToken(3, 2000, 5000 ,9000, 10, 200, 0);
+        insertToken(4, 8000, 8000 ,10000, 20, 400, 0);
     }
 
     // verify the existence of token

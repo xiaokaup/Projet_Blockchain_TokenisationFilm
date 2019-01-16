@@ -12,7 +12,7 @@ web3.eth.defaultAccount = web3.eth.accounts[0];
 
 
 // prepare smartContracts
-var userManagerContrat_address = "0xbd77d944c6bdfed659f4836458efde8df900b53a";
+var userManagerContrat_address = "0xda4a9a7fd3d536832d7a76624dd7ef8e443fd035";
 var userManagerContrat_abi = 
     [
         {
@@ -27,23 +27,19 @@ var userManagerContrat_abi =
                     "type": "string"
                 },
                 {
-                    "name": "userAddress",
-                    "type": "address"
-                },
-                {
-                    "name": "userName",
+                    "name": "userEmailProducer",
                     "type": "string"
                 },
                 {
-                    "name": "userIdentity",
-                    "type": "string"
+                    "name": "filmIndex",
+                    "type": "uint256"
                 },
                 {
-                    "name": "userBalance",
+                    "name": "filmPrice",
                     "type": "uint256"
                 }
             ],
-            "name": "updateUser",
+            "name": "buyFilm",
             "outputs": [
                 {
                     "name": "success",
@@ -70,15 +66,38 @@ var userManagerContrat_abi =
                     "type": "string"
                 },
                 {
-                    "name": "filmIndex",
+                    "name": "tokenPrice",
                     "type": "uint256"
                 },
                 {
-                    "name": "filmPrice",
+                    "name": "tokenNumber",
                     "type": "uint256"
                 }
             ],
-            "name": "buyFilm",
+            "name": "buyToken",
+            "outputs": [
+                {
+                    "name": "success",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "userEmail",
+                    "type": "string"
+                },
+                {
+                    "name": "userPassword",
+                    "type": "string"
+                }
+            ],
+            "name": "deleteUser",
             "outputs": [
                 {
                     "name": "success",
@@ -129,21 +148,7 @@ var userManagerContrat_abi =
             "type": "function"
         },
         {
-            "constant": true,
-            "inputs": [],
-            "name": "totalSupplyEthereum",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
+            "constant": false,
             "inputs": [
                 {
                     "name": "userEmail",
@@ -152,13 +157,6 @@ var userManagerContrat_abi =
                 {
                     "name": "userPassword",
                     "type": "string"
-                }
-            ],
-            "name": "getUser",
-            "outputs": [
-                {
-                    "name": "index_userIndexEmails",
-                    "type": "uint256"
                 },
                 {
                     "name": "userAddress",
@@ -175,14 +173,17 @@ var userManagerContrat_abi =
                 {
                     "name": "userBalance",
                     "type": "uint256"
-                },
+                }
+            ],
+            "name": "updateUser",
+            "outputs": [
                 {
-                    "name": "userBoughtFilm",
-                    "type": "uint256[]"
+                    "name": "success",
+                    "type": "bool"
                 }
             ],
             "payable": false,
-            "stateMutability": "view",
+            "stateMutability": "nonpayable",
             "type": "function"
         },
         {
@@ -202,97 +203,6 @@ var userManagerContrat_abi =
                 }
             ],
             "name": "updateUserPassword",
-            "outputs": [
-                {
-                    "name": "success",
-                    "type": "bool"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "name": "userEmail",
-                    "type": "string"
-                },
-                {
-                    "name": "userPassword",
-                    "type": "string"
-                }
-            ],
-            "name": "deleteUser",
-            "outputs": [
-                {
-                    "name": "success",
-                    "type": "bool"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "name": "index_userIndexEmails",
-                    "type": "uint256"
-                }
-            ],
-            "name": "getByIndex_userIndexEmails",
-            "outputs": [
-                {
-                    "name": "userEmail",
-                    "type": "string"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "getNumberUser",
-            "outputs": [
-                {
-                    "name": "numberUser",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "name": "userEmail",
-                    "type": "string"
-                },
-                {
-                    "name": "userPassword",
-                    "type": "string"
-                },
-                {
-                    "name": "userEmailProducer",
-                    "type": "string"
-                },
-                {
-                    "name": "tokenPrice",
-                    "type": "uint256"
-                },
-                {
-                    "name": "tokenNumber",
-                    "type": "uint256"
-                }
-            ],
-            "name": "buyToken",
             "outputs": [
                 {
                     "name": "success",
@@ -372,103 +282,33 @@ var userManagerContrat_abi =
             ],
             "name": "operationUser",
             "type": "event"
-        }
-    ]
-
-var filmManagerContrat_address = "0x5f3253afad0d2e40412668a8c1e859e04040e83f";
-var filmManagerContrat_abi = 
-    [
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "name": "filmIndex",
-                    "type": "uint256"
-                },
-                {
-                    "name": "filmName",
-                    "type": "string"
-                },
-                {
-                    "name": "filmDescription",
-                    "type": "string"
-                },
-                {
-                    "name": "filmImageUrl",
-                    "type": "string"
-                },
-                {
-                    "name": "filmUrl",
-                    "type": "string"
-                },
-                {
-                    "name": "filmPrice",
-                    "type": "uint256"
-                },
-                {
-                    "name": "filmNumberVoir",
-                    "type": "uint256"
-                },
-                {
-                    "name": "filmNotation",
-                    "type": "uint256"
-                },
-                {
-                    "name": "filmPublished",
-                    "type": "bool"
-                },
-                {
-                    "name": "filmIco",
-                    "type": "bool"
-                }
-            ],
-            "name": "updateFilm",
-            "outputs": [
-                {
-                    "name": "success",
-                    "type": "bool"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
         },
         {
             "constant": true,
             "inputs": [
                 {
-                    "name": "filmIndex",
+                    "name": "index_userIndexEmails",
                     "type": "uint256"
                 }
             ],
-            "name": "getFilm",
+            "name": "getByIndex_userIndexEmails",
             "outputs": [
                 {
-                    "name": "filmName",
+                    "name": "userEmail",
                     "type": "string"
-                },
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getNumberUser",
+            "outputs": [
                 {
-                    "name": "filmDescription",
-                    "type": "string"
-                },
-                {
-                    "name": "filmImageUrl",
-                    "type": "string"
-                },
-                {
-                    "name": "filmUrl",
-                    "type": "string"
-                },
-                {
-                    "name": "filmPrice",
-                    "type": "uint256"
-                },
-                {
-                    "name": "filmNumberVoir",
-                    "type": "uint256"
-                },
-                {
-                    "name": "filmNotation",
+                    "name": "numberUser",
                     "type": "uint256"
                 }
             ],
@@ -476,6 +316,68 @@ var filmManagerContrat_abi =
             "stateMutability": "view",
             "type": "function"
         },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "userEmail",
+                    "type": "string"
+                },
+                {
+                    "name": "userPassword",
+                    "type": "string"
+                }
+            ],
+            "name": "getUser",
+            "outputs": [
+                {
+                    "name": "index_userIndexEmails",
+                    "type": "uint256"
+                },
+                {
+                    "name": "userAddress",
+                    "type": "address"
+                },
+                {
+                    "name": "userName",
+                    "type": "string"
+                },
+                {
+                    "name": "userIdentity",
+                    "type": "string"
+                },
+                {
+                    "name": "userBalance",
+                    "type": "uint256"
+                },
+                {
+                    "name": "userBoughtFilm",
+                    "type": "uint256[]"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "totalSupplyEthereum",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ];
+
+var filmManagerContrat_address = "0x3f9f41aae954958b64bc661205631dc2dddd0b0e";
+var filmManagerContrat_abi = 
+    [
         {
             "constant": false,
             "inputs": [
@@ -551,31 +453,38 @@ var filmManagerContrat_abi =
             "type": "function"
         },
         {
-            "constant": true,
-            "inputs": [],
-            "name": "getNumberFilm",
-            "outputs": [
-                {
-                    "name": "numberFilm",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
+            "constant": false,
             "inputs": [
                 {
                     "name": "filmIndex",
                     "type": "uint256"
-                }
-            ],
-            "name": "getFilmInfo_published_ico_producer",
-            "outputs": [
+                },
                 {
-                    "name": "index_filmIndexes",
+                    "name": "filmName",
+                    "type": "string"
+                },
+                {
+                    "name": "filmDescription",
+                    "type": "string"
+                },
+                {
+                    "name": "filmImageUrl",
+                    "type": "string"
+                },
+                {
+                    "name": "filmUrl",
+                    "type": "string"
+                },
+                {
+                    "name": "filmPrice",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmNumberVoir",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmNotation",
                     "type": "uint256"
                 },
                 {
@@ -585,33 +494,17 @@ var filmManagerContrat_abi =
                 {
                     "name": "filmIco",
                     "type": "bool"
-                },
-                {
-                    "name": "userAddressProducer",
-                    "type": "address"
                 }
             ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "name": "index_filmIndexes",
-                    "type": "uint256"
-                }
-            ],
-            "name": "getByIndex_filmIndexes",
+            "name": "updateFilm",
             "outputs": [
                 {
-                    "name": "filmIndex",
-                    "type": "uint256"
+                    "name": "success",
+                    "type": "bool"
                 }
             ],
             "payable": false,
-            "stateMutability": "view",
+            "stateMutability": "nonpayable",
             "type": "function"
         },
         {
@@ -720,10 +613,117 @@ var filmManagerContrat_abi =
             ],
             "name": "operationFilm",
             "type": "event"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "index_filmIndexes",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getByIndex_filmIndexes",
+            "outputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getFilm",
+            "outputs": [
+                {
+                    "name": "filmName",
+                    "type": "string"
+                },
+                {
+                    "name": "filmDescription",
+                    "type": "string"
+                },
+                {
+                    "name": "filmImageUrl",
+                    "type": "string"
+                },
+                {
+                    "name": "filmUrl",
+                    "type": "string"
+                },
+                {
+                    "name": "filmPrice",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmNumberVoir",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmNotation",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getFilmInfo_published_ico_producer",
+            "outputs": [
+                {
+                    "name": "index_filmIndexes",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmPublished",
+                    "type": "bool"
+                },
+                {
+                    "name": "filmIco",
+                    "type": "bool"
+                },
+                {
+                    "name": "userAddressProducer",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getNumberFilm",
+            "outputs": [
+                {
+                    "name": "numberFilm",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
         }
-    ]
+    ];
 
-var tokenManagerContrat_address = "0x1a366c2f000895e523dece1157e1498f1d65caef";
+var tokenManagerContrat_address = "0xeddc660d5e30915c0c2c1789c84c34e21c2e27a1";
 var tokenManagerContrat_abi = 
     [
         {
@@ -732,9 +732,48 @@ var tokenManagerContrat_abi =
                 {
                     "name": "filmIndex",
                     "type": "uint256"
+                },
+                {
+                    "name": "filmBudget",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmIssueDate",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmMaturity",
+                    "type": "uint256"
+                },
+                {
+                    "name": "tokenPrice",
+                    "type": "uint256"
+                },
+                {
+                    "name": "tokenNumber",
+                    "type": "uint256"
                 }
             ],
-            "name": "addOneTokenRecommend",
+            "name": "updateToken",
+            "outputs": [
+                {
+                    "name": "success",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "minusOneTokenRecommend",
             "outputs": [],
             "payable": false,
             "stateMutability": "nonpayable",
@@ -755,6 +794,34 @@ var tokenManagerContrat_abi =
                     "type": "bool"
                 }
             ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getNumberToken",
+            "outputs": [
+                {
+                    "name": "numberToken",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "addOneTokenRecommend",
+            "outputs": [],
             "payable": false,
             "stateMutability": "nonpayable",
             "type": "function"
@@ -803,24 +870,36 @@ var tokenManagerContrat_abi =
             "type": "function"
         },
         {
-            "constant": false,
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "index_filmIndexes",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getByIndex_filmIndexes",
+            "outputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
             "inputs": [
                 {
                     "name": "filmIndex",
                     "type": "uint256"
                 }
             ],
-            "name": "minusOneTokenRecommend",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
+            "name": "getToken",
+            "outputs": [
                 {
-                    "name": "filmIndex",
+                    "name": "index_filmIndexes",
                     "type": "uint256"
                 },
                 {
@@ -828,11 +907,11 @@ var tokenManagerContrat_abi =
                     "type": "uint256"
                 },
                 {
-                    "name": "filmIssueDate",
+                    "name": "filmMaturity",
                     "type": "uint256"
                 },
                 {
-                    "name": "filmMaturity",
+                    "name": "filmIssueDate",
                     "type": "uint256"
                 },
                 {
@@ -842,17 +921,14 @@ var tokenManagerContrat_abi =
                 {
                     "name": "tokenNumber",
                     "type": "uint256"
-                }
-            ],
-            "name": "updateToken",
-            "outputs": [
+                },
                 {
-                    "name": "success",
-                    "type": "bool"
+                    "name": "tokenRecommend",
+                    "type": "int256"
                 }
             ],
             "payable": false,
-            "stateMutability": "nonpayable",
+            "stateMutability": "view",
             "type": "function"
         },
         {
@@ -902,20 +978,168 @@ var tokenManagerContrat_abi =
             ],
             "name": "logToken",
             "type": "event"
+        }
+    ];
+
+var tokenDistributionForUserManager_address = "0x49164217370f004cc178bafff82e9dba83e9c155";
+var tokenDistributionForUserManager_abi = 
+    [
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "userAddress",
+                    "type": "address"
+                },
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "deleteTokenForUser",
+            "outputs": [
+                {
+                    "name": "index_userBoughtTokens",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "userAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "deleteUser",
+            "outputs": [
+                {
+                    "name": "index_userIndexAddresses",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "userAddress",
+                    "type": "address"
+                },
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                },
+                {
+                    "name": "numberTokenPocket",
+                    "type": "uint256"
+                },
+                {
+                    "name": "numberTokenOnSell",
+                    "type": "uint256"
+                },
+                {
+                    "name": "numberTokenTotal",
+                    "type": "uint256"
+                }
+            ],
+            "name": "insertTokenForUser",
+            "outputs": [
+                {
+                    "name": "success",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "userAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "insertUser",
+            "outputs": [
+                {
+                    "name": "index_userIndexAddresses",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "userAddress",
+                    "type": "address"
+                },
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                },
+                {
+                    "name": "numberTokenPocket",
+                    "type": "uint256"
+                },
+                {
+                    "name": "numberTokenOnSell",
+                    "type": "uint256"
+                },
+                {
+                    "name": "numberTokenTotal",
+                    "type": "uint256"
+                }
+            ],
+            "name": "updateTokenForUser",
+            "outputs": [
+                {
+                    "name": "success",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [],
+            "name": "logTokenDistributionForUser",
+            "type": "event"
         },
         {
             "constant": true,
             "inputs": [
                 {
-                    "name": "index_filmIndexes",
-                    "type": "uint256"
+                    "name": "userAddress",
+                    "type": "address"
                 }
             ],
-            "name": "getByIndex_filmIndexes",
+            "name": "getAllTokenForOneUser",
             "outputs": [
                 {
-                    "name": "filmIndex",
-                    "type": "uint256"
+                    "name": "userBoughtTokens",
+                    "type": "uint256[]"
                 }
             ],
             "payable": false,
@@ -925,10 +1149,241 @@ var tokenManagerContrat_abi =
         {
             "constant": true,
             "inputs": [],
-            "name": "getNumberToken",
+            "name": "getAllUser",
             "outputs": [
                 {
-                    "name": "numberToken",
+                    "name": "allUser",
+                    "type": "address[]"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "userAddress",
+                    "type": "address"
+                },
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getTokenForUser",
+            "outputs": [
+                {
+                    "name": "index_userBoughtTokens",
+                    "type": "uint256"
+                },
+                {
+                    "name": "filmIndex_return",
+                    "type": "uint256"
+                },
+                {
+                    "name": "numberTokenPocket",
+                    "type": "uint256"
+                },
+                {
+                    "name": "numberTokenOnSell",
+                    "type": "uint256"
+                },
+                {
+                    "name": "numberTokenTotal",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "userAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "getUserAndAllTokens",
+            "outputs": [
+                {
+                    "name": "index_userIndexAddresses",
+                    "type": "uint256"
+                },
+                {
+                    "name": "userBoughtTokens",
+                    "type": "uint256[]"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "userIndexAddresses",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ];
+
+var tokenDistributionForTokenManager_address = "0x6cae5931c0bfe1a6beca1a3bc0a15401c77c409b";
+var tokenDistributionForTokenManager_abi = 
+    [
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                },
+                {
+                    "name": "numberAllToken",
+                    "type": "uint256"
+                }
+            ],
+            "name": "insertToken",
+            "outputs": [
+                {
+                    "name": "index_filmIndexes",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                },
+                {
+                    "name": "userAddress",
+                    "type": "address"
+                },
+                {
+                    "name": "numberToken_thisUser",
+                    "type": "uint256"
+                }
+            ],
+            "name": "insertUserForToken",
+            "outputs": [
+                {
+                    "name": "success",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "deleteToken",
+            "outputs": [
+                {
+                    "name": "index_filmIndexes",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getAllToken",
+            "outputs": [
+                {
+                    "name": "allToken",
+                    "type": "uint256[]"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getTokenAndAllUsers",
+            "outputs": [
+                {
+                    "name": "index_filmIndexes",
+                    "type": "uint256"
+                },
+                {
+                    "name": "numberAllToken",
+                    "type": "uint256"
+                },
+                {
+                    "name": "boughtUserAddresses",
+                    "type": "address[]"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                },
+                {
+                    "name": "userAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "getUserForToken",
+            "outputs": [
+                {
+                    "name": "index_boughtUserAddresses",
+                    "type": "uint256"
+                },
+                {
+                    "name": "userAddress_return",
+                    "type": "address"
+                },
+                {
+                    "name": "numberToken_thisUser",
+                    "type": "uint256"
+                },
+                {
+                    "name": "numberAllToken",
                     "type": "uint256"
                 }
             ],
@@ -944,40 +1399,101 @@ var tokenManagerContrat_abi =
                     "type": "uint256"
                 }
             ],
-            "name": "getToken",
+            "name": "getAllUserForOneToken",
             "outputs": [
                 {
-                    "name": "index_filmIndexes",
-                    "type": "uint256"
-                },
-                {
-                    "name": "filmBudget",
-                    "type": "uint256"
-                },
-                {
-                    "name": "filmIssueDate",
-                    "type": "uint256"
-                },
-                {
-                    "name": "filmMaturity",
-                    "type": "uint256"
-                },
-                {
-                    "name": "tokenPrice",
-                    "type": "uint256"
-                },
-                {
-                    "name": "tokenNumber",
-                    "type": "uint256"
-                },
-                {
-                    "name": "tokenRecommend",
-                    "type": "int256"
+                    "name": "boughtUserAddresses",
+                    "type": "address[]"
                 }
             ],
             "payable": false,
             "stateMutability": "view",
             "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                },
+                {
+                    "name": "userAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "deleteUserForToken",
+            "outputs": [
+                {
+                    "name": "index_boughtUserAddresses",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "filmIndex",
+                    "type": "uint256"
+                },
+                {
+                    "name": "userAddress",
+                    "type": "address"
+                },
+                {
+                    "name": "numberAllToken",
+                    "type": "uint256"
+                },
+                {
+                    "name": "numberToken_thisUser",
+                    "type": "uint256"
+                }
+            ],
+            "name": "updateTokenAndUser",
+            "outputs": [
+                {
+                    "name": "success",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "filmIndexes",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [],
+            "name": "logTokenDistributionForToken",
+            "type": "event"
         }
     ];
 

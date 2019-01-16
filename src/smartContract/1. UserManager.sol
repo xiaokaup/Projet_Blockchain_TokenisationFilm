@@ -42,6 +42,7 @@ contract UserManager {
         insertUser("2@gmail.com", "a123", 0x583031d1113ad414f02576bd6afabfb302140225, "producer_user3", "producer", 3000);
         // Must increase gas limit to deploy this contract
         insertUser("3@gmail.com", "a123", 0xdd870fa1b7c4700f2bd7f44238821c26f7392148, "investor_user4", "investor", 10000);
+        insertUser("3.1@gmail.com", "a123", 0xe33ae12a297568c8f42727cffbbaef6e2d5040b3, "investor_user5", "investor", 10000);
 
     }
     

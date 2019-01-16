@@ -46,6 +46,7 @@ contract FilmManager {
     
     /* Constructor */
     function FilmManager() public {
+        // insertFilm(filmName, filmDescription, filmImageUrl, filmUrl, filmPrice, filmNumberVoir, filmNotation, filmPublished, filmIco, userAddressProducer)
         // published
         insertFilm("film_1", "filmDescription_1", "imageUrl.com_1", "url.com_1", 3, 0, 0, true, false, 0x583031d1113ad414f02576bd6afabfb302140225);
         insertFilm("film_2", "filmDescription_2", "imageUrl.com_2", "url.com_2", 5, 0, 0, true, false, 0x583031d1113ad414f02576bd6afabfb302140225);

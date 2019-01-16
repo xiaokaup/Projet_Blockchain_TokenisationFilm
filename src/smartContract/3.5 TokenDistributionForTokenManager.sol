@@ -23,23 +23,16 @@ contract TokenDistributionForTokenManager {
     
     /* Constructor */
     function TokenDistributionForTokenManager() public {
-        insertToken(1,100);
-        insertToken(3,50);
-        insertToken(8,90);
-        insertToken(6, 800);
+        // insertToken(filmIndex, numberAllToken)
+        insertToken(3,200);
+        insertToken(4,400);
 
-        insertUserForToken(3, 0xca35b7d915458ef540ade6068dfe2f44e8fa733c, 200);
-        insertUserForToken(3,0x14723a09acff6d2a60dcdf7aa4aff308fddc160c,230);
-        insertUserForToken(3, 0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db,550);
+        // insertUserForToken(filmIndex, userAddress, numberToken_thisUser)
+        insertUserForToken(3, 0xdd870fa1b7c4700f2bd7f44238821c26f7392148, 50);
+        insertUserForToken(3,0xe33ae12a297568c8f42727cffbbaef6e2d5040b3,150);
         
-
-        insertUserForToken(1, 0xca35b7d915458ef540ade6068dfe2f44e8fa733c, 250);
-        insertUserForToken(1, 0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db,550);
-        insertUserForToken(1, 0x14723a09acff6d2a60dcdf7aa4aff308fddc160c,600);
-
-        insertUserForToken(6, 0xca35b7d915458ef540ade6068dfe2f44e8fa733c, 300);
-        insertUserForToken(6, 0x14723a09acff6d2a60dcdf7aa4aff308fddc160c, 210);
-        insertUserForToken(6, 0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db, 1);
+        insertUserForToken(4, 0xdd870fa1b7c4700f2bd7f44238821c26f7392148, 240);
+        insertUserForToken(4,0xe33ae12a297568c8f42727cffbbaef6e2d5040b3,160);
     }
 
 
