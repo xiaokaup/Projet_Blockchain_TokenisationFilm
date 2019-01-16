@@ -205,3 +205,122 @@ function test_tokenManager(tokenManager) {
         });
     });
 }
+
+
+// views/investment.html
+function showListOfTokenMarket(block_id) {
+            tokenManager.getNumberToken(function(error,result) {
+                console.log("numberToken:");
+                console.log(result.c[0]);
+
+                var tokenLength = Number(result.c[0]);
+                // view
+                var block = document.getElementById(block_id);
+                var block_html = "";
+
+                for(var i =0; i < tokenLength; i++) {
+                    tokenManager.getByIndex_filmIndexes(i, function(error,result){
+                        if(!error){
+                            var filmIndex_return = result;
+                            // console.log("filmIndex_return:"+filmIndex_return);
+
+                            tokenManager.getToken(filmIndex_return, function(error, result) {
+                                if(!error){
+                                    // console.log("result_getToken:"+filmIndex_return+"->");
+                                    // console.log(result);
+
+                                    infoToken = { 
+                                        "index_filmIndexes": result[0].c[0], 
+                                        "filmIndex": filmIndex_return.c[0], 
+                                        "filmBudget": result[1].c[0], 
+                                        "filmIssueDate": result[2].c[0], 
+                                        "filmMaturity": result[3].c[0],
+                                        "tokenPrice": result[4].c[0],
+                                        "tokenNumber": result[5].c[0], 
+                                        "tokenRecommend": result[6].c[0]
+                                    };
+
+                                    // add cards
+                                    block_html += "<div class='col-4 py-3 mx-auto col-xl-4 col-lg-6 col-md-6 col-sm-12' style='min-width:300px;min-height:300px;'>"
+                                    block_html += "<div class='card' style='width:100%;height:100%;'>";
+
+                                    block_html += "<div class='card-body'>"; 
+                                    block_html += "<h5>project number: <span>"+infoToken.filmIndex+"</span></h5>"; 
+                                    block_html += "<br>"; 
+                                    block_html += "<p>issue date: <span>"+ new Date(infoToken.filmIssueDate).toLocaleDateString() +"</span></p>"; 
+                                    block_html += "<p>maturity date: <span>"+new Date(infoToken.filmMaturity).toLocaleDateString()+"</span></p>"; 
+                                    block_html += "<p>token number: <span>"+infoToken.tokenNumber+"</span></p>"; 
+                                    block_html += "<p>token price: <span>"+(infoToken.tokenPrice+0.001*infoToken.tokenRecommend)+"</span></p>"; 
+                                    block_html += "<p>token Recommend: <span>"+infoToken.tokenRecommend+"</span></p>"; 
+                                    block_html += "</div>"; 
+
+                                    block_html += "<hr>"; 
+
+                                    block_html += "<form class='form-inline' style='margin-left: 10px;'><div class='form-group mb-6'><input type='number' class='form-control-plaintext' id='buyTokenNumberInput_"+infoToken.filmIndex+"' placeholder='buy token number' style='margin-bottom: 10px;'></div><button type='button' class='btn btn-primary mb-2' style='margin-left: 15px;' onclick=buyToken('"+compte_investor.email+"','"+compte_investor.password+"','"+compte_producer.email+"','"+infoToken.filmIndex+"','"+(infoToken.tokenPrice+0.001*infoToken.tokenRecommend)+"')>Buy</button></form>";
+                                    block_html += "</div></div></div>";
+
+                                    // if((i+1)%3 == 0) {
+                                    //     block_html += "</div><div class='row'>"; // 3 cards form 1 row
+                                    // }
+
+                                    
+                                    // block_html += "</div>";
+                                    block.innerHTML = block_html
+                                    
+
+                                } else {
+                                    console.log("error_getToken:"+filmIndex_return+"->");
+                                    console.log(error);
+                                }
+                            });
+
+                        } else {
+                            console.log("error_getByIndex_filmIndexes:");
+                            console.log(error);
+                        }
+
+                    });
+                }
+            });
+}
+
+function buyToken(emailInvestor, passwordInvestor, emailProducer, filmIndex, oneTokenPrice) {
+    // console.log("yang");
+    // console.log(emailInvestor);
+    // console.log(passwordInvestor);
+    // console.log(emailProducer);
+    // console.log(filmIndex);
+    // console.log(oneTokenPrice);
+
+    var break_value = 0
+    var tokenNumber = Number(document.getElementById("buyTokenNumberInput_"+filmIndex).value);
+    if(tokenNumber < 0) break_value = 1;
+
+    // exist of user
+    userManager.getUser(emailInvestor, passwordInvestor, function(error, result) {
+                if(!error && result[3]=="investor" && break_value == 0){
+                    // console.log("result_getUser:"+"->");
+                    console.log(result);
+                    var addressInvestor = result[1];
+                    // console.log(addressInvestor);
+                    // console.log(oneTokenPrice*tokenNumber);
+
+                    userManager.buyToken(emailInvestor, passwordInvestor, emailProducer, oneTokenPrice, tokenNumber, {
+                            "from": web3.eth.defaultAccount, 
+                            'gas': 6000000
+                        }, function(error,result) {
+                             if(!error){
+                                console.log("buyToken...");
+                                // console.log(result);
+                                
+                            } else {
+                                console.log("error_buyToken:");
+                                console.log(error);
+                            }
+                        });
+                } else {
+                    console.log("error_getUser:"+"->");
+                    console.log(error);
+                }
+            });
+}        

@@ -11,6 +11,16 @@ logUserEvent.watch(
             console.log(result);
             console.log(result.args);
             console.log("\n");
+
+            // if(result.args == true) {
+            //     switch(result.args.function_all) {
+            //         case "buyToken": 
+
+            //             break;
+            //     }
+            // }
+
+
         } else {
             console.log("error_logUserEvent:");
             console.log(error);
