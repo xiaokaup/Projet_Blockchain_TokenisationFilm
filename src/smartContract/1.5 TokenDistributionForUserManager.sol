@@ -29,17 +29,17 @@ contract TokenDistributionForUserManager {
         insertUser(0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db);
         // insertUser(0x583031d1113ad414f02576bd6afabfb302140225);
 
-        insertTokenForUser(0xca35b7d915458ef540ade6068dfe2f44e8fa733c, 0, 50, 150, 200);
-        insertTokenForUser(0xca35b7d915458ef540ade6068dfe2f44e8fa733c, 1, 100, 150, 250);
+        insertTokenForUser(0xca35b7d915458ef540ade6068dfe2f44e8fa733c, 3, 50, 150, 200);
+        insertTokenForUser(0xca35b7d915458ef540ade6068dfe2f44e8fa733c, 4, 100, 150, 250);
         insertTokenForUser(0xca35b7d915458ef540ade6068dfe2f44e8fa733c, 12, 50, 250, 300);
-        insertTokenForUser(0x14723a09acff6d2a60dcdf7aa4aff308fddc160c, 0, 200, 30, 230);
+        insertTokenForUser(0x14723a09acff6d2a60dcdf7aa4aff308fddc160c, 3, 200, 30, 230);
         insertTokenForUser(0x14723a09acff6d2a60dcdf7aa4aff308fddc160c, 9, 200, 10, 210);
-        insertTokenForUser(0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db, 1, 550, 50, 550);
+        insertTokenForUser(0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db, 4, 550, 50, 550);
     }
 
 
     // User
-    function isUser(address userAddress) public view returns(bool isIndeed) {
+    function isUser(address userAddress) private view returns(bool isIndeed) {
         if(userIndexAddresses.length == 0 || tokenDistributionsForUser[userAddress].userIndex >= userIndexAddresses.length) return false;
         return(userIndexAddresses[tokenDistributionsForUser[userAddress].userIndex] == userAddress);
     }
@@ -81,7 +81,7 @@ contract TokenDistributionForUserManager {
 
 
     // TokenDistributionForUser
-    function isTokenForUser(address userAddress, uint filmIndex) public view returns(bool isIndeed) {
+    function isTokenForUser(address userAddress, uint filmIndex) private view returns(bool isIndeed) {
         var oneUser = tokenDistributionsForUser[userAddress];
         if(oneUser.userBoughtTokens.length == 0 || oneUser.index_userBoughtTokens[filmIndex] >= oneUser.userBoughtTokens.length) return false;
         return(oneUser.userBoughtTokens[oneUser.index_userBoughtTokens[filmIndex]] == filmIndex);
@@ -112,8 +112,17 @@ contract TokenDistributionForUserManager {
             oneUser.numberTokenOnSell[filmIndex],
             oneUser.numberTokenTotal[filmIndex]
         );
+    }
 
+    function updateTokenForUser(address userAddress, uint filmIndex, uint numberTokenPocket, uint numberTokenOnSell, uint numberTokenTotal) public returns(bool success) {
+        if(!isUser(userAddress) || !isTokenForUser(userAddress, filmIndex)) revert();
 
+        var oneUser = tokenDistributionsForUser[userAddress];
+        oneUser.numberTokenPocket[filmIndex] = numberTokenPocket;
+        oneUser.numberTokenOnSell[filmIndex] = numberTokenOnSell;
+        oneUser.numberTokenTotal[filmIndex] = numberTokenTotal;
+
+        return true;
     }
 
     function deleteTokenForUser(address userAddress, uint filmIndex)
