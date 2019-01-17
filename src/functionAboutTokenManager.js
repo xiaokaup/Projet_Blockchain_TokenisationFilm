@@ -1,6 +1,6 @@
 // ======================================================================
 // example d'utiliser async/await function
-async function showListOfTokenMarket(block_id) {
+async function showListOfTokenMarket(block_id, compte_investor, compte_producer) {
     // data
     var allToken = await returnListToken();
     // view
@@ -27,14 +27,13 @@ async function showListOfTokenMarket(block_id) {
 
         block_html += "<hr>"; 
 
-        block_html += "<form class='form-inline' style='margin-left: 10px;'><div class='form-group mb-6'><input type='number' class='form-control-plaintext' id='buyTokenNumberInput_"+oneToken.filmIndex+"' placeholder='buy token number' style='margin-bottom: 10px;'></div><button type='button' class='btn btn-primary mb-2' style='margin-left: 15px;' onclick=buyToken('"+compte_investor.email+"','"+compte_investor.password+"','"+compte_producer.email+"','"+oneToken.filmIndex+"','"+(oneToken.tokenPrice+0.001*oneToken.tokenRecommend)+"')>Buy</button></form>";
+        block_html += "<form class='form-inline' style='margin-left: 10px;'><div class='form-group mb-6'><input type='number' class='form-control-plaintext' id='buyTokenNumberInput_"+oneToken.filmIndex+"' placeholder='buy token number' style='margin-bottom: 10px;'></div><button type='button' class='btn btn-primary mb-2' style='margin-left: 15px;' onclick=buyToken_button('"+compte_investor.email+"','"+compte_investor.password+"','"+compte_producer.email+"','"+oneToken.filmIndex+"','"+(oneToken.tokenPrice+0.001*oneToken.tokenRecommend)+"')>Buy</button></form>";
         block_html += "</div></div></div>";
     }
 
     block.innerHTML = block_html;
 
 }
-
 
 async function returnListToken() {
     var listToken = [];
@@ -52,6 +51,75 @@ async function returnListToken() {
     // console.log(listToken);
     return listToken;
 }
+
+async function buyToken_button(emailInvestor, passwordInvestor, emailProducer, filmIndex, oneTokenPrice) {
+    // console.log("yang");
+    // console.log(emailInvestor);
+    // console.log(passwordInvestor);
+    // console.log(emailProducer);
+    // console.log(filmIndex);
+    // console.log(oneTokenPrice);
+
+    // var break_value = 0;
+    var buyTokenNumber = Number(document.getElementById("buyTokenNumberInput_"+filmIndex).value);
+    // console.log(buyTokenNumber);
+    // if(buyTokenNumber < 0) break_value = 1;
+
+    var userInvestor = await getUser(emailInvestor, passwordInvestor);
+    console.log("userInvestor:");
+    console.log(userInvestor);
+
+    await buyToken(emailInvestor, passwordInvestor, emailProducer, oneTokenPrice, buyTokenNumber);
+
+    
+}
+
+async function test() {
+    await getUser("2@gmail.com", "a123");
+}
+
+test();
+
+function buyToken_t(emailInvestor, passwordInvestor, emailProducer, filmIndex, oneTokenPrice) {
+    // console.log("yang");
+    // console.log(emailInvestor);
+    // console.log(passwordInvestor);
+    // console.log(emailProducer);
+    // console.log(filmIndex);
+    // console.log(oneTokenPrice);
+
+    var break_value = 0
+    var tokenNumber = Number(document.getElementById("buyTokenNumberInput_"+filmIndex).value);
+    if(tokenNumber < 0) break_value = 1;
+
+    // exist of user
+    userManager.getUser(emailInvestor, passwordInvestor, function(error, result) {
+        if(!error && result[3]=="investor" && break_value == 0){
+            // console.log("result_getUser:"+"->");
+            console.log(result);
+            var addressInvestor = result[1];
+            // console.log(addressInvestor);
+            // console.log(oneTokenPrice*tokenNumber);
+
+            userManager.buyToken(emailInvestor, passwordInvestor, emailProducer, oneTokenPrice, tokenNumber, {
+                    "from": web3.eth.defaultAccount, 
+                    'gas': 6000000
+                }, function(error,result) {
+                     if(!error){
+                        console.log("buyToken...");
+                        // console.log(result);
+                        
+                    } else {
+                        console.log("error_buyToken:");
+                        console.log(error);
+                    }
+                });
+        } else {
+            console.log("error_getUser:"+"->");
+            console.log(error);
+        }
+    });
+}     
 
 
 
@@ -97,9 +165,9 @@ function getToken(filmIndex) {
                     "filmBudget": response[1].c[0], 
                     "filmIssueDate": new Date(response[2].c[0]).toLocaleDateString(), 
                     "filmMaturity": new Date(response[3].c[0]).toLocaleDateString(), 
-                    "tokenPrice": response[4].c[0],
+                    "tokenPrice": response[4].c[0], 
                     "tokenNumber": response[5].c[0], 
-                    "tokenRecommend": response[6].c[0]
+                    "tokenRecommend": response[6].c[0], 
                 };
 
                 console.log(token);
@@ -115,43 +183,4 @@ function getToken(filmIndex) {
 
 
 
-function buyToken(emailInvestor, passwordInvestor, emailProducer, filmIndex, oneTokenPrice) {
-    // console.log("yang");
-    // console.log(emailInvestor);
-    // console.log(passwordInvestor);
-    // console.log(emailProducer);
-    // console.log(filmIndex);
-    // console.log(oneTokenPrice);
-
-    var break_value = 0
-    var tokenNumber = Number(document.getElementById("buyTokenNumberInput_"+filmIndex).value);
-    if(tokenNumber < 0) break_value = 1;
-
-    // exist of user
-    userManager.getUser(emailInvestor, passwordInvestor, function(error, result) {
-        if(!error && result[3]=="investor" && break_value == 0){
-            // console.log("result_getUser:"+"->");
-            console.log(result);
-            var addressInvestor = result[1];
-            // console.log(addressInvestor);
-            // console.log(oneTokenPrice*tokenNumber);
-
-            userManager.buyToken(emailInvestor, passwordInvestor, emailProducer, oneTokenPrice, tokenNumber, {
-                    "from": web3.eth.defaultAccount, 
-                    'gas': 6000000
-                }, function(error,result) {
-                     if(!error){
-                        console.log("buyToken...");
-                        // console.log(result);
-                        
-                    } else {
-                        console.log("error_buyToken:");
-                        console.log(error);
-                    }
-                });
-        } else {
-            console.log("error_getUser:"+"->");
-            console.log(error);
-        }
-    });
-}        
+   
