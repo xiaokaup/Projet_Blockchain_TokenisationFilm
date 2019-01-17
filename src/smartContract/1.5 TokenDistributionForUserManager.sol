@@ -34,12 +34,12 @@ contract TokenDistributionForUserManager {
 
         // inserTokenForUser(userAddress, filmIndex, numberTokenPocket, numberTokenOnSell, numberTokenTotal)
         // producer
-        insertUser(0x583031d1113ad414f02576bd6afabfb302140225, 3, 0, 0, 150);
-        insertUser(0x583031d1113ad414f02576bd6afabfb302140225, 4, 0, 0, 300);
+        insertTokenForUser(0x583031d1113ad414f02576bd6afabfb302140225, 3, 150, 0, 150);
+        insertTokenForUser(0x583031d1113ad414f02576bd6afabfb302140225, 4, 300, 0, 300);
         // investor 
         insertTokenForUser(0xdd870fa1b7c4700f2bd7f44238821c26f7392148, 3, 50, 0, 20);
         insertTokenForUser(0xdd870fa1b7c4700f2bd7f44238821c26f7392148, 4, 240, 0, 40);
-        
+
         insertTokenForUser(0xe33ae12a297568c8f42727cffbbaef6e2d5040b3, 3, 150, 0, 30);
         insertTokenForUser(0xe33ae12a297568c8f42727cffbbaef6e2d5040b3, 4, 150, 0, 60);
     }

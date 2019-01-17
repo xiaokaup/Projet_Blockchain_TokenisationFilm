@@ -1,5 +1,5 @@
+
 // ======================================================================
-// example d'utiliser async/await function
 async function showListOfTokenMarket(block_id, compte_investor, compte_producer) {
     // data
     var allToken = await returnListToken();

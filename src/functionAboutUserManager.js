@@ -33,7 +33,7 @@ function buyToken(userEmail, userPassword, userEmailProducer, tokenPrice, buyTok
                 resolve(response);
             } else {
                 console.log("buyToken("+[userEmail, userPassword, userEmailProducer, tokenPrice, buyTokenNumber].join()+")_error:")
-                reject(error)
+                reject(error);
             }
         });
     });

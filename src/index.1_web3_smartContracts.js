@@ -981,7 +981,7 @@ var tokenManagerContrat_abi =
         }
     ];
 
-var tokenDistributionForUserManager_address = "0x49164217370f004cc178bafff82e9dba83e9c155";
+var tokenDistributionForUserManager_address = "0xaacda04994448f3f82b8be2db1ea81e8861838af";
 var tokenDistributionForUserManager_abi = 
     [
         {
@@ -1005,6 +1005,43 @@ var tokenDistributionForUserManager_abi =
             ],
             "payable": false,
             "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "userAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "getUserAndAllTokens",
+            "outputs": [
+                {
+                    "name": "index_userIndexAddresses",
+                    "type": "uint256"
+                },
+                {
+                    "name": "userBoughtTokens",
+                    "type": "uint256[]"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getAllUser",
+            "outputs": [
+                {
+                    "name": "allUser",
+                    "type": "address[]"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
             "type": "function"
         },
         {
@@ -1067,25 +1104,6 @@ var tokenDistributionForUserManager_abi =
                 {
                     "name": "userAddress",
                     "type": "address"
-                }
-            ],
-            "name": "insertUser",
-            "outputs": [
-                {
-                    "name": "index_userIndexAddresses",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "name": "userAddress",
-                    "type": "address"
                 },
                 {
                     "name": "filmIndex",
@@ -1113,51 +1131,6 @@ var tokenDistributionForUserManager_abi =
             ],
             "payable": false,
             "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "constructor"
-        },
-        {
-            "anonymous": false,
-            "inputs": [],
-            "name": "logTokenDistributionForUser",
-            "type": "event"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "name": "userAddress",
-                    "type": "address"
-                }
-            ],
-            "name": "getAllTokenForOneUser",
-            "outputs": [
-                {
-                    "name": "userBoughtTokens",
-                    "type": "uint256[]"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "getAllUser",
-            "outputs": [
-                {
-                    "name": "allUser",
-                    "type": "address[]"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
             "type": "function"
         },
         {
@@ -1203,29 +1176,6 @@ var tokenDistributionForUserManager_abi =
             "constant": true,
             "inputs": [
                 {
-                    "name": "userAddress",
-                    "type": "address"
-                }
-            ],
-            "name": "getUserAndAllTokens",
-            "outputs": [
-                {
-                    "name": "index_userIndexAddresses",
-                    "type": "uint256"
-                },
-                {
-                    "name": "userBoughtTokens",
-                    "type": "uint256[]"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
                     "name": "",
                     "type": "uint256"
                 }
@@ -1240,10 +1190,60 @@ var tokenDistributionForUserManager_abi =
             "payable": false,
             "stateMutability": "view",
             "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "userAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "getAllTokenForOneUser",
+            "outputs": [
+                {
+                    "name": "userBoughtTokens",
+                    "type": "uint256[]"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "userAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "insertUser",
+            "outputs": [
+                {
+                    "name": "index_userIndexAddresses",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [],
+            "name": "logTokenDistributionForUser",
+            "type": "event"
         }
     ];
 
-var tokenDistributionForTokenManager_address = "0x6cae5931c0bfe1a6beca1a3bc0a15401c77c409b";
+var tokenDistributionForTokenManager_address = "0x319aec001de0c1cc683b11f6742cdfab4939150e";
 var tokenDistributionForTokenManager_abi = 
     [
         {
@@ -1497,9 +1497,12 @@ var tokenDistributionForTokenManager_abi =
         }
     ];
 
+
 var userManager = web3.eth.contract(userManagerContrat_abi).at(userManagerContrat_address);
 var filmManager = web3.eth.contract(filmManagerContrat_abi).at(filmManagerContrat_address);
 var tokenManager = web3.eth.contract(tokenManagerContrat_abi).at(tokenManagerContrat_address);
+var tokenDistributionForUserManager = web3.eth.contract(tokenDistributionForUserManager_abi).at(tokenDistributionForUserManager_address);
+var tokenDistributionForTokenManager = web3.eth.contract(tokenDistributionForTokenManager_abi).at(tokenDistributionForTokenManager_address);
 
 
 // console.log
