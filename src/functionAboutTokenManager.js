@@ -39,11 +39,11 @@ async function returnListToken() {
     var listToken = [];
 
     var numbertoken = await getNumberToken(); 
-    console.log(numbertoken);
+    // console.log(numbertoken);
 
     for(var i =0; i < numbertoken; i++) {
         var filmIndex = await getByIndex_filmIndexes(i);
-        console.log(filmIndex);
+        // console.log(filmIndex);
         var response = await getToken(filmIndex);
         listToken.push(response);
     }
@@ -76,46 +76,6 @@ async function buyToken_button(emailInvestor, passwordInvestor, emailProducer, f
 
 
 
-function buyToken_t(emailInvestor, passwordInvestor, emailProducer, filmIndex, oneTokenPrice) {
-    // console.log("yang");
-    // console.log(emailInvestor);
-    // console.log(passwordInvestor);
-    // console.log(emailProducer);
-    // console.log(filmIndex);
-    // console.log(oneTokenPrice);
-
-    var break_value = 0
-    var tokenNumber = Number(document.getElementById("buyTokenNumberInput_"+filmIndex).value);
-    if(tokenNumber < 0) break_value = 1;
-
-    // exist of user
-    userManager.getUser(emailInvestor, passwordInvestor, function(error, result) {
-        if(!error && result[3]=="investor" && break_value == 0){
-            // console.log("result_getUser:"+"->");
-            console.log(result);
-            var addressInvestor = result[1];
-            // console.log(addressInvestor);
-            // console.log(oneTokenPrice*tokenNumber);
-
-            userManager.buyToken(emailInvestor, passwordInvestor, emailProducer, oneTokenPrice, tokenNumber, {
-                    "from": web3.eth.defaultAccount, 
-                    'gas': 6000000
-                }, function(error,result) {
-                     if(!error){
-                        console.log("buyToken...");
-                        // console.log(result);
-                        
-                    } else {
-                        console.log("error_buyToken:");
-                        console.log(error);
-                    }
-                });
-        } else {
-            console.log("error_getUser:"+"->");
-            console.log(error);
-        }
-    });
-}     
 
 
 
@@ -166,7 +126,7 @@ function getToken(filmIndex) {
                     "tokenRecommend": response[6].c[0], 
                 };
 
-                console.log(token);
+                // console.log(token);
                 resolve(token);
             } else {
                 console.log("getToken("+filmIndex+")_error:");

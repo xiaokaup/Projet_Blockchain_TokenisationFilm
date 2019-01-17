@@ -90,6 +90,8 @@
             await getAllTokenForOneUser(user.userAddress);
             await getTokenForUser(user.userAddress, 4);
             // await updateTokenForUser(user.userAddress, 4, 0, 0, 300);
+            var t =await getUserAddressBy_userEmail("2@gmail.com");
+            console.log(t);
         }
 
         test();

@@ -13,7 +13,7 @@ function getAllTokenForOneUser(userAddress) {
 				for(var item in response) {
 					userBoughtTokens.push(response[item].c[0]);
 				}
-				console.log(userBoughtTokens);
+				// console.log(userBoughtTokens);
 				resolve(userBoughtTokens);
 			} else {
 				console.log("getAllTokenForOneUser("+userAddress+")_error:");
@@ -35,7 +35,7 @@ function getTokenForUser(userAddress, filmIndex) {
 					"numberTokenOnSell": response[3].c[0], 
 					"numberTokenTotal": response[4].c[0], 
 				};
-				console.log(distributionUser);
+				// console.log(distributionUser);
 				resolve(distributionUser);
 			} else {
 				console.log("getTokenForUser("+[userAddress, filmIndex].join()+")_error:");
@@ -51,7 +51,7 @@ function updateTokenForUser(userAddress, filmIndex, numberTokenPocket, numberTok
 			if(!error) {
 				console.log("updateTokenForUser("+[userAddress, filmIndex, numberTokenPocket, numberTokenOnSell, numberTokenTotal].join()+")_success:");
 				
-				console.log(response);
+				// console.log(response);
 				resolve(response);
 			} else {
 				console.log("updateTokenForUser("+[userAddress, filmIndex, numberTokenPocket, numberTokenOnSell, numberTokenTotal].join()+")_error:");
