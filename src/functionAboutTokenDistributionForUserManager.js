@@ -28,15 +28,16 @@ function getTokenForUser(userAddress, filmIndex) {
 		tokenDistributionForUserManager.getTokenForUser(userAddress, filmIndex, (error, response) => {
 			if(!error) {
 				console.log("getTokenForUser("+[userAddress, filmIndex].join()+")_success:");
-				var distributionUser = {
+				var distributionForThisUser = {
+					"userAddress": userAddress, 
+					"filmIndex": filmIndex, 
 					"index_userBoutTokens": response[0].c[0], 
-					"filmIndex_return": response[1].c[0], 
-					"numberTokenPocket": response[2].c[0], 
-					"numberTokenOnSell": response[3].c[0], 
-					"numberTokenTotal": response[4].c[0], 
+					// "numberTokenPocket": response[2].c[0], 
+					// "numberTokenOnSell": response[3].c[0], 
+					"numberToken_user": response[4].c[0], 
 				};
-				// console.log(distributionUser);
-				resolve(distributionUser);
+				// console.log(distributionForThisUser);
+				resolve(distributionForThisUser);
 			} else {
 				console.log("getTokenForUser("+[userAddress, filmIndex].join()+")_error:");
 				reject(error);

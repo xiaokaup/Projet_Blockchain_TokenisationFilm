@@ -6,6 +6,7 @@ function getUser(userEmail, userPassword) {
                 console.log("getUser("+userEmail+")_success:");
                 var user = 
                 { 
+                    "userEmail": userEmail, 
                     "index_userIndexEmails": response[0].c[0], 
                     "userAddress": response[1], 
                     "userName": response[2], 

@@ -65,9 +65,9 @@
     <script src="../index.4_testFunction.js"></script>
 
     <script src='../functionAboutUserManager.js'></script>
-    <script src='../functionAboutTokenDistributionForUserManager.js'></script>
     <script src='../functionAboutFilmManager.js'></script>
     <script src='../functionAboutTokenManager.js'></script>
+    <script src='../functionAboutTokenDistributionForUserManager.js'></script>
     <script src='../functionAboutTokenDistributionForTokenManager.js'></script>
 
     <script type="text/javascript">
@@ -131,32 +131,57 @@
 
                 
         async function buyToken_button(emailInvestor, passwordInvestor, emailProducer, filmIndex, oneTokenPrice) {
-            // console.log("yang");
             // console.log(emailInvestor);
             // console.log(passwordInvestor);
             // console.log(emailProducer);
             // console.log(filmIndex);
             // console.log(oneTokenPrice);
+            
 
-            // var buyTokenNumber = Number(document.getElementById("buyTokenNumberInput_"+filmIndex).value);
-            var buyTokenNumber = 0;
+            var buyTokenNumber = Number(document.getElementById("buyTokenNumberInput_"+filmIndex).value);
+            // var buyTokenNumber = 1;
             if(buyTokenNumber >= 0) {
+                console.log("buyTokenNumber:");
+                console.log(buyTokenNumber);
                 var userInvestor = await getUser(emailInvestor, passwordInvestor);
-                console.log("userInvestor:");
-                console.log(userInvestor);
+
+                // console.log("userInvestor:");
+                // console.log(await getUser(userInvestor.userEmail, "a123"));
+                // console.log((await getUser(userInvestor.userEmail, "a123")).userBalance);
+                // console.log("userProducer:");
+                // console.log(await getUser(emailProducer, "a123"));
+                // console.log((await getUser(emailProducer, "a123")).userBalance);
+
+                
+                var userAddress_producer = await getUserAddressBy_userEmail(emailProducer);
+                var userDistributionToken_producer_forUserManager = await getTokenForUser(userAddress_producer, filmIndex);
+                console.log("userDistributionToken_producer_forUserManager:");
+                console.log(userDistributionToken_producer_forUserManager);
+
+
+                var userDistributionToken_producer_forTokenManager = await getUserForToken(filmIndex, userAddress_producer);
+                console.log("userDistributionToken_producer_forTokenManager:");
+                console.log(userDistributionToken_producer_forTokenManager);
+
+
+                var userDistributionToken_investor_forUserManager = await getTokenForUser(userInvestor.userAddress, filmIndex);
+                console.log("userDistributionToken_investor_forUserManager:");
+                console.log(userDistributionToken_investor_forUserManager);
+
+                var userDistributionToken_investor_forTokenManager = await getUserForToken(filmIndex, userInvestor.userAddress);
+                console.log("userDistributionToken_investor_forTokenManager:");
+                console.log(userDistributionToken_investor_forTokenManager);
 
                 // BuyToken -> give money from investor to producer
-                // await buyToken(emailInvestor, passwordInvestor, emailProducer, oneTokenPrice, buyTokenNumber);
-
-
-                var userDistributionToken_thisfilmIndex = await getTokenForUser(userInvestor.userAddress, filmIndex);
-                console.log("userDistributionToken_thisfilmIndex:");
-                console.log(userDistributionToken_thisfilmIndex);
-
+                await buyToken(emailInvestor, passwordInvestor, emailProducer, oneTokenPrice, buyTokenNumber);
                 // Update Distribution of token
-                // var t = await updateTokenForUser(userInvestor.userAddress, filmIndex, userDistributionToken_thisfilmIndex.numberTokenPocket, userDistributionToken_thisfilmIndex.numberTokenOnSell, userDistributionToken_thisfilmIndex.numberTokenTotal+buyTokenNumber);
+                // producer
+                await updateTokenForUser(userAddress_producer, filmIndex, 0, 0, userDistributionToken_producer_forUserManager.numberToken_user-buyTokenNumber);
+                await updateTokenAndUser(filmIndex, userAddress_producer, (await getToken(filmIndex)).tokenNumber, userDistributionToken_producer_forTokenManager.numberToken_thisUser-buyTokenNumber);
+                // Investor
+                await updateTokenForUser(userInvestor.userAddress, filmIndex, 0, 0, userDistributionToken_investor_forUserManager.numberToken_user+buyTokenNumber);
+                await updateTokenAndUser(filmIndex, userInvestor.userAddress, (await getToken(filmIndex)).tokenNumber, userDistributionToken_investor_forTokenManager.numberToken_thisUser+buyTokenNumber);
                 
-                // console.log(t);
             } else {
                 console.log("buyTokenNumber must be positif");
             }
