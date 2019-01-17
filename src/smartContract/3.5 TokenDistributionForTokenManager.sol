@@ -24,7 +24,7 @@ contract TokenDistributionForTokenManager {
     /* Constructor */
     function TokenDistributionForTokenManager() public {
         // insertToken(filmIndex, numberAllToken)
-        insertToken(3,200);
+        insertToken(3,300);
         insertToken(4,400);
 
         // insertUserForToken(filmIndex, userAddress, numberToken_thisUser)
