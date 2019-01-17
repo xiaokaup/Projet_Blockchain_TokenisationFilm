@@ -12,9 +12,48 @@ web3.eth.defaultAccount = web3.eth.accounts[0];
 
 
 // prepare smartContracts
-var userManagerContrat_address = "0xda4a9a7fd3d536832d7a76624dd7ef8e443fd035";
+var userManagerContrat_address = "0x0373d1138b923821f96c7d74e0cda73ecd8b8952";
 var userManagerContrat_abi = 
     [
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "userEmail",
+                    "type": "string"
+                },
+                {
+                    "name": "userPassword",
+                    "type": "string"
+                },
+                {
+                    "name": "userAddress",
+                    "type": "address"
+                },
+                {
+                    "name": "userName",
+                    "type": "string"
+                },
+                {
+                    "name": "userIdentity",
+                    "type": "string"
+                },
+                {
+                    "name": "userBalance",
+                    "type": "uint256"
+                }
+            ],
+            "name": "updateUser",
+            "outputs": [
+                {
+                    "name": "success",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
         {
             "constant": false,
             "inputs": [
@@ -40,64 +79,6 @@ var userManagerContrat_abi =
                 }
             ],
             "name": "buyFilm",
-            "outputs": [
-                {
-                    "name": "success",
-                    "type": "bool"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "name": "userEmail",
-                    "type": "string"
-                },
-                {
-                    "name": "userPassword",
-                    "type": "string"
-                },
-                {
-                    "name": "userEmailProducer",
-                    "type": "string"
-                },
-                {
-                    "name": "tokenPrice",
-                    "type": "uint256"
-                },
-                {
-                    "name": "tokenNumber",
-                    "type": "uint256"
-                }
-            ],
-            "name": "buyToken",
-            "outputs": [
-                {
-                    "name": "success",
-                    "type": "bool"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "name": "userEmail",
-                    "type": "string"
-                },
-                {
-                    "name": "userPassword",
-                    "type": "string"
-                }
-            ],
-            "name": "deleteUser",
             "outputs": [
                 {
                     "name": "success",
@@ -148,7 +129,21 @@ var userManagerContrat_abi =
             "type": "function"
         },
         {
-            "constant": false,
+            "constant": true,
+            "inputs": [],
+            "name": "totalSupplyEthereum",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
             "inputs": [
                 {
                     "name": "userEmail",
@@ -157,6 +152,13 @@ var userManagerContrat_abi =
                 {
                     "name": "userPassword",
                     "type": "string"
+                }
+            ],
+            "name": "getUser",
+            "outputs": [
+                {
+                    "name": "index_userIndexEmails",
+                    "type": "uint256"
                 },
                 {
                     "name": "userAddress",
@@ -173,17 +175,14 @@ var userManagerContrat_abi =
                 {
                     "name": "userBalance",
                     "type": "uint256"
-                }
-            ],
-            "name": "updateUser",
-            "outputs": [
+                },
                 {
-                    "name": "success",
-                    "type": "bool"
+                    "name": "userBoughtFilm",
+                    "type": "uint256[]"
                 }
             ],
             "payable": false,
-            "stateMutability": "nonpayable",
+            "stateMutability": "view",
             "type": "function"
         },
         {
@@ -203,6 +202,116 @@ var userManagerContrat_abi =
                 }
             ],
             "name": "updateUserPassword",
+            "outputs": [
+                {
+                    "name": "success",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "userEmail",
+                    "type": "string"
+                }
+            ],
+            "name": "getUserAddressBy_userEmail",
+            "outputs": [
+                {
+                    "name": "userAddress",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "userEmail",
+                    "type": "string"
+                },
+                {
+                    "name": "userPassword",
+                    "type": "string"
+                }
+            ],
+            "name": "deleteUser",
+            "outputs": [
+                {
+                    "name": "success",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "index_userIndexEmails",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getByIndex_userIndexEmails",
+            "outputs": [
+                {
+                    "name": "userEmail",
+                    "type": "string"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getNumberUser",
+            "outputs": [
+                {
+                    "name": "numberUser",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "userEmail",
+                    "type": "string"
+                },
+                {
+                    "name": "userPassword",
+                    "type": "string"
+                },
+                {
+                    "name": "userEmailProducer",
+                    "type": "string"
+                },
+                {
+                    "name": "tokenPrice",
+                    "type": "uint256"
+                },
+                {
+                    "name": "tokenNumber",
+                    "type": "uint256"
+                }
+            ],
+            "name": "buyToken",
             "outputs": [
                 {
                     "name": "success",
@@ -282,96 +391,6 @@ var userManagerContrat_abi =
             ],
             "name": "operationUser",
             "type": "event"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "name": "index_userIndexEmails",
-                    "type": "uint256"
-                }
-            ],
-            "name": "getByIndex_userIndexEmails",
-            "outputs": [
-                {
-                    "name": "userEmail",
-                    "type": "string"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "getNumberUser",
-            "outputs": [
-                {
-                    "name": "numberUser",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "name": "userEmail",
-                    "type": "string"
-                },
-                {
-                    "name": "userPassword",
-                    "type": "string"
-                }
-            ],
-            "name": "getUser",
-            "outputs": [
-                {
-                    "name": "index_userIndexEmails",
-                    "type": "uint256"
-                },
-                {
-                    "name": "userAddress",
-                    "type": "address"
-                },
-                {
-                    "name": "userName",
-                    "type": "string"
-                },
-                {
-                    "name": "userIdentity",
-                    "type": "string"
-                },
-                {
-                    "name": "userBalance",
-                    "type": "uint256"
-                },
-                {
-                    "name": "userBoughtFilm",
-                    "type": "uint256[]"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "totalSupplyEthereum",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
         }
     ];
 

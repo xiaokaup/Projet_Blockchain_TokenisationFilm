@@ -137,6 +137,12 @@ contract UserManager {
          return userIndexEmails[index_userIndexEmails];
     }
 
+    function getUserAddressBy_userEmail(string userEmail) public view returns(address userAddress) {
+        return (
+            userStructs[userEmail].userAddress
+        );
+    }
+
     function buyFilm(string userEmail, string userPassword, string userEmailProducer, uint filmIndex, 
     uint filmPrice) public returns(bool success) {
         if(!isUser(userEmail, userPassword)) revert();
