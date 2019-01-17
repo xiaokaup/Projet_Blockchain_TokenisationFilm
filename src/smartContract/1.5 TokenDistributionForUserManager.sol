@@ -25,14 +25,23 @@ contract TokenDistributionForUserManager {
     /* Constructor */
     function TokenDistributionForUserManager() public {
         // insertUser(userAddress)
+        // producer
+        insertUser(0x583031d1113ad414f02576bd6afabfb302140225);
+        // investor
         insertUser(0xdd870fa1b7c4700f2bd7f44238821c26f7392148);
         insertUser(0xe33ae12a297568c8f42727cffbbaef6e2d5040b3);
 
+
         // inserTokenForUser(userAddress, filmIndex, numberTokenPocket, numberTokenOnSell, numberTokenTotal)
-        insertTokenForUser(0xdd870fa1b7c4700f2bd7f44238821c26f7392148, 3, 50, 0, 50);
-        insertTokenForUser(0xdd870fa1b7c4700f2bd7f44238821c26f7392148, 4, 240, 0, 240);
-        insertTokenForUser(0xe33ae12a297568c8f42727cffbbaef6e2d5040b3, 3, 150, 0, 150);
-        insertTokenForUser(0xe33ae12a297568c8f42727cffbbaef6e2d5040b3, 4, 150, 0, 160);
+        // producer
+        insertUser(0x583031d1113ad414f02576bd6afabfb302140225, 3, 0, 0, 150);
+        insertUser(0x583031d1113ad414f02576bd6afabfb302140225, 4, 0, 0, 300);
+        // investor 
+        insertTokenForUser(0xdd870fa1b7c4700f2bd7f44238821c26f7392148, 3, 50, 0, 20);
+        insertTokenForUser(0xdd870fa1b7c4700f2bd7f44238821c26f7392148, 4, 240, 0, 40);
+        
+        insertTokenForUser(0xe33ae12a297568c8f42727cffbbaef6e2d5040b3, 3, 150, 0, 30);
+        insertTokenForUser(0xe33ae12a297568c8f42727cffbbaef6e2d5040b3, 4, 150, 0, 60);
     }
 
 
