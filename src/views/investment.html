@@ -136,6 +136,9 @@
             // console.log(emailProducer);
             // console.log(filmIndex);
             // console.log(oneTokenPrice);
+            
+            // buyToken_button('3@gmail.com','a123','2@gmail.com','4','20');
+
             buyToken_button_data = {
                 "buyTokenNumber": Number(document.getElementById("buyTokenNumberInput_"+filmIndex).value), 
                 "userInvestor": await getUser(emailInvestor, passwordInvestor), 
@@ -217,7 +220,6 @@
 
         }
 
-        // buyToken_button('3@gmail.com','a123','2@gmail.com','4','20');
 
     </script>
 
@@ -225,27 +227,13 @@
         var compte_investor = {
             "email": "3@gmail.com",
             "password": "a123"
-        }
+        };
 
         var compte_producer = {
             "email": "2@gmail.com"
-        }
-
+        };
 
         showListOfTokenMarket("tokenMarket", compte_investor, compte_producer);
-
-        async function test() {
-            var user = await getUser("2@gmail.com", "a123");
-            // define in file functionAboutTokenDistributionForUserManager
-            await getAllTokenForOneUser(user.userAddress);
-            await getTokenForUser(user.userAddress, 4);
-            // await updateTokenForUser(user.userAddress, 4, 0, 0, 300);
-            var t =await getUserAddressBy_userEmail("2@gmail.com");
-            console.log(t);
-        }
-
-        test();
-
 
         
     </script>

@@ -53,11 +53,11 @@
                 <h2 class="text-center">My ICOs</h2>
                 <p class="text-center">Here is the current value of your tokens</p>
             </div>
-            <div class="row articles">
-                <div class="col-sm-6 col-md-4 item">
+            <div class="row articles" id="div_userBoughtTokens">
+                <!-- <div class="col-sm-6 col-md-4 item">
                     <a href="#"><img class="img-fluid" src="assets/img/desk.jpg"></a>
-                    <h3 class="name">ICOTitle1</h3>
-                    <p class="description">tokenprice</p><a href="#" class="action"></a>
+                    <h3 class="name">project number: 3</h3>
+                    <p class="description">numberToken_user: 40</p><a href="#" class="action"></a>
                 </div>
                 <div class="col-sm-6 col-md-4 item">
                     <a href="#"><img class="img-fluid" src="assets/img/building.jpg"></a>
@@ -68,7 +68,7 @@
                     <a href="#"><img class="img-fluid" src="assets/img/loft.jpg"></a>
                     <h3 class="name">ICOTitle3</h3>
                     <p class="description">tokenprice</p><a href="#" class="action"></a>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -109,10 +109,64 @@
     <script src="../index.1_web3_smartContracts.js"></script>
     <script src="../index.2_smartContract_events.js"></script>
     <script src="../index.3_smarContractFunctions.js"></script>
-    <script src="../index.4_otherFunctions.js"></script>
+    <script src="../index.4_testFunction.js"></script>
+
+    <script src='../functionAboutUserManager.js'></script>
+    <script src='../functionAboutFilmManager.js'></script>
+    <script src='../functionAboutTokenManager.js'></script>
+    <script src='../functionAboutTokenDistributionForUserManager.js'></script>
+    <script src='../functionAboutTokenDistributionForTokenManager.js'></script>
+
+    <script type="text/javascript">
+        async function returnListToken_investor(userEmail) {
+            var indexes_userBoughtTokens =await getAllTokenForOneUser(await getUserAddressBy_userEmail(userEmail));
+
+            var userAddress = await getUserAddressBy_userEmail(userEmail);
+            var userBoughtTokens = [];
+
+            for(var item in indexes_userBoughtTokens) {
+                userBoughtTokens.push(await getTokenForUser(userAddress, indexes_userBoughtTokens[item]));
+            }
+
+            return userBoughtTokens;
+        }
+
+        async function showListOfTokenMarket_investor(div_id) {
+            var userBoughtTokens = await returnListToken_investor(compte_investor.email);
+            var block = document.getElementById(div_id);
+            var block_html = "";
+            // console.log(userBoughtTokens);
+            // console.log(block);
+            for(var item in userBoughtTokens) {
+                var token = userBoughtTokens[item];
+                block_html += 
+                "<div class='col-sm-6 col-md-4 item'>" +
+                    "<a href='#'><img class='img-fluid' src='"+random_img(imgs_web)+"'></a>" +
+                    "<h3 class='name'>project number: "+token.filmIndex+"</h3>" +
+                    "<p class='description'>numberToken_user: "+token.numberToken_user+"</p>" +
+                    "<a href='#' class='action'></a>" +
+                "</div>";
+            }
+
+            block.innerHTML = block_html;
+
+        }
+
+        function random_img(imgs) {
+            return imgs[Math.floor(Math.random() * Math.floor(imgs.length))];
+        }
+    </script>
 
     <script>
+        var compte_investor = {
+            "email": "3@gmail.com",
+            "password": "a123"
+        };
+        imgs_web = ["assets/img/desk.jpg", "assets/img/building.jpg", "assets/img/loft.jpg"];
+
         profil(userManager);
+        showListOfTokenMarket_investor("div_userBoughtTokens");
+
 
     </script>
 
