@@ -1,0 +1,6 @@
+
+
+
+// ======================================================================
+// from About TokenDistributionForTokenManager smartContract
+
