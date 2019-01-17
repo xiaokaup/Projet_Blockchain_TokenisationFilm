@@ -83,7 +83,16 @@
 
 
         showListOfTokenMarket("tokenMarket", compte_investor, compte_producer);
-        
+
+        async function test() {
+            var user = await getUser("2@gmail.com", "a123");
+            // define in file functionAboutTokenDistributionForUserManager
+            await getAllTokenForOneUser(user.userAddress);
+            await getTokenForUser(user.userAddress, 4);
+            // await updateTokenForUser(user.userAddress, 4, 0, 0, 300);
+        }
+
+        test();
 
 
         

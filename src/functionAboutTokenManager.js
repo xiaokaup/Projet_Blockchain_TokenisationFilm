@@ -74,11 +74,7 @@ async function buyToken_button(emailInvestor, passwordInvestor, emailProducer, f
     
 }
 
-async function test() {
-    await getUser("2@gmail.com", "a123");
-}
 
-test();
 
 function buyToken_t(emailInvestor, passwordInvestor, emailProducer, filmIndex, oneTokenPrice) {
     // console.log("yang");
