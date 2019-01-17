@@ -64,12 +64,5 @@ function updateTokenAndUser(filmIndex, userAddress, numberAllToken, numberToken_
 
 
 
-async function test() {
-	var t = await getUserForToken(4, await getUserAddressBy_userEmail("3@gmail.com"));
-	console.log(t);
-	console.log(await getToken(4));
-	// var a = await updateTokenAndUser(4, t.userAddress_return, (await getToken(4)).tokenNumber, t.numberToken_thisUser)
-	// console.log(a);
-}
-// test();
+
 

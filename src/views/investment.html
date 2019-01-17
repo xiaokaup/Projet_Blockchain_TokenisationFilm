@@ -136,51 +136,79 @@
             // console.log(emailProducer);
             // console.log(filmIndex);
             // console.log(oneTokenPrice);
-            
+            buyToken_button_data = {
+                "buyTokenNumber": Number(document.getElementById("buyTokenNumberInput_"+filmIndex).value), 
+                "userInvestor": await getUser(emailInvestor, passwordInvestor), 
+                "userAddress_producer": await getUserAddressBy_userEmail(emailProducer), 
 
-            var buyTokenNumber = Number(document.getElementById("buyTokenNumberInput_"+filmIndex).value);
-            // var buyTokenNumber = 1;
-            if(buyTokenNumber >= 0) {
-                console.log("buyTokenNumber:");
-                console.log(buyTokenNumber);
-                var userInvestor = await getUser(emailInvestor, passwordInvestor);
+            };
 
+            buyToken_button_data["userDistributionToken_producer_forUserManager"] = await getTokenForUser(buyToken_button_data.userAddress_producer, filmIndex);
+            buyToken_button_data["userDistributionToken_producer_forTokenManager"] = await getUserForToken(filmIndex, buyToken_button_data.userAddress_producer);
+
+            buyToken_button_data["userDistributionToken_investor_forUserManager"] = await getTokenForUser(buyToken_button_data.userInvestor.userAddress, filmIndex);
+            buyToken_button_data["userDistributionToken_investor_forTokenManager"] = await getUserForToken(filmIndex, buyToken_button_data.userInvestor.userAddress);
+
+
+
+            if(buyToken_button_data.buyTokenNumber >= 0) {
                 // console.log("userInvestor:");
-                // console.log(await getUser(userInvestor.userEmail, "a123"));
-                // console.log((await getUser(userInvestor.userEmail, "a123")).userBalance);
+                // console.log(await getUser(buyToken_button_data.userInvestor.userEmail, "a123"));
+                // console.log((await getUser(buyToken_button_data.userInvestor.userEmail, "a123")).userBalance);
                 // console.log("userProducer:");
                 // console.log(await getUser(emailProducer, "a123"));
                 // console.log((await getUser(emailProducer, "a123")).userBalance);
 
-                
-                var userAddress_producer = await getUserAddressBy_userEmail(emailProducer);
-                var userDistributionToken_producer_forUserManager = await getTokenForUser(userAddress_producer, filmIndex);
-                console.log("userDistributionToken_producer_forUserManager:");
-                console.log(userDistributionToken_producer_forUserManager);
+
+                // console.log("buyTokenNumber:");
+                // console.log(buyToken_button_data.buyTokenNumber);
+
+                // console.log("userDistributionToken_producer_forUserManager:");
+                // console.log(buyToken_button_data.userDistributionToken_producer_forUserManager);
+                // console.log("userDistributionToken_producer_forTokenManager:");
+                // console.log(buyToken_button_data.userDistributionToken_producer_forTokenManager);
 
 
-                var userDistributionToken_producer_forTokenManager = await getUserForToken(filmIndex, userAddress_producer);
-                console.log("userDistributionToken_producer_forTokenManager:");
-                console.log(userDistributionToken_producer_forTokenManager);
+                // console.log("userDistributionToken_investor_forUserManager:");
+                // console.log(buyToken_button_data.userDistributionToken_investor_forUserManager);
 
+                // console.log("userDistributionToken_investor_forTokenManager:");
+                // console.log(buyToken_button_data.userDistributionToken_investor_forTokenManager);
 
-                var userDistributionToken_investor_forUserManager = await getTokenForUser(userInvestor.userAddress, filmIndex);
-                console.log("userDistributionToken_investor_forUserManager:");
-                console.log(userDistributionToken_investor_forUserManager);
+                if(true) {
+                    // BuyToken -> give money from investor to producer
+                    await buyToken(emailInvestor, passwordInvestor, emailProducer, oneTokenPrice, buyToken_button_data.buyTokenNumber);
+                    // Update Distribution of token
+                    // producer
+                    await updateTokenForUser(
+                        buyToken_button_data.userAddress_producer, 
+                        filmIndex, 
+                        0, 
+                        0, 
+                        buyToken_button_data.userDistributionToken_producer_forUserManager.numberToken_user-buyToken_button_data.buyTokenNumber
+                    );
+                    await updateTokenAndUser(
+                        filmIndex, 
+                        buyToken_button_data.userAddress_producer, 
+                        (await getToken(filmIndex)).tokenNumber, 
+                        buyToken_button_data.userDistributionToken_producer_forTokenManager.numberToken_thisUser-buyToken_button_data.buyTokenNumber
+                    );
+                    // Investor
+                    await updateTokenForUser(
+                        buyToken_button_data.userInvestor.userAddress, 
+                        filmIndex, 
+                        0, 
+                        0, 
+                        buyToken_button_data.userDistributionToken_investor_forUserManager.numberToken_user+buyToken_button_data.buyTokenNumber
+                    );
+                    await updateTokenAndUser(
+                        filmIndex, 
+                        buyToken_button_data.userInvestor.userAddress, 
+                        (await getToken(filmIndex)).tokenNumber, 
+                        buyToken_button_data.userDistributionToken_investor_forTokenManager.numberToken_thisUser+buyToken_button_data.buyTokenNumber
+                    );
+                }
 
-                var userDistributionToken_investor_forTokenManager = await getUserForToken(filmIndex, userInvestor.userAddress);
-                console.log("userDistributionToken_investor_forTokenManager:");
-                console.log(userDistributionToken_investor_forTokenManager);
-
-                // BuyToken -> give money from investor to producer
-                await buyToken(emailInvestor, passwordInvestor, emailProducer, oneTokenPrice, buyTokenNumber);
-                // Update Distribution of token
-                // producer
-                await updateTokenForUser(userAddress_producer, filmIndex, 0, 0, userDistributionToken_producer_forUserManager.numberToken_user-buyTokenNumber);
-                await updateTokenAndUser(filmIndex, userAddress_producer, (await getToken(filmIndex)).tokenNumber, userDistributionToken_producer_forTokenManager.numberToken_thisUser-buyTokenNumber);
-                // Investor
-                await updateTokenForUser(userInvestor.userAddress, filmIndex, 0, 0, userDistributionToken_investor_forUserManager.numberToken_user+buyTokenNumber);
-                await updateTokenAndUser(filmIndex, userInvestor.userAddress, (await getToken(filmIndex)).tokenNumber, userDistributionToken_investor_forTokenManager.numberToken_thisUser+buyTokenNumber);
                 
             } else {
                 console.log("buyTokenNumber must be positif");
