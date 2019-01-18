@@ -42,12 +42,43 @@
                 <h6 class="text-muted card-subtitle mb-2" style="color:rgb(0,0,0);background-color:#ffffff;">Use your ethers here and sustain independant pictures!</h6>
 
                 <div id="tokenMarket" class="row"></div>
-                 <!--  <form class='form-inline' style='margin-left: 5px;'>
-                  <div class='form-group mb-6'>
-                    <input type='number' class='form-control-plaintext' id='butTokenNumber' min='1' placeholder='buy token number'>
-                  </div>
-                  <button type='submit' class='btn btn-primary mb-2'>Confirm identity</button>
-                </form> -->
+
+                <!-- <div class="row">
+                    <div class="col-4 py-3 mx-auto col-xl-4 col-lg-6 col-md-6 col-sm-12" style="min-width:300px;min-height:300px;">
+                        <div class="card" style="width:100%;height:100%;"><a href="#"><img class="img-fluid card-img-top" src="assets/img/bourdelle.jpg" style="height:200px;"></a>
+                            <div class="card-body">
+                                <h5>project name</h5>
+                                <p>description</p><span>PRICE</span>
+                            </div>
+                            <div class="card-footer text-center"><small></small><button class="btn btn-primary" type="button" style="width:206px;">BUY</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-4 py-3 mx-auto col-xl-4 col-lg-6 col-md-6 col-sm-12" style="min-width:300px;min-height:300px;">
+                        <div class="card" style="width:100%;height:100%;">
+                            <a href="#"><img class="img-fluid card-img-top" src="assets/img/bourdelle.jpg" style="height:200px;"></a>
+                            <div class="card-body">
+                                <h5>project number: <span>3</span></h5><br>
+                                <p>issue date: <span>1/1/1970</span></p>
+                                <p>maturity date: <span>1/1/1970</span></p>
+                                <p>token number: <span>200</span></p>
+                                <p>token price: <span>10</span></p>
+                                <p>token Recommend: <span>0</span></p>
+                            </div>
+                            <div class="card-footer text-center">
+                                <form class="form-inline" style="margin-left: 10px;">
+                                    <div class="form-group mb-6">
+                                        <input type="number" class="form-control-plaintext" id="buyTokenNumberInput_3" placeholder="buy token number" style="margin-bottom: 10px;">
+                                    </div>
+                                    <button type="button" class="btn btn-primary mb-2" style="margin-left: 15px;" onclick="buyToken_button('3@gmail.com','a123','2@gmail.com','3','10')">Buy</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
 
             </div>
         </div>
@@ -63,6 +94,7 @@
     <script src="../index.2_smartContract_events.js"></script>
     <script src="../index.3_smarContractFunctions.js"></script>
     <script src="../index.4_testFunction.js"></script>
+    <script src="../index.5_toolsFunction.js"></script>
 
     <script src='../functionAboutUserManager.js'></script>
     <script src='../functionAboutFilmManager.js'></script>
@@ -87,6 +119,7 @@
                 block_html += "<div class='col-4 py-3 mx-auto col-xl-4 col-lg-6 col-md-6 col-sm-12' style='min-width:300px;min-height:300px;'>"
                 block_html += "<div class='card' style='width:100%;height:100%;'>";
 
+                block_html += "<img class='img-fluid card-img-top' src='"+random_img(imgs_web)+"' style='height:200px;'>";
                 block_html += "<div class='card-body'>"; 
                 block_html += "<h5>project number: <span>"+oneToken.filmIndex+"</span></h5>"; 
                 block_html += "<br>"; 
@@ -97,14 +130,15 @@
                 block_html += "<p>token Recommend: <span>"+oneToken.tokenRecommend+"</span></p>"; 
                 block_html += "</div>"; 
 
-                block_html += "<hr>"; 
 
                 block_html += 
-                "<form class='form-inline' style='margin-left: 10px;'>"+
-                    "<div class='form-group mb-6'><input type='number' class='form-control-plaintext' id='buyTokenNumberInput_"+oneToken.filmIndex+"' placeholder='buy token number' style='margin-bottom: 10px;'>"+
-                    "</div>"+
-                    "<button type='button' class='btn btn-primary mb-2' style='margin-left: 15px;' onclick=buyToken_button('"+compte_investor.email+"','"+compte_investor.password+"','"+compte_producer.email+"','"+oneToken.filmIndex+"','"+(oneToken.tokenPrice+0.001*oneToken.tokenRecommend)+"')>Buy</button>"+
-                "</form>";
+                "<div class='card-footer text-center'>"+
+                    "<form class='form-inline' style='margin-left: 10px;'>"+
+                        "<div class='form-group mb-6'><input type='number' class='form-control-plaintext' id='buyTokenNumberInput_"+oneToken.filmIndex+"' placeholder='buy token number' style='margin-bottom: 10px;'>"+
+                        "</div>"+
+                        "<button type='button' class='btn btn-primary mb-2' style='margin-left: 15px;' onclick=buyToken_button('"+compte_investor.email+"','"+compte_investor.password+"','"+compte_producer.email+"','"+oneToken.filmIndex+"','"+(oneToken.tokenPrice+0.001*oneToken.tokenRecommend)+"')>Buy</button>"+
+                    "</form>"+ 
+                "</div>";
                 block_html += "</div></div></div>";
             }
 
