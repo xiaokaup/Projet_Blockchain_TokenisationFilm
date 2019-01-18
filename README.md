@@ -25,6 +25,7 @@ GitHub https://github.com/JieanYang/Projet_Blockchain_TokenisationFilm
   Top up Ethereum to enter account in MetaMask https://faucet.metamask.io/
 - Remix http://remix.ethereum.org/
 - Infura https://infura.io/
+- JavaScript -> async/await, Promise
 
 #### Architecture of application:
 ![Img_architectureApplication](https://raw.githubusercontent.com/JieanYang/Projet_Blockchain_TokenisationFilm/master/ArchitectureConception/ArchitectureApplication.png)
