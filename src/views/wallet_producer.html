@@ -53,8 +53,8 @@
                 <h2 class="text-center">My ICO's</h2>
                 <p class="text-center">Here are your investment !</p>
             </div>
-            <div class="row articles">
-                <div class="col-sm-6 col-md-4 flex-wrap item">
+            <div class="row articles" id="listTokens_forProducer">
+                <!-- <div class="col-sm-6 col-md-4 flex-wrap item">
                     <a href="#"><img class="img-fluid" src="assets/img/desk.jpg"></a>
                     <h5>project number: <span>3</span></h5><br>
                     <p>issue date: <span>1/1/1970</span></p>
@@ -62,7 +62,7 @@
                     <p>investor's token number: <span>100</span></p>
                     <p>token price: <span>10</span></p>
                     <p>token Recommend: <span>0</span></p>
-                    <button type="button" class="btn btn-primary mb-2" onclick="finishToken();">Finish token</button>
+                    <button type="button" class="btn btn-primary mb-2" onclick="finishToken(filmIndex);">Finish token</button>
                 </div>
                 <div class="col-sm-6 col-md-4 item">
                     <a href="#"><img class="img-fluid" src="assets/img/building.jpg"></a>
@@ -73,7 +73,7 @@
                     <a href="#"><img class="img-fluid" src="assets/img/loft.jpg"></a>
                     <h3 class="name">MovieTitle3</h3>
                     <p class="description">ico data 2</p><a href="#" class="action"></a>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="container">
@@ -148,15 +148,42 @@
 
     
     <script type="text/javascript">
-        async function showListOfTokenMarket_forProducer() {
-            var listTokens_forProducer = await returnListToken_forProducer();
-            
+        async function showListOfTokenMarket_forProducer(compte_producer, div_id, returnDataFunction) {
+            var listTokens_forProducer = await returnDataFunction();
+
             console.log("yang");
-            console.log(listTokens_forProducer)
+            console.log(listTokens_forProducer);
+            var block = document.getElementById(div_id);
+
+            block_html = "";
+
+            for(var item in listTokens_forProducer) {
+                var oneTokenProducer = listTokens_forProducer[item]
+                // console.log(oneTokenProducer);
+
+                var distributionProducer = await getTokenForUser(await getUserAddressBy_userEmail(compte_producer.email), oneTokenProducer.filmIndex); 
+                // console.log(distributionProducer);
+
+                block_html += 
+                "<div class='col-sm-6 col-md-4 flex-wrap item'>"+
+                    "<img class='img-fluid' src='"+random_img(imgs_web)+"'>"+
+                    "<h5>project number: <span>"+oneTokenProducer.filmIndex+"</span></h5><br>"+
+                    "<p>issue date: <span>"+oneTokenProducer.filmIssueDate+"</span></p>"+
+                    "<p>maturity date: <span>"+oneTokenProducer.filmMaturity+"</span></p>"+
+                    "<p>token budget: <span>"+oneTokenProducer.tokenNumber*oneTokenProducer.tokenPrice+"</span></p>"+
+                    "<p>total token number: <span>"+oneTokenProducer.tokenNumber+"</span></p>"+
+                    "<p>investor's token number: <span>"+(oneTokenProducer.tokenNumber-distributionProducer.numberToken_user)+"</span></p>"+
+                    "<p>token price current: <span>"+(oneTokenProducer.tokenPrice+0.001*oneTokenProducer.tokenRecommend)+"</span></p>"+
+                    "<p>token Recommend: <span>"+oneTokenProducer.tokenRecommend+"</span></p>"+
+                    "<button type='button' class='btn btn-primary mb-2' onclick='finishToken("+oneTokenProducer.filmIndex+");'>Finish token</button>"+
+                "</div>";
+            }
+
+            block.innerHTML = block_html;
 
         }
 
-        async function returnListToken_forProducer() {
+        async function returnListTokens_forProducer() {
             var listTokens_forProducer = [];
 
             var numberFilm = await getNumberFilm(); 
@@ -181,8 +208,13 @@
 
 
     <script>
+        var compte_producer = {
+            "email": "2@gmail.com", 
+            "password": "a123"
+        }
+
         // profil(userManager);
-        showListOfTokenMarket_forProducer();
+        showListOfTokenMarket_forProducer(compte_producer, "listTokens_forProducer", async ()=>{return await returnListTokens_forProducer()});
 
     </script>
 
