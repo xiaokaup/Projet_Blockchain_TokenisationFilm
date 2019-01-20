@@ -163,6 +163,14 @@ contract UserManager {
         return true;
     }
 
+    function finishToken(string userEmailProducer, string userPassword, string userEmailInvestor, uint amountTokens) public returns(bool success) {
+        if(!isUser(userEmailProducer, userPassword)) revert();
+
+        sendTokenEthereum(userEmailProducer, userEmailInvestor, amountTokens);
+        operationUser("finishToken", true);
+        return true;
+    }
+
     /* Transfer tokens to another account for payment */
     function sendTokenEthereum(string _from, string _to, uint256 _value) private returns(bool success) {
         require(userStructs[_from].userBalance >= _value 
