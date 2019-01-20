@@ -16,6 +16,33 @@ function getNumberFilm() {
     });
 }
 
+function getFilm(filmIndex) {
+    return new Promise((resolve, reject) => {
+        filmManager.getFilm(filmIndex, (error, response) => {
+            if(!error) {
+                console.log("getFilm("+filmIndex+")_success:");
+                var filmInfo = 
+                { 
+                    "filmIndex": filmIndex, 
+                    "filmName": response[0], 
+                    "filmDescription": response[1], 
+                    "filmImageUrl": response[2], 
+                    "filmUrl": response[3], 
+                    "filmPrice": response[4].c[0], 
+                    "filmNumberVoir": response[5].c[0], 
+                    "filmNotation": response[6].c[0], 
+                                        
+                };
+                // console.log(response);
+                resolve(filmInfo);
+            } else {
+                console.log("getFilm("+filmIndex+")_error:");
+                reject(error);
+            }
+        });
+    });
+}
+
 
 
 function getFilmInfo_published_ico_producer(filmIndex) {

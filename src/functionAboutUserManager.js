@@ -25,6 +25,21 @@ function getUser(userEmail, userPassword) {
     });
 }
 
+function updateUser(userEmail, userPassword, userAddress, userName, userIdentity, userBalance) {
+    return new Promise((resolve, reject) => {
+        userManager.updateUser(userEmail, userPassword, userAddress, userName, userIdentity, userBalance, (error, response) => {
+            if(!error) {
+                console.log("updateUser("+[userEmail, userPassword, userAddress, userName, userIdentity, userBalance].join()+")_success:");
+
+                resolve(response);
+            } else {
+                console.log("updateUser("+[userEmail, userPassword, userAddress, userName, userIdentity, userBalance].join()+")_error:");
+                reject(error);
+            }
+        });
+    });
+}
+
 function getUserAddressBy_userEmail(userEmail) {
     return new Promise((resolve, reject) => {
         userManager.getUserAddressBy_userEmail(userEmail, (error, response) => {
@@ -50,6 +65,21 @@ function buyToken(userEmail, userPassword, userEmailProducer, tokenPrice, buyTok
                 resolve(response);
             } else {
                 console.log("buyToken("+[userEmail, userPassword, userEmailProducer, tokenPrice, buyTokenNumber].join()+")_error:")
+                reject(error);
+            }
+        });
+    });
+}
+
+function finishToken(userEmailProducer, userPassword, userEmailInvestor, amountTokens) {
+    return new Promise((resolve, reject) => {
+        userManager.finishToken(userEmailProducer, userPassword, userEmailInvestor, amountTokens, (error, response) => {
+            if(!error) {
+                console.log("finishToken("+[userEmailProducer, userPassword, userEmailInvestor, amountTokens].join()+")_success:")
+                // console.log(response);
+                resolve(response);
+            } else {
+                console.log("finishToken("+[userEmailProducer, userPassword, userEmailInvestor, amountTokens].join()+")_error:")
                 reject(error);
             }
         });

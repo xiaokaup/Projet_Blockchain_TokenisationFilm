@@ -10,9 +10,10 @@ function getTokenAndAllUsers(filmIndex) {
             if(!error) {
                 console.log("getTokenAndAllUsers("+[filmIndex].join()+")_success:")
                 var distributionForThisToken = {
-                	"index_filmIndexes": response[0].c[0], 
+                    "index_filmIndexes": response[0].c[0], 
+                    "filmIndex": filmIndex, 
                 	// "numberAllToken": response[1].c[0], 
-                	"BoughtUserAddresses": response[2], 
+                	"boughtUserAddresses": response[2], 
                 }
                 // console.log(distributionForThisToken);
                 resolve(distributionForThisToken);
