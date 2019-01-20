@@ -61,3 +61,20 @@ function updateTokenForUser(userAddress, filmIndex, numberTokenPocket, numberTok
 		});
 	});
 }
+
+
+function deleteToken_DIstributionForUserManager(userAddress, filmIndex) {
+	return new Promise((resolve, reject) => {
+		tokenDistributionForUserManager.deleteToken_DIstributionForUserManager(userAddress, filmIndex, (error, response) => {
+			if(!error) {
+				console.log("deleteToken_DIstributionForUserManager("+[userAddress, filmIndex].join()+")_success:");
+				
+				// console.log(response);
+				resolve(response);
+			} else {
+				console.log("deleteToken_DIstributionForUserManager("+[userAddress, filmIndex].join()+")_error:");
+				reject(error);
+			}
+		});
+	});
+}

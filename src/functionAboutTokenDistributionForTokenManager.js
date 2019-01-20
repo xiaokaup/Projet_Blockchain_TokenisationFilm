@@ -63,6 +63,22 @@ function updateTokenAndUser(filmIndex, userAddress, numberAllToken, numberToken_
 }
 
 
+function deleteToken_DistributionForTokenManager(filmIndex) {
+    return new Promise((resolve, reject) => {
+        tokenDistributionForTokenManager.deleteToken(filmIndex, (error, response) => {
+            if(!error) {
+                console.log("deleteToken_DistributionForTokenManager("+[filmIndex].join()+")_success:")
+                // console.log(distributionForThisUserThisToken);
+                resolve(response);
+            } else {
+                console.log("deleteToken_DistributionForTokenManager("+[filmIndex].join()+")_error:")
+                reject(error);
+            }
+        });
+    });
+}
+
+
 
 
 

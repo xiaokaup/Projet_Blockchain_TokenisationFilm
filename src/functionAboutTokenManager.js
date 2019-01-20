@@ -61,5 +61,20 @@ function getToken(filmIndex) {
 
 
 
+function deleteToken_TokenManager(filmIndex) {
+    return new Promise((resolve, reject) => {
+        tokenManager.deleteToken(filmIndex, (error, response) => {
+            if(!error) {
+                console.log("deleteToken_TokenManager("+[filmIndex].join()+")_success:")
+                // console.log(distributionForThisUserThisToken);
+                resolve(response);
+            } else {
+                console.log("deleteToken_TokenManager("+[filmIndex].join()+")_error:")
+                reject(error);
+            }
+        });
+    });
+}
+
 
    
