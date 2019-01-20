@@ -52,8 +52,8 @@ contract FilmManager {
         insertFilm("film_2", "filmDescription_2", "imageUrl.com_2", "url.com_2", 5, 0, 0, true, false, 0x583031d1113ad414f02576bd6afabfb302140225);
         insertFilm("film_3", "filmDescription_3", "imageUrl.com_3", "url.com_3", 30, 0, 0, true, false, 0x583031d1113ad414f02576bd6afabfb302140225);
         // ICO => index_filmIndexes = 3, 4
-        insertFilm("film_4", "filmDescription_4", "imageUrl.com_4", "url.com_4", 0, 0, 0, false, true, 0x583031d1113ad414f02576bd6afabfb302140225);
-        insertFilm("film_5", "filmDescription_5", "imageUrl.com_5", "url.com_5", 0, 0, 0, false, true, 0x583031d1113ad414f02576bd6afabfb302140225);
+        insertFilm("film_4", "filmDescription_4", "imageUrl.com_4", "url.com_4", 1, 0, 0, false, true, 0x583031d1113ad414f02576bd6afabfb302140225);
+        insertFilm("film_5", "filmDescription_5", "imageUrl.com_5", "url.com_5", 1, 0, 0, false, true, 0x583031d1113ad414f02576bd6afabfb302140225);
     }
 
     // verify the existence of film

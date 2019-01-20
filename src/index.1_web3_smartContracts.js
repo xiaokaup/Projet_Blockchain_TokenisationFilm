@@ -12,7 +12,7 @@ web3.eth.defaultAccount = web3.eth.accounts[0];
 
 
 // prepare smartContracts
-var userManagerContrat_address = "0x848aa49a062e0a48fdc1ebda5085bdd1695c6f62";
+var userManagerContrat_address = "0x5c057c20836158286cd0e2292feb3d0b8fb43c12";
 var userManagerContrat_abi = 
     [
         {
@@ -425,7 +425,7 @@ var userManagerContrat_abi =
         }
     ];
 
-var filmManagerContrat_address = "0x3f9f41aae954958b64bc661205631dc2dddd0b0e";
+var filmManagerContrat_address = "0xf913968fd46a96307b7c609c45c40fdf43d77560";
 var filmManagerContrat_abi = 
     [
         {
@@ -773,7 +773,7 @@ var filmManagerContrat_abi =
         }
     ];
 
-var tokenManagerContrat_address = "0xeddc660d5e30915c0c2c1789c84c34e21c2e27a1";
+var tokenManagerContrat_address = "0x098c2e73f15a50c9539a43efaeffddf69bc4b6ad";
 var tokenManagerContrat_abi = 
     [
         {
@@ -1031,7 +1031,7 @@ var tokenManagerContrat_abi =
         }
     ];
 
-var tokenDistributionForUserManager_address = "0xaacda04994448f3f82b8be2db1ea81e8861838af";
+var tokenDistributionForUserManager_address = "0xec72fd65d14e5fa6a236e29fa06e6153f78136e2";
 var tokenDistributionForUserManager_abi = 
     [
         {
@@ -1293,7 +1293,7 @@ var tokenDistributionForUserManager_abi =
         }
     ];
 
-var tokenDistributionForTokenManager_address = "0x319aec001de0c1cc683b11f6742cdfab4939150e";
+var tokenDistributionForTokenManager_address = "0xa004fb5fa57ad68184bb11db0bebcd88a646cad0";
 var tokenDistributionForTokenManager_abi = 
     [
         {
