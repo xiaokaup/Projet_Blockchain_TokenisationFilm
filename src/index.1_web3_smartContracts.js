@@ -12,7 +12,7 @@ web3.eth.defaultAccount = web3.eth.accounts[0];
 
 
 // prepare smartContracts
-var userManagerContrat_address = "0xe6b78f0ab02d69737480debfe3b810e9f3bbab7a";
+var userManagerContrat_address = "0x848aa49a062e0a48fdc1ebda5085bdd1695c6f62";
 var userManagerContrat_abi = 
     [
         {

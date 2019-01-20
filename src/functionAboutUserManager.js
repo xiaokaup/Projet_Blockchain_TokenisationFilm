@@ -1,4 +1,21 @@
 
+// ======================================================================
+// from About userManager smartContract
+function getNumberUser() {
+    return new Promise((resolve, reject) => {
+        userManager.getNumberUser((error,response) => {
+            if(!error){
+                console.log("getNumberUser_success -> numberToken :");
+                resolve(response.c[0]);
+            } else {     
+                console.log("getNumberUser_error:");
+                reject(error);
+            }
+        });
+    });
+}
+
+
 function getUser(userEmail, userPassword) {
     return new Promise((resolve, reject) => {
         userManager.getUser(userEmail, userPassword, (error, response) => {
@@ -34,6 +51,21 @@ function updateUser(userEmail, userPassword, userAddress, userName, userIdentity
                 resolve(response);
             } else {
                 console.log("updateUser("+[userEmail, userPassword, userAddress, userName, userIdentity, userBalance].join()+")_error:");
+                reject(error);
+            }
+        });
+    });
+}
+
+function getByIndex_userIndexEmails(index_userIndexEmails) {
+    return new Promise((resolve, reject) => {
+        userManager.getByIndex_userIndexEmails(index_userIndexEmails, (error, response) => {
+            if(!error) {
+                console.log("getByIndex_userIndexEmails("+[index_userIndexEmails].join()+")_success:")
+                // console.log(response);
+                resolve(response);
+            } else {
+                console.log("getByIndex_userIndexEmails("+[index_userIndexEmails].join()+")_error:")
                 reject(error);
             }
         });
