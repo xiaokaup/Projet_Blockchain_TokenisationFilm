@@ -150,9 +150,7 @@
     <script type="text/javascript">
         async function showListOfTokenMarket_forProducer(compte_producer, div_id, returnDataFunction) {
             var listTokens_forProducer = await returnDataFunction();
-
-            console.log("yang");
-            console.log(listTokens_forProducer);
+            // console.log(listTokens_forProducer);
             var block = document.getElementById(div_id);
 
             block_html = "";
@@ -166,21 +164,22 @@
 
                 block_html += 
                 "<div class='col-sm-6 col-md-4 flex-wrap item'>"+
-                    "<img class='img-fluid' src='"+random_img(imgs_web)+"'>"+
+                    "<img class='img-fluid' src='"+random_img(imgs_web)+"' style='height:139.78px;'>"+
                     "<h5>project number: <span>"+oneTokenProducer.filmIndex+"</span></h5><br>"+
                     "<p>issue date: <span>"+oneTokenProducer.filmIssueDate+"</span></p>"+
                     "<p>maturity date: <span>"+oneTokenProducer.filmMaturity+"</span></p>"+
                     "<p>token budget: <span>"+oneTokenProducer.tokenNumber*oneTokenProducer.tokenPrice+"</span></p>"+
                     "<p>total token number: <span>"+oneTokenProducer.tokenNumber+"</span></p>"+
                     "<p>investor's token number: <span>"+(oneTokenProducer.tokenNumber-distributionProducer.numberToken_user)+"</span></p>"+
-                    "<p>token price current: <span>"+(oneTokenProducer.tokenPrice+0.001*oneTokenProducer.tokenRecommend)+"</span></p>"+
+                    "<p>token price current: <span>"+(oneTokenProducer.tokenPrice+1*oneTokenProducer.tokenRecommend)+"</span></p>"+
                     "<p>token Recommend: <span>"+oneTokenProducer.tokenRecommend+"</span></p>"+
-                    "<button type='button' class='btn btn-primary mb-2' onclick='finishToken("+oneTokenProducer.filmIndex+");'>Finish token</button>"+
+                    "<button type='button' class='btn btn-primary mb-2' onclick=\"finishToken_pageProducer('"+oneTokenProducer.filmIndex+"');\">Finish token</button>"+
                 "</div>";
             }
 
             block.innerHTML = block_html;
 
+            finishToken_pageProducer('4');
         }
 
         async function returnListTokens_forProducer() {
@@ -204,6 +203,112 @@
 
             return listTokens_forProducer;
         }
+
+        async function finishToken_pageProducer(filmIndex) {
+            // console.log(filmIndex);
+
+            var filmInfo = await getFilm(filmIndex);
+            console.log(filmInfo);
+            var filmInfo_Ico = await getFilmInfo_published_ico_producer(filmIndex);
+            console.log(filmInfo_Ico);
+            var tokenInfo = await getToken(filmIndex);
+            console.log(tokenInfo);
+
+            var userAddressProducer = filmInfo_Ico.userAddressProducer;
+            var distributionUserAddress_forOneToken = (await getTokenAndAllUsers(filmIndex)).boughtUserAddresses;
+            // console.log(distributionUserAddress_forOneToken);
+
+            var distributionUser_forOneToken = await sumDistribution(filmIndex, distributionUserAddress_forOneToken, userAddressProducer, tokenInfo.tokenNumber, tokenInfo.tokenPrice+1*tokenInfo.tokenRecommend);
+            // console.log(distributionUser_forOneToken);
+
+            // get producer info
+            // var user = await getUser(compte_producer.email, compte_producer.password);
+            // console.log(user);
+            // console.log(await updateUser(compte_producer.email, compte_producer.password, user.userAddress, user.userName, user.userIdentity, 100000));
+            
+            
+
+            // pay back many
+            // await payBackInvestor(compte_producer.email, compte_producer.password, distributionUser_forOneToken);
+
+
+            await deleteTokenInDistribution(distributionUser_forOneToken);
+
+
+
+        }
+
+        async function sumDistribution(filmIndex, distributionUser_forOneToken, userAddressProducer, tokenNumberTotal, tokenPriceCurrent) {
+            var sum = {
+                "filmIndex": filmIndex, 
+                "tokenNumberTotal": tokenNumberTotal, 
+                "tokenPriceCurrent": tokenPriceCurrent, 
+                "distributionUser": []
+            };
+
+            var list_email_and_address = await getList_email_and_address();
+            // console.log(list_email_and_address)
+
+            // user info
+            for(var item in distributionUser_forOneToken) {
+                var userAddress = distributionUser_forOneToken[item];
+                var token_user = await getTokenForUser(userAddress, filmIndex);
+                // console.log(token_user);
+                oneUser = {
+                    "identity": (token_user.userAddress == userAddressProducer)? "producer" : "consumer", 
+                    "userAddress": token_user.userAddress, 
+                    "numberToken_user": token_user.numberToken_user, 
+                };
+
+                // add userEmail
+                for(var item in list_email_and_address) {
+                    var element = list_email_and_address[item];
+                    if(element.userAddress == oneUser.userAddress) {
+                        oneUser.userEmail = element.userEmail;
+                    }
+                }
+
+                sum.distributionUser.push(oneUser);
+            }
+
+            // calculate the money pay back
+            for(var item in sum.distributionUser) {
+                var token_user = sum.distributionUser[item];
+                if(token_user == "producer") {
+                    sum.distributionUser[item].changeMoney = tokenPriceCurrent*(sum.tokenNumberTotal-token_user.numberToken_user);
+                } else {
+                    sum.distributionUser[item].changeMoney = tokenPriceCurrent*token_user.numberToken_user;
+                }
+            }
+
+            // console.log(sum);
+            return sum;
+        }
+
+        async function payBackInvestor(userEmailProducer, userPassword, distributionUser_forOneToken) {
+            console.log(distributionUser_forOneToken);
+            var users = distributionUser_forOneToken.distributionUser;
+            for(var item in users) {
+                // console.log(users[item]);
+                if(users[item].identity == "consumer") {
+                    var consumer = users[item];
+                    // console.log(consumer);
+
+                    // pay back many
+                    await finishToken(userEmailProducer, userPassword, consumer.userEmail, consumer.changeMoney);
+                }
+            }
+        }
+
+        async function deleteTokenInDistribution(distributionUser_forOneToken) {
+            console.log(distributionUser_forOneToken);
+            
+        }
+
+        
+
+
+
     </script>
 
 
@@ -215,6 +320,7 @@
 
         // profil(userManager);
         showListOfTokenMarket_forProducer(compte_producer, "listTokens_forProducer", async ()=>{return await returnListTokens_forProducer()});
+
 
     </script>
 

@@ -23,8 +23,29 @@ function profil(userManager) {
         //var resultat = result;
         //document.getElementById(balance).innerHTML = resultat; 
     });
-   
-
 }
+
+
+async function getList_email_and_address() {
+    // console.log("yang");
+    // console.log(userAddress);
+    var list_email_and_address = [];
+
+    var userNumber = await getNumberUser();
+    for(i=0; i<userNumber; i++) {
+        var userEmail = await getByIndex_userIndexEmails(i);
+        // console.log(userEmail);
+        var userAddress = await getUserAddressBy_userEmail(userEmail);
+        // console.log(userAddress);
+        
+        list_email_and_address.push({
+            "userEmail": userEmail, 
+            "userAddress": userAddress, 
+        });
+    }
+
+    return list_email_and_address;
+}
+
 
 
