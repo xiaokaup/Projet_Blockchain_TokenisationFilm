@@ -24,19 +24,19 @@ contract TokenDistributionForTokenManager {
     /* Constructor */
     function TokenDistributionForTokenManager() public {
         // insertToken(filmIndex, numberAllToken)
-        insertToken(3,300);
         insertToken(4,400);
+        insertToken(5,300);
 
         // insertUserForToken(filmIndex, userAddress, numberToken_thisUser)
         // producer
-        insertUserForToken(3, 0x583031d1113ad414f02576bd6afabfb302140225, 150);
         insertUserForToken(4, 0x583031d1113ad414f02576bd6afabfb302140225, 300);
+        insertUserForToken(5, 0x583031d1113ad414f02576bd6afabfb302140225, 150);
         // investor
-        insertUserForToken(3, 0xdd870fa1b7c4700f2bd7f44238821c26f7392148, 20);
         insertUserForToken(4, 0xdd870fa1b7c4700f2bd7f44238821c26f7392148, 40);
+        insertUserForToken(5, 0xdd870fa1b7c4700f2bd7f44238821c26f7392148, 20);
         
-        insertUserForToken(3,0xe33ae12a297568c8f42727cffbbaef6e2d5040b3,30);
         insertUserForToken(4,0xe33ae12a297568c8f42727cffbbaef6e2d5040b3,60);
+        insertUserForToken(5,0xe33ae12a297568c8f42727cffbbaef6e2d5040b3,30);
     }
 
 
