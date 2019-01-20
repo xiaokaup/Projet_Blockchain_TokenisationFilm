@@ -170,6 +170,7 @@
                     "<p>maturity date: <span>"+oneTokenProducer.filmMaturity+"</span></p>"+
                     "<p>token budget: <span>"+oneTokenProducer.tokenNumber*oneTokenProducer.tokenPrice+"</span></p>"+
                     "<p>total token number: <span>"+oneTokenProducer.tokenNumber+"</span></p>"+
+                    "<p>producer's token number: <span>"+distributionProducer.numberToken_user+"</span></p>"+
                     "<p>investor's token number: <span>"+(oneTokenProducer.tokenNumber-distributionProducer.numberToken_user)+"</span></p>"+
                     "<p>token price current: <span>"+(oneTokenProducer.tokenPrice+1*oneTokenProducer.tokenRecommend)+"</span></p>"+
                     "<p>token Recommend: <span>"+oneTokenProducer.tokenRecommend+"</span></p>"+
@@ -179,7 +180,6 @@
 
             block.innerHTML = block_html;
 
-            finishToken_pageProducer('4');
         }
 
         async function returnListTokens_forProducer() {
@@ -221,19 +221,18 @@
             var distributionUser_forOneToken = await sumDistribution(filmIndex, distributionUserAddress_forOneToken, userAddressProducer, tokenInfo.tokenNumber, tokenInfo.tokenPrice+1*tokenInfo.tokenRecommend);
             // console.log(distributionUser_forOneToken);
 
-            // get producer info
-            // var user = await getUser(compte_producer.email, compte_producer.password);
-            // console.log(user);
-            // console.log(await updateUser(compte_producer.email, compte_producer.password, user.userAddress, user.userName, user.userIdentity, 100000));
-            
-            
 
             // pay back many
-            // await payBackInvestor(compte_producer.email, compte_producer.password, distributionUser_forOneToken);
+            await payBackInvestor(compte_producer.email, compte_producer.password, distributionUser_forOneToken);
 
+            // Distribution
+            await deleteTokenDistribution(distributionUser_forOneToken);
 
-            await deleteTokenInDistribution(distributionUser_forOneToken);
+            // tokenManager
+            await deleteToken_TokenManager(filmIndex)
 
+            // publish film
+            await publishFilm(filmIndex);
 
 
         }
@@ -300,9 +299,32 @@
             }
         }
 
-        async function deleteTokenInDistribution(distributionUser_forOneToken) {
+        async function deleteTokenDistribution(distributionUser_forOneToken) {
             console.log(distributionUser_forOneToken);
+            var filmIndex = distributionUser_forOneToken.filmIndex;
+            var distributionUser = distributionUser_forOneToken.distributionUser;
             
+            for(var item in distributionUser) {
+                console.log(distributionUser[item]);
+                // DistributionForUserManager
+                await deleteToken_DistributionForUserManager(distributionUser[item].userAddress, filmIndex);
+            }
+
+            // DistributionForTokenManager
+            await deleteToken_DistributionForTokenManager(filmIndex);
+
+            
+        }
+
+        async function publishFilm(filmIndex) {
+            var filmInfo = await getFilm(filmIndex);
+            console.log(filmInfo);
+            var filmInfo_Ico = await getFilmInfo_published_ico_producer(filmIndex);
+            filmInfo_Ico.filmPublished = true;
+            filmInfo_Ico.filmIco = false;
+            console.log(filmInfo_Ico);
+
+            await updateFilm(filmInfo.filmIndex, filmInfo.filmName, filmInfo.filmDescription, filmInfo.filmImageUrl, filmInfo.filmUrl, filmInfo.filmPrice, filmInfo.filmNumberVoir, filmInfo.filmNotation, filmInfo_Ico.filmPublished, filmInfo_Ico.filmIco);
         }
 
         
