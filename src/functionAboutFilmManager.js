@@ -43,8 +43,6 @@ function getFilm(filmIndex) {
     });
 }
 
-
-
 function getFilmInfo_published_ico_producer(filmIndex) {
     return new Promise((resolve, reject) => {
         filmManager.getFilmInfo_published_ico_producer(filmIndex, (error, response) => {
@@ -67,6 +65,22 @@ function getFilmInfo_published_ico_producer(filmIndex) {
         });
     });
 }
+
+function updateFilm(filmIndex, filmName, filmDescription, filmImageUrl, filmUrl, filmPrice, filmNumberVoir, filmNotation, filmPublished, filmIco) {
+    return new Promise((resolve, reject) => {
+        filmManager.updateFilm(filmIndex, filmName, filmDescription, filmImageUrl, filmUrl, filmPrice, filmNumberVoir, filmNotation, filmPublished, filmIco, (error, response) => {
+            if(!error) {
+                console.log("updateFilm("+[filmIndex, filmName, filmDescription, filmImageUrl, filmUrl, filmPrice, filmNumberVoir, filmNotation, filmPublished, filmIco].join()+")_success:");
+                // console.log(response);
+                resolve(response);
+            } else {
+                console.log("updateFilm("+[filmIndex, filmName, filmDescription, filmImageUrl, filmUrl, filmPrice, filmNumberVoir, filmNotation, filmPublished, filmIco].join()+")_error:");
+                reject(error);
+            }
+        });
+    });
+}
+
 
 
 function getByIndex_filmIndexes_filmManager(index_filmIndexes) {
