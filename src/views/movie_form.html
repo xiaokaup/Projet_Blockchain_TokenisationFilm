@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
@@ -33,7 +33,7 @@
 <body>        
     <div>
         <nav class="navbar navbar-light navbar-expand-md navigation-clean">
-            <div class="container"><a class="navbar-brand" href="waller_producer.html">Username</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div id="username" class="navbar-brand"></div><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                 <div
                     class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav ml-auto"></ul>
@@ -101,9 +101,11 @@
     <script src='../functionAboutTokenDistributionForUserManager.js'></script>
     <script src='../functionAboutTokenDistributionForTokenManager.js'></script>
 
+
+
 <script> 
     // prepare smartContracts
-   
+   console.log(userManager)
     console.log("contract_filmManager:");
     console.log(filmManager);
     
@@ -147,6 +149,10 @@
             });
     }
     </script>
+
+     <script>
+         profil_username(userManager);
+     </script>
 
 </body>
 

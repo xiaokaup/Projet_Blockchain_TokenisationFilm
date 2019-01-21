@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
@@ -26,11 +26,11 @@
 <body>
     <div>
         <nav class="navbar navbar-light navbar-expand-md navigation-clean">
-            <div class="container"><a class="navbar-brand" href="wallet_consumer.html">Username</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-                <div
-                    class="collapse navbar-collapse" id="navcol-1">
+            <div class="container">
+                <div id="username" class="navbar-brand" ></div> <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav ml-auto"></ul>
-            </div>
+                </div>
             </div>
         </nav>
 
@@ -110,8 +110,8 @@
             // view
             var block = document.getElementById(block_id);
             var block_html = "";
-            
-            for(var item in allToken) {
+
+            for (var item in allToken) {
                 // console.log(allToken[item]);
                 var oneToken = allToken[item];
 
@@ -119,26 +119,26 @@
                 block_html += "<div class='col-4 py-3 mx-auto col-xl-4 col-lg-6 col-md-6 col-sm-12' style='min-width:300px;min-height:300px;'>"
                 block_html += "<div class='card' style='width:100%;height:100%;'>";
 
-                block_html += "<img class='img-fluid card-img-top' src='"+random_img(imgs_web)+"' style='height:200px;'>";
-                block_html += "<div class='card-body'>"; 
-                block_html += "<h5>project number: <span>"+oneToken.filmIndex+"</span></h5>"; 
-                block_html += "<br>"; 
-                block_html += "<p>issue date: <span>"+oneToken.filmIssueDate+"</span></p>"; 
-                block_html += "<p>maturity date: <span>"+oneToken.filmMaturity+"</span></p>"; 
-                block_html += "<p>token number: <span>"+oneToken.tokenNumber+"</span></p>"; 
-                block_html += "<p>token price: <span>"+(oneToken.tokenPrice+1*oneToken.tokenRecommend)+"</span></p>"; 
-                block_html += "<p>token Recommend: <span>"+oneToken.tokenRecommend+"</span></p>"; 
-                block_html += "</div>"; 
+                block_html += "<img class='img-fluid card-img-top' src='" + random_img(imgs_web) + "' style='height:200px;'>";
+                block_html += "<div class='card-body'>";
+                block_html += "<h5>project number: <span>" + oneToken.filmIndex + "</span></h5>";
+                block_html += "<br>";
+                block_html += "<p>issue date: <span>" + oneToken.filmIssueDate + "</span></p>";
+                block_html += "<p>maturity date: <span>" + oneToken.filmMaturity + "</span></p>";
+                block_html += "<p>token number: <span>" + oneToken.tokenNumber + "</span></p>";
+                block_html += "<p>token price: <span>" + (oneToken.tokenPrice + 1 * oneToken.tokenRecommend) + "</span></p>";
+                block_html += "<p>token Recommend: <span>" + oneToken.tokenRecommend + "</span></p>";
+                block_html += "</div>";
 
 
-                block_html += 
-                "<div class='card-footer text-center'>"+
-                    "<form class='form-inline' style='margin-left: 10px;'>"+
-                        "<div class='form-group mb-6'><input type='number' class='form-control-plaintext' id='buyTokenNumberInput_"+oneToken.filmIndex+"' placeholder='buy token number' style='margin-bottom: 10px;'>"+
-                        "</div>"+
-                        "<button type='button' class='btn btn-primary mb-2' style='margin-left: 15px;' onclick=buyToken_button('"+compte_investor.email+"','"+compte_investor.password+"','"+compte_producer.email+"','"+oneToken.filmIndex+"','"+(oneToken.tokenPrice+0.001*oneToken.tokenRecommend)+"')>Buy</button>"+
-                    "</form>"+ 
-                "</div>";
+                block_html +=
+                    "<div class='card-footer text-center'>" +
+                    "<form class='form-inline' style='margin-left: 10px;'>" +
+                    "<div class='form-group mb-6'><input type='number' class='form-control-plaintext' id='buyTokenNumberInput_" + oneToken.filmIndex + "' placeholder='buy token number' style='margin-bottom: 10px;'>" +
+                    "</div>" +
+                    "<button type='button' class='btn btn-primary mb-2' style='margin-left: 15px;' onclick=buyToken_button('" + compte_investor.email + "','" + compte_investor.password + "','" + compte_producer.email + "','" + oneToken.filmIndex + "','" + (oneToken.tokenPrice + 0.001 * oneToken.tokenRecommend) + "')>Buy</button>" +
+                    "</form>" +
+                    "</div>";
                 block_html += "</div></div></div>";
             }
 
@@ -149,10 +149,10 @@
         async function returnListToken() {
             var listToken = [];
 
-            var numbertoken = await getNumberToken(); 
+            var numbertoken = await getNumberToken();
             // console.log(numbertoken);
 
-            for(var i =0; i < numbertoken; i++) {
+            for (var i = 0; i < numbertoken; i++) {
                 var filmIndex = await getByIndex_filmIndexes(i);
                 // console.log(filmIndex);
                 var response = await getToken(filmIndex);
@@ -163,20 +163,20 @@
             return listToken;
         }
 
-                
+
         async function buyToken_button(emailInvestor, passwordInvestor, emailProducer, filmIndex, oneTokenPrice) {
             // console.log(emailInvestor);
             // console.log(passwordInvestor);
             // console.log(emailProducer);
             // console.log(filmIndex);
             // console.log(oneTokenPrice);
-            
+
             // buyToken_button('3@gmail.com','a123','2@gmail.com','4','20');
 
             buyToken_button_data = {
-                "buyTokenNumber": Number(document.getElementById("buyTokenNumberInput_"+filmIndex).value), 
-                "userInvestor": await getUser(emailInvestor, passwordInvestor), 
-                "userAddress_producer": await getUserAddressBy_userEmail(emailProducer), 
+                "buyTokenNumber": Number(document.getElementById("buyTokenNumberInput_" + filmIndex).value),
+                "userInvestor": await getUser(emailInvestor, passwordInvestor),
+                "userAddress_producer": await getUserAddressBy_userEmail(emailProducer),
 
             };
 
@@ -188,7 +188,7 @@
 
 
 
-            if(buyToken_button_data.buyTokenNumber >= 0) {
+            if (buyToken_button_data.buyTokenNumber >= 0) {
                 // console.log("userInvestor:");
                 // console.log(await getUser(buyToken_button_data.userInvestor.userEmail, "a123"));
                 // console.log((await getUser(buyToken_button_data.userInvestor.userEmail, "a123")).userBalance);
@@ -212,41 +212,41 @@
                 // console.log("userDistributionToken_investor_forTokenManager:");
                 // console.log(buyToken_button_data.userDistributionToken_investor_forTokenManager);
 
-                if(true) {
+                if (true) {
                     // BuyToken -> give money from investor to producer
                     await buyToken(emailInvestor, passwordInvestor, emailProducer, oneTokenPrice, buyToken_button_data.buyTokenNumber);
                     // Update Distribution of token
                     // producer
                     await updateTokenForUser(
-                        buyToken_button_data.userAddress_producer, 
-                        filmIndex, 
-                        0, 
-                        0, 
-                        buyToken_button_data.userDistributionToken_producer_forUserManager.numberToken_user-buyToken_button_data.buyTokenNumber
+                        buyToken_button_data.userAddress_producer,
+                        filmIndex,
+                        0,
+                        0,
+                        buyToken_button_data.userDistributionToken_producer_forUserManager.numberToken_user - buyToken_button_data.buyTokenNumber
                     );
                     await updateTokenAndUser(
-                        filmIndex, 
-                        buyToken_button_data.userAddress_producer, 
-                        (await getToken(filmIndex)).tokenNumber, 
-                        buyToken_button_data.userDistributionToken_producer_forTokenManager.numberToken_thisUser-buyToken_button_data.buyTokenNumber
+                        filmIndex,
+                        buyToken_button_data.userAddress_producer,
+                        (await getToken(filmIndex)).tokenNumber,
+                        buyToken_button_data.userDistributionToken_producer_forTokenManager.numberToken_thisUser - buyToken_button_data.buyTokenNumber
                     );
                     // Investor
                     await updateTokenForUser(
-                        buyToken_button_data.userInvestor.userAddress, 
-                        filmIndex, 
-                        0, 
-                        0, 
-                        buyToken_button_data.userDistributionToken_investor_forUserManager.numberToken_user+buyToken_button_data.buyTokenNumber
+                        buyToken_button_data.userInvestor.userAddress,
+                        filmIndex,
+                        0,
+                        0,
+                        buyToken_button_data.userDistributionToken_investor_forUserManager.numberToken_user + buyToken_button_data.buyTokenNumber
                     );
                     await updateTokenAndUser(
-                        filmIndex, 
-                        buyToken_button_data.userInvestor.userAddress, 
-                        (await getToken(filmIndex)).tokenNumber, 
-                        buyToken_button_data.userDistributionToken_investor_forTokenManager.numberToken_thisUser+buyToken_button_data.buyTokenNumber
+                        filmIndex,
+                        buyToken_button_data.userInvestor.userAddress,
+                        (await getToken(filmIndex)).tokenNumber,
+                        buyToken_button_data.userDistributionToken_investor_forTokenManager.numberToken_thisUser + buyToken_button_data.buyTokenNumber
                     );
                 }
 
-                
+
             } else {
                 console.log("buyTokenNumber must be positif");
             }
@@ -269,8 +269,12 @@
 
         showListOfTokenMarket("tokenMarket", compte_investor, compte_producer);
 
-        
+
     </script>
+    <script>
+        profil_username(userManager);
+    </script>
+
 </body>
 
 </html>

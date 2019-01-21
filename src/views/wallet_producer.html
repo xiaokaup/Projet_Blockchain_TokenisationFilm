@@ -158,6 +158,7 @@
     <script src='../functionAboutTokenDistributionForUserManager.js'></script>
     <script src='../functionAboutTokenDistributionForTokenManager.js'></script>
 
+
     <!-- token -->
     <script type="text/javascript">
         async function showListOfTokenMarket_forProducer(compte_producer, div_id, returnDataFunction) {
@@ -340,18 +341,20 @@
         }
     </script>
 
+
     <!-- film -->
     <script type="text/javascript">
         async function showListOfFilms_forProducer(compte_producer, div_id) {
             compte_producer["address"] = await getUserAddressBy_userEmail(compte_producer.email);
             // console.log(compte_producer);
             var listFilms_forProducer = await returnListFilms_forProducer(compte_producer["address"]);
-            console.log(listFilms_forProducer);
+            consol  e.log(listFilms_forProducer);
             
 
             var block = document.getElementById(div_id);
 
             block_html = "";
+
 
             for (var item in listFilms_forProducer) {
                 var oneFilmProducer = listFilms_forProducer[item]
@@ -373,6 +376,8 @@
 
         }
 
+
+    </script>
 
         async function returnListFilms_forProducer(userAddressProducer) {
             var listFilms_forProducer = [];

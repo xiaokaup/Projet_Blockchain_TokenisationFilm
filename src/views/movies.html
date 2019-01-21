@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
@@ -29,115 +29,116 @@
 <body id='body'>
     <div>
         <nav class="navbar navbar-light navbar-expand-md navigation-clean">
-            <div class="container"><a class="navbar-brand" href="wallet_consumer.html">Username</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-                <div
-                    class="collapse navbar-collapse" id="navcol-1">
+            <div class="container">
+                <div id="username" class="navbar-brand"></div><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav ml-auto"></ul>
+                </div>
             </div>
+        </nav>
+        <div class="card">
+            <div class="card-body" style="background-color:#5789bf;">
+                <h4 class="card-title" style="color:rgb(255,255,255);">Available Movies</h4>
+                <h6 class="text-muted card-subtitle mb-2" style="color:rgb(0,0,0);background-color:#ffffff;">Use your ethers here and enjoy our movie collection !</h6>
+                <div class="row">
+                    <div class="col-4 py-3 mx-auto col-xl-4 col-lg-6 col-md-6 col-sm-12" style="min-width:300px;min-height:300px;">
+
+                        <div class="container">
+
+                            <div id=insertion_film class="row articles">
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="card-body" style="background-color:#5789bf;">
+                <h4 class="card-title" style="color:rgb(255,255,255);">Available ICOS</h4>
+                <h6 class="text-muted card-subtitle mb-2" style="color:rgb(0,0,0);background-color:#ffffff;">Use your ethers here and sustain independant pictures!</h6>
+                <div class="row">
+                    <div class="col-4 py-3 mx-auto col-xl-4 col-lg-6 col-md-6 col-sm-12" style="min-width:300px;min-height:300px;">
+
+
+                        <div class="container">
+
+                            <div id=insertion_ico class="row articles">
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    </nav>
-    <div class="card">
-        <div class="card-body" style="background-color:#5789bf;">
-            <h4 class="card-title" style="color:rgb(255,255,255);">Available Movies</h4>
-            <h6 class="text-muted card-subtitle mb-2" style="color:rgb(0,0,0);background-color:#ffffff;">Use your ethers here and enjoy our movie collection !</h6>
-            <div class="row">
-                <div class="col-4 py-3 mx-auto col-xl-4 col-lg-6 col-md-6 col-sm-12" style="min-width:300px;min-height:300px;">
 
-        <div class="container">
 
-            <div id=insertion_film class="row articles">
-
-            </div>
-        </div>
-   
-                </div>            
-            </div>
-        </div>
-        <div class="card-body" style="background-color:#5789bf;">
-            <h4 class="card-title" style="color:rgb(255,255,255);">Available ICOS</h4>
-            <h6 class="text-muted card-subtitle mb-2" style="color:rgb(0,0,0);background-color:#ffffff;">Use your ethers here and sustain independant pictures!</h6>
-            <div class="row">
-                <div class="col-4 py-3 mx-auto col-xl-4 col-lg-6 col-md-6 col-sm-12" style="min-width:300px;min-height:300px;">
- 
-                        
-          <div class="container">
-
-             <div id=insertion_ico class="row articles">
-
-             </div>
-          </div> 
-
-            </div>
-        </div>
-    </div>
-        </div></div>
-    
-  
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/Animated-Pretty-Product-List-v12.js"></script>
     <script src="assets/js/Grid-and-List-view-V10.js"></script>
-    
-<script src="../index.1_web3_smartContracts.js"></script>
-<script src="../index.2_smartContract_events.js"></script>
-<script src="../index.3_smarContractFunctions.js"></script>
-<script src="../index.4_testFunction.js"></script>
-<script src="../index.5_toolsFunction.js"></script>
 
-<script src='../functionAboutUserManager.js'></script>
-<script src='../functionAboutFilmManager.js'></script>
-<script src='../functionAboutTokenManager.js'></script>
-<script src='../functionAboutTokenDistributionForUserManager.js'></script>
-<script src='../functionAboutTokenDistributionForTokenManager.js'></script>
-    <script> 
-        
-        filmManager.getNumberFilm(function(error, result) {
+    <script src="../index.1_web3_smartContracts.js"></script>
+    <script src="../index.2_smartContract_events.js"></script>
+    <script src="../index.3_smarContractFunctions.js"></script>
+    <script src="../index.4_testFunction.js"></script>
+    <script src="../index.5_toolsFunction.js"></script>
+
+    <script src='../functionAboutUserManager.js'></script>
+    <script src='../functionAboutFilmManager.js'></script>
+    <script src='../functionAboutTokenManager.js'></script>
+    <script src='../functionAboutTokenDistributionForUserManager.js'></script>
+    <script src='../functionAboutTokenDistributionForTokenManager.js'></script>
+    <script>
+
+        filmManager.getNumberFilm(function (error, result) {
             var nb_film = result.c[0];
-            pas=0;
-            while(pas<nb_film)
-            {     
-                 
-                 filmManager.getByIndex_filmIndexes(pas,function(error, result1) {
-                     
-                     //index_film=result.c[0];
-                     
-                     
-                         
-                         filmManager.getFilmInfo_published_ico_producer(result1,function(error, result2){
-                               
-                             //document.getElementById('insertion').insertAdjacentHTML( 'beforeend',"<div class='col-sm-6 col-md-6 flex-wrap item'><a href='#'><img class='img-fluid' src='assets/img/desk.jpg'></a><h3>nom_film</h3></div> ");
-                             //filmManager.getFilm(result,function(error, result) {
-                      
-                            if(result2[1])
-                            //if (result2[1]==true)
-                             {
-                                 filmManager.getFilm(result1,function(error, result3) {
-                                     document.getElementById('insertion_film').insertAdjacentHTML( 'beforeend',"<div class='col-sm-6 col-md-6 flex-wrap item'><a href='#'><img class='img-fluid' src='assets/img/desk.jpg'></a><h3>"+result3[0]+"</h3><h3>"+result3[1]+"</h3><div><input type='button' value='          Buy the movie          '></div></div> ");
-                                 }); 
-                                 
-                             }
-                             else
-                             {
-                                 filmManager.getFilm(result1,function(error, result3) {
-                                     document.getElementById('insertion_ico').insertAdjacentHTML( 'beforeend',"<div class='col-sm-6 col-md-6 flex-wrap item'><a href='#'><img class='img-fluid' src='assets/img/desk.jpg'></a><h3>"+result3[0]+"</h3><h3>"+result3[1]+"</h3><div><input type='button' background-color: green value='   Validate   '><input type='button' value='    Denied    ' > </div></div> ");
-                                 });                                  
-                             }
-                         });   
-                         
-                      
-                 });
-          
-                      
-                     
-                 pas+=1;
+            pas = 0;
+            while (pas < nb_film) {
+
+                filmManager.getByIndex_filmIndexes(pas, function (error, result1) {
+
+                    //index_film=result.c[0];
+
+
+
+                    filmManager.getFilmInfo_published_ico_producer(result1, function (error, result2) {
+
+                        //document.getElementById('insertion').insertAdjacentHTML( 'beforeend',"<div class='col-sm-6 col-md-6 flex-wrap item'><a href='#'><img class='img-fluid' src='assets/img/desk.jpg'></a><h3>nom_film</h3></div> ");
+                        //filmManager.getFilm(result,function(error, result) {
+
+                        if (result2[1])
+                        //if (result2[1]==true)
+                        {
+                            filmManager.getFilm(result1, function (error, result3) {
+                                document.getElementById('insertion_film').insertAdjacentHTML('beforeend', "<div class='col-sm-6 col-md-6 flex-wrap item'><a href='#'><img class='img-fluid' src='assets/img/desk.jpg'></a><h3>" + result3[0] + "</h3><h3>" + result3[1] + "</h3><div><input type='button' value='          Buy the movie          '></div></div> ");
+                            });
+
+                        }
+                        else {
+                            filmManager.getFilm(result1, function (error, result3) {
+                                document.getElementById('insertion_ico').insertAdjacentHTML('beforeend', "<div class='col-sm-6 col-md-6 flex-wrap item'><a href='#'><img class='img-fluid' src='assets/img/desk.jpg'></a><h3>" + result3[0] + "</h3><h3>" + result3[1] + "</h3><div><input type='button' background-color: green value='   Validate   '><input type='button' value='    Denied    ' > </div></div> ");
+                            });
+                        }
+                    });
+
+
+                });
+
+
+
+                pas += 1;
             }
         });
-        
-  
 
-        
-     
+
     </script>
+
+    <script>
+        profil_username(userManager);
+    </script>
+
 </body>
     
 </html>

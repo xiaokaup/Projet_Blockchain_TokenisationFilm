@@ -35,6 +35,25 @@ function profil(userManager) {
 }
 
 
+function profil_username(userManager) {
+
+    email = getSession().email;
+    mdp = getSession().password;
+    userManager.getUser(email, mdp, function (error, result) {
+        if (!error) {
+            var userAddress_return = result;
+            var nom = result[2];
+            document.getElementById('username').innerHTML = nom;
+       
+            console.log(result[2]);
+        } else {
+            console.log("error_getbsolde:");
+            console.log(error);
+        }
+    });
+}
+
+
 async function getList_email_and_address() {
     // console.log("yang");
     // console.log(userAddress);

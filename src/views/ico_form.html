@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
@@ -33,34 +33,34 @@
 <body>
     <div>
         <nav class="navbar navbar-light navbar-expand-md navigation-clean">
-            <div class="container"><a class="navbar-brand" href="waller_producer.html">Username</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-                <div
-                    class="collapse navbar-collapse" id="navcol-1">
+            <div class="container">
+                <div id="username" class="navbar-brand"></div><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav ml-auto"></ul>
+                </div>
             </div>
-    </div>
-    </nav>
+        </nav>
     </div>
     <div class="row register-form">
         <div class="col-md-8 offset-md-2">
             <form class="custom-form">
 
-                    <div id = "success" class="alert alert-success alert-dismissible" role="alert">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>Success!</strong> New ICO deployed successfully 
-                        <a href="./wallet_producer.html">Click here to return to My Page (or wait 5s)</a>
-                    </div>
-        
-                    <div id="error" class="alert alert-danger alert-dismissible" role="alert"> 
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            <strong>Error!</strong> Please check again your input
-                    </div>          
-                    <script>
-                           
+                <div id="success" class="alert alert-success alert-dismissible" role="alert">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Success!</strong> New ICO deployed successfully
+                    <a href="./wallet_producer.html">Click here to return to My Page (or wait 5s)</a>
+                </div>
+
+                <div id="error" class="alert alert-danger alert-dismissible" role="alert">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Error!</strong> Please check again your input
+                </div>
+                <script>
+
                     $('#success').hide();
                     $('#error').hide();
-                            
-                    </script>
+
+                </script>
 
                 <h1>Create My ICO</h1>
                 <div class="form-row form-group">
@@ -99,7 +99,8 @@
                     <div class="col-sm-4 label-column"><label class="col-form-label" for="pawssword-input-field">Initial Film Price</label></div>
                     <div class="col-sm-6 input-column"><input class="form-control" type="number" name="price" id="price" placeholder="Price"></div>
                 </div>
-                <button class="btn btn-light submit-button" type="button" onclick="insertFilmAndIco(filmManager,tokenManager);">Create My ICO</button></form>
+                <button class="btn btn-light submit-button" type="button" onclick="insertFilmAndIco(filmManager,tokenManager);">Create My ICO</button>
+            </form>
         </div>
     </div>
 
@@ -108,86 +109,91 @@
     <script src="../index.3_smarContractFunctions.js"></script>
     <script src="../index.4_testFunction.js"></script>
     <script src="../index.5_toolsFunction.js"></script>
-    
+
     <script src='../functionAboutUserManager.js'></script>
     <script src='../functionAboutFilmManager.js'></script>
     <script src='../functionAboutTokenManager.js'></script>
     <script src='../functionAboutTokenDistributionForUserManager.js'></script>
     <script src='../functionAboutTokenDistributionForTokenManager.js'></script>
 
-<script>    
-            console.log("contract_filmManager:");
-            console.log(filmManager);
-            console.log("contract_tokenManager:");
-            console.log(tokenManager);
+    <script>
+        console.log("contract_filmManager:");
+        console.log(filmManager);
+        console.log("contract_tokenManager:");
+        console.log(tokenManager);
 
-        function insertFilmAndIco(filmManager,tokenManager) {
-        console.log($("#title").val());
-        console.log($("#description").val());
-        console.log($("#issue").val());
-        console.log($("#maturity").val());
-        console.log($("#link_image").val());
-        console.log($("#value").val());
-        console.log($("#nb_token").val());
-        console.log($("#link_film").val());
-        console.log($("#price").val());
+        function insertFilmAndIco(filmManager, tokenManager) {
+            console.log($("#title").val());
+            console.log($("#description").val());
+            console.log($("#issue").val());
+            console.log($("#maturity").val());
+            console.log($("#link_image").val());
+            console.log($("#value").val());
+            console.log($("#nb_token").val());
+            console.log($("#link_film").val());
+            console.log($("#price").val());
 
-        var filmPrice = $("#price").val();
-        var filmUrl = $("#link_film").val();
-        var issueDate = new Date($("#issue").val()).getTime() / 1000;
-        var maturity = new Date($("#maturity").val()).getTime() / 1000;
-        console.log(issueDate);
-        console.log(maturity);
-        var value = $("#value").val();
-        var nb_tk = $("#nb_token").val();
-        var budget =  nb_tk * value;
-        console.log("budget: ");
-        console.log(budget);
+            var filmPrice = $("#price").val();
+            var filmUrl = $("#link_film").val();
+            var issueDate = new Date($("#issue").val()).getTime() / 1000;
+            var maturity = new Date($("#maturity").val()).getTime() / 1000;
+            console.log(issueDate);
+            console.log(maturity);
+            var value = $("#value").val();
+            var nb_tk = $("#nb_token").val();
+            var budget = nb_tk * value;
+            console.log("budget: ");
+            console.log(budget);
 
-        filmManager.insertFilm($("#title").val(),$("#description").val(),$("#link_image").val(), filmUrl,filmPrice,0,0,false,true,compte_producer.address,
-            function(error, result) {
-                if(!error){
-                    $('#success').css("display","block");
-                    console.log("insertFilm:");
+            filmManager.insertFilm($("#title").val(), $("#description").val(), $("#link_image").val(), filmUrl, filmPrice, 0, 0, false, true, compte_producer.address,
+                function (error, result) {
+                    if (!error) {
+                        $('#success').css("display", "block");
+                        console.log("insertFilm:");
+                        console.log(result);
+
+                    } else {
+                        $('#error').css("display", "block");
+                        console.log("error_insertFilm:");
+                        console.log(error);
+
+                    }
+                });
+
+            filmManager.getNextFilmIndex(function (error, result) {
+                if (!error) {
                     console.log(result);
-                    
+
+                    tokenManager.insertToken(result.c[0], budget, issueDate, maturity, value, nb_tk, 0,
+                        function (error, result) {
+                            if (!error) {
+                                $('#success').css("display", "block");
+                                console.log("insertICO:");
+                                console.log(result);
+
+                            } else {
+                                $('#error').css("display", "block");
+                                console.log("error_insertFilm:");
+                                console.log(error);
+
+                            }
+                        });
+
                 } else {
-                    $('#error').css("display","block");
-                    console.log("error_insertFilm:");
                     console.log(error);
-                    
                 }
             });
-           
-            filmManager.getNextFilmIndex(function(error, result) {
-                if(!error){
-                    console.log(result);
 
-                    tokenManager.insertToken(result.c[0],budget,issueDate,maturity,value,nb_tk,0,
-                function(error, result) {
-                if(!error){
-                    $('#success').css("display","block");
-                    console.log("insertICO:");
-                    console.log(result);
-                    
-                } else {
-                    $('#error').css("display","block");
-                    console.log("error_insertFilm:");
-                    console.log(error);
-                    
-                }
-            });
-                    
-                } else {
-                    console.log(error);
-                }
-            });
-            
 
-           
-        
-    }
+
+
+        }
     </script>
+
+    <script>
+        profil_username(userManager);
+    </script>
+
 </body>
 
 </html>
