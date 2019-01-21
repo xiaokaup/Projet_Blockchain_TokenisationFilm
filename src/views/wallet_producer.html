@@ -56,7 +56,7 @@
             <div class="row articles" id="listTokens_forProducer">
                 <!-- <div class="col-sm-6 col-md-4 flex-wrap item">
                     <a href="#"><img class="img-fluid" src="assets/img/desk.jpg"></a>
-                    <h5>project number: <span>3</span></h5><br>
+                    <h5>filmIndex: <span>3</span></h5>
                     <p>issue date: <span>1/1/1970</span></p>
                     <p>maturity date: <span>1/1/1970</span></p>
                     <p>investor's token number: <span>100</span></p>
@@ -81,20 +81,25 @@
                 <h2 class="text-center">My Movies</h2>
                 <p class="text-center">Your uploaded movies.</p>
             </div>
-            <div class="row articles">
+            <div class="row articles" id="listFilms_forProducer">
                 <div class="col-sm-6 col-md-4 flex-wrap item">
-                    <a href="#"><img class="img-fluid" src="assets/img/desk.jpg"></a>
-                    <h3 class="name">MovieTitle1</h3><span>ico data</span>
+                    <img class="img-fluid" src="assets/img/desk.jpg">
+                    <h5 class="name">filmIndex: <span>{filmIndex}</span></h5>
+                    <p>filmName: <span>{filmName}</span></p>
+                    <p>filmDescription: <span>{filmDescription}</span></p>
+                    <p>filmPrice: <span>{filmPrice}</span></p>
+                    <p>filmNumberVoir: <span>{filmNumberVoir}</span></p>
+                    <p>filmNotation: <span>{filmNotation}</span></p>
                 </div>
                 <div class="col-sm-6 col-md-4 item">
-                    <a href="#"><img class="img-fluid" src="assets/img/building.jpg"></a>
+                    <img class="img-fluid" src="assets/img/building.jpg">
                     <h3 class="name">MovieTitle2</h3>
-                    <p class="description">ico data 2</p><a href="#" class="action"></a>
+                    <p class="description">ico data 2</p>
                 </div>
                 <div class="col-sm-6 col-md-4 item">
-                    <a href="#"><img class="img-fluid" src="assets/img/loft.jpg"></a>
+                    <img class="img-fluid" src="assets/img/loft.jpg">
                     <h3 class="name">MovieTitle3</h3>
-                    <p class="description">ico data 2</p><a href="#" class="action"></a>
+                    <p class="description">ico data 2</p>
                 </div>
             </div>
         </div>
@@ -167,7 +172,7 @@
                 block_html +=
                     "<div class='col-sm-6 col-md-4 flex-wrap item'>" +
                     "<img class='img-fluid' src='" + random_img(imgs_web) + "' style='height:139.78px;'>" +
-                    "<h5>project number: <span>" + oneTokenProducer.filmIndex + "</span></h5><br>" +
+                    "<h5>filmIndex: <span>" + oneTokenProducer.filmIndex + "</span></h5>" +
                     "<p>issue date: <span>" + oneTokenProducer.filmIssueDate + "</span></p>" +
                     "<p>maturity date: <span>" + oneTokenProducer.filmMaturity + "</span></p>" +
                     "<p>token budget: <span>" + oneTokenProducer.tokenNumber * oneTokenProducer.tokenPrice + "</span></p>" +
