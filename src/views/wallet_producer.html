@@ -128,10 +128,12 @@
             </div>
         </footer>
     </div>
+
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/Animated-Pretty-Product-List-v12.js"></script>
     <script src="assets/js/Grid-and-List-view-V10.js"></script>
+
 
 
     <script src="../index.1_web3_smartContracts.js"></script>
@@ -146,7 +148,7 @@
     <script src='../functionAboutTokenDistributionForUserManager.js'></script>
     <script src='../functionAboutTokenDistributionForTokenManager.js'></script>
 
-    
+
     <script type="text/javascript">
         async function showListOfTokenMarket_forProducer(compte_producer, div_id, returnDataFunction) {
             var listTokens_forProducer = await returnDataFunction();
@@ -155,27 +157,27 @@
 
             block_html = "";
 
-            for(var item in listTokens_forProducer) {
+            for (var item in listTokens_forProducer) {
                 var oneTokenProducer = listTokens_forProducer[item]
                 // console.log(oneTokenProducer);
 
-                var distributionProducer = await getTokenForUser(await getUserAddressBy_userEmail(compte_producer.email), oneTokenProducer.filmIndex); 
+                var distributionProducer = await getTokenForUser(await getUserAddressBy_userEmail(compte_producer.email), oneTokenProducer.filmIndex);
                 // console.log(distributionProducer);
 
-                block_html += 
-                "<div class='col-sm-6 col-md-4 flex-wrap item'>"+
-                    "<img class='img-fluid' src='"+random_img(imgs_web)+"' style='height:139.78px;'>"+
-                    "<h5>project number: <span>"+oneTokenProducer.filmIndex+"</span></h5><br>"+
-                    "<p>issue date: <span>"+oneTokenProducer.filmIssueDate+"</span></p>"+
-                    "<p>maturity date: <span>"+oneTokenProducer.filmMaturity+"</span></p>"+
-                    "<p>token budget: <span>"+oneTokenProducer.tokenNumber*oneTokenProducer.tokenPrice+"</span></p>"+
-                    "<p>total token number: <span>"+oneTokenProducer.tokenNumber+"</span></p>"+
-                    "<p>producer's token number: <span>"+distributionProducer.numberToken_user+"</span></p>"+
-                    "<p>investor's token number: <span>"+(oneTokenProducer.tokenNumber-distributionProducer.numberToken_user)+"</span></p>"+
-                    "<p>token price current: <span>"+(oneTokenProducer.tokenPrice+1*oneTokenProducer.tokenRecommend)+"</span></p>"+
-                    "<p>token Recommend: <span>"+oneTokenProducer.tokenRecommend+"</span></p>"+
-                    "<button type='button' class='btn btn-primary mb-2' onclick=\"finishToken_pageProducer('"+oneTokenProducer.filmIndex+"');\">Finish token</button>"+
-                "</div>";
+                block_html +=
+                    "<div class='col-sm-6 col-md-4 flex-wrap item'>" +
+                    "<img class='img-fluid' src='" + random_img(imgs_web) + "' style='height:139.78px;'>" +
+                    "<h5>project number: <span>" + oneTokenProducer.filmIndex + "</span></h5><br>" +
+                    "<p>issue date: <span>" + oneTokenProducer.filmIssueDate + "</span></p>" +
+                    "<p>maturity date: <span>" + oneTokenProducer.filmMaturity + "</span></p>" +
+                    "<p>token budget: <span>" + oneTokenProducer.tokenNumber * oneTokenProducer.tokenPrice + "</span></p>" +
+                    "<p>total token number: <span>" + oneTokenProducer.tokenNumber + "</span></p>" +
+                    "<p>producer's token number: <span>" + distributionProducer.numberToken_user + "</span></p>" +
+                    "<p>investor's token number: <span>" + (oneTokenProducer.tokenNumber - distributionProducer.numberToken_user) + "</span></p>" +
+                    "<p>token price current: <span>" + (oneTokenProducer.tokenPrice + 1 * oneTokenProducer.tokenRecommend) + "</span></p>" +
+                    "<p>token Recommend: <span>" + oneTokenProducer.tokenRecommend + "</span></p>" +
+                    "<button type='button' class='btn btn-primary mb-2' onclick=\"finishToken_pageProducer('" + oneTokenProducer.filmIndex + "');\">Finish token</button>" +
+                    "</div>";
             }
 
             block.innerHTML = block_html;
@@ -185,19 +187,19 @@
         async function returnListTokens_forProducer() {
             var listTokens_forProducer = [];
 
-            var numberFilm = await getNumberFilm(); 
+            var numberFilm = await getNumberFilm();
             // console.log(numberFilm);
 
-            for(var i =1; i < numberFilm+1; i++) {
+            for (var i = 1; i < numberFilm + 1; i++) {
                 var film_ICO = await getFilmInfo_published_ico_producer(i);
                 // console.log(film_ICO);
-                if(film_ICO.filmIco == true) {
+                if (film_ICO.filmIco == true) {
                     var tokenInfo = await getToken(film_ICO.filmIndex);
                     tokenInfo["filmIco"] = film_ICO.filmIco;
                     tokenInfo["filmPublished"] = film_ICO.filmPublished;
                     tokenInfo["userAddressProducer"] = film_ICO.userAddressProducer;
 
-                   listTokens_forProducer.push(tokenInfo);
+                    listTokens_forProducer.push(tokenInfo);
                 }
             }
 
@@ -218,7 +220,7 @@
             var distributionUserAddress_forOneToken = (await getTokenAndAllUsers(filmIndex)).boughtUserAddresses;
             // console.log(distributionUserAddress_forOneToken);
 
-            var distributionUser_forOneToken = await sumDistribution(filmIndex, distributionUserAddress_forOneToken, userAddressProducer, tokenInfo.tokenNumber, tokenInfo.tokenPrice+1*tokenInfo.tokenRecommend);
+            var distributionUser_forOneToken = await sumDistribution(filmIndex, distributionUserAddress_forOneToken, userAddressProducer, tokenInfo.tokenNumber, tokenInfo.tokenPrice + 1 * tokenInfo.tokenRecommend);
             // console.log(distributionUser_forOneToken);
 
 
@@ -239,9 +241,9 @@
 
         async function sumDistribution(filmIndex, distributionUser_forOneToken, userAddressProducer, tokenNumberTotal, tokenPriceCurrent) {
             var sum = {
-                "filmIndex": filmIndex, 
-                "tokenNumberTotal": tokenNumberTotal, 
-                "tokenPriceCurrent": tokenPriceCurrent, 
+                "filmIndex": filmIndex,
+                "tokenNumberTotal": tokenNumberTotal,
+                "tokenPriceCurrent": tokenPriceCurrent,
                 "distributionUser": []
             };
 
@@ -249,20 +251,20 @@
             // console.log(list_email_and_address)
 
             // user info
-            for(var item in distributionUser_forOneToken) {
+            for (var item in distributionUser_forOneToken) {
                 var userAddress = distributionUser_forOneToken[item];
                 var token_user = await getTokenForUser(userAddress, filmIndex);
                 // console.log(token_user);
                 oneUser = {
-                    "identity": (token_user.userAddress == userAddressProducer)? "producer" : "consumer", 
-                    "userAddress": token_user.userAddress, 
-                    "numberToken_user": token_user.numberToken_user, 
+                    "identity": (token_user.userAddress == userAddressProducer) ? "producer" : "consumer",
+                    "userAddress": token_user.userAddress,
+                    "numberToken_user": token_user.numberToken_user,
                 };
 
                 // add userEmail
-                for(var item in list_email_and_address) {
+                for (var item in list_email_and_address) {
                     var element = list_email_and_address[item];
-                    if(element.userAddress == oneUser.userAddress) {
+                    if (element.userAddress == oneUser.userAddress) {
                         oneUser.userEmail = element.userEmail;
                     }
                 }
@@ -271,12 +273,12 @@
             }
 
             // calculate the money pay back
-            for(var item in sum.distributionUser) {
+            for (var item in sum.distributionUser) {
                 var token_user = sum.distributionUser[item];
-                if(token_user == "producer") {
-                    sum.distributionUser[item].changeMoney = tokenPriceCurrent*(sum.tokenNumberTotal-token_user.numberToken_user);
+                if (token_user == "producer") {
+                    sum.distributionUser[item].changeMoney = tokenPriceCurrent * (sum.tokenNumberTotal - token_user.numberToken_user);
                 } else {
-                    sum.distributionUser[item].changeMoney = tokenPriceCurrent*token_user.numberToken_user;
+                    sum.distributionUser[item].changeMoney = tokenPriceCurrent * token_user.numberToken_user;
                 }
             }
 
@@ -287,9 +289,9 @@
         async function payBackInvestor(userEmailProducer, userPassword, distributionUser_forOneToken) {
             console.log(distributionUser_forOneToken);
             var users = distributionUser_forOneToken.distributionUser;
-            for(var item in users) {
+            for (var item in users) {
                 // console.log(users[item]);
-                if(users[item].identity == "consumer") {
+                if (users[item].identity == "consumer") {
                     var consumer = users[item];
                     // console.log(consumer);
 
@@ -303,8 +305,8 @@
             console.log(distributionUser_forOneToken);
             var filmIndex = distributionUser_forOneToken.filmIndex;
             var distributionUser = distributionUser_forOneToken.distributionUser;
-            
-            for(var item in distributionUser) {
+
+            for (var item in distributionUser) {
                 console.log(distributionUser[item]);
                 // DistributionForUserManager
                 await deleteToken_DistributionForUserManager(distributionUser[item].userAddress, filmIndex);
@@ -313,7 +315,7 @@
             // DistributionForTokenManager
             await deleteToken_DistributionForTokenManager(filmIndex);
 
-            
+
         }
 
         async function publishFilm(filmIndex) {
@@ -327,21 +329,22 @@
             await updateFilm(filmInfo.filmIndex, filmInfo.filmName, filmInfo.filmDescription, filmInfo.filmImageUrl, filmInfo.filmUrl, filmInfo.filmPrice, filmInfo.filmNumberVoir, filmInfo.filmNotation, filmInfo_Ico.filmPublished, filmInfo_Ico.filmIco);
         }
 
-        
+
 
 
 
     </script>
 
-
     <script>
+
+
         var compte_producer = {
-            "email": "2@gmail.com", 
-            "password": "a123"
+            "email": getSession().email,
+            "password": getSession().password,
         }
 
-        // profil(userManager);
-        showListOfTokenMarket_forProducer(compte_producer, "listTokens_forProducer", async ()=>{return await returnListTokens_forProducer()});
+        profil(userManager);
+        showListOfTokenMarket_forProducer(compte_producer, "listTokens_forProducer", async () => { return await returnListTokens_forProducer() });
 
 
     </script>

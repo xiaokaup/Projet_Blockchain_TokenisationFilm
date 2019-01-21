@@ -21,65 +21,61 @@
             <a href="./views/wallet_consumer.html">./views/wallet_producer.html</a>
 
         </div>
-            <form>
-                <div>
-                    <h3>test smartContracts</h3>
-                </div>
+        <form>
+            <div>
+                <h3>test smartContracts</h3>
+            </div>
 
-                <div class="form-group">
-                    <button id="button_insertUser" class="btn btn-primary" onclick="test_insertUser(userManager);">Insert User</button>
+            <div class="form-group">
+                <button id="button_insertUser" class="btn btn-primary" onclick="test_insertUser(userManager);">Insert User</button>
 
-                    <button id="button_deleteUser" class="btn btn-primary" onclick="test_deleteUser(userManager);">Delete User</button>
+                <button id="button_deleteUser" class="btn btn-primary" onclick="test_deleteUser(userManager);">Delete User</button>
 
-                    <button id="button_transfer" class="btn btn-primary" onclick="test_transfer(web3.eth.defaultAccount, '0x26Ca46E1C3c3f42ac0c04DA265b81Bdc6F5c079e');">transfer</button>
-                </div>
+                <button id="button_transfer" class="btn btn-primary" onclick="test_transfer(web3.eth.defaultAccount, '0x26Ca46E1C3c3f42ac0c04DA265b81Bdc6F5c079e');">transfer</button>
+            </div>
 
-                <div class="form-group">
-                    <label for="delete_index_filmIndexes" class="col-lg-2 control-label">index_filmIndexes for delete:</label>
-                    <input id="delete_index_filmIndexes" type="text">
-                </div>
-                <div class="form-group">
+            <div class="form-group">
+                <label for="delete_index_filmIndexes" class="col-lg-2 control-label">index_filmIndexes for delete:</label>
+                <input id="delete_index_filmIndexes" type="text">
+            </div>
+            <div class="form-group">
 
-                    <button type="submit" id="button_insertFilm" class="btn btn-primary" onclick="test_insertFilm(filmManager);">Insert Film</button>
+                <button type="submit" id="button_insertFilm" class="btn btn-primary" onclick="test_insertFilm(filmManager);">Insert Film</button>
 
-                    <button type="button" id="button_deleteFilm" class="btn btn-primary" onclick="test_deleteFilm(filmManager, document.getElementById('delete_index_filmIndexes').value);">Delete Film</button>
-                </div>
-            </form>
-        </div>
-
-
-        <script src="../node_modules/web3/dist/web3.js"></script>
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-        <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+                <button type="button" id="button_deleteFilm" class="btn btn-primary" onclick="test_deleteFilm(filmManager, document.getElementById('delete_index_filmIndexes').value);">Delete Film</button>
+            </div>
+        </form>
+    </div>
 
 
+    <script src="./index.1_web3_smartContracts.js"></script>
+    <script src="./index.2_smartContract_events.js"></script>
+    <script src="./index.3_smarContractFunctions.js"></script>
+    <script src="./index.4_testFunction.js"></script>
+    <script src="./index.5_toolsFunction.js"></script>
 
-        <script src="./index.1_web3_smartContracts.js"></script>
-        <script src="./index.2_smartContract_events.js"></script>
-        <script src="./index.3_smarContractFunctions.js"></script>
-        <script src="./index.4_testFunction.js"></script>
+    <script src='./functionAboutUserManager.js'></script>
+    <script src='./functionAboutFilmManager.js'></script>
+    <script src='./functionAboutTokenManager.js'></script>
+    <script src='./functionAboutTokenDistributionForUserManager.js'></script>
+    <script src='./functionAboutTokenDistributionForTokenManager.js'></script>
 
-        <script src='./functionAboutUserManager.js'></script>
-        <script src='./functionAboutTokenDistributionForUserManager.js'></script>
-        <script src='./functionAboutFilmManager.js'></script>
-        <script src='./functionAboutTokenManager.js'></script>
-        <script src='./functionAboutTokenDistributionForTokenManager.js'></script>
+    <script>
+        // call function for test
+        test_userManager(userManager);
+        setTimeout(function () {
+            console.log("================================================");
+            test_filmManager(filmManager);
 
-        <script>
-    // call function for test
-            test_userManager(userManager);
-            setTimeout(function () {
-                console.log("================================================");
-                test_filmManager(filmManager);
+            // setTimeout(function() {
+            //     console.log("================================================");
+            //     console.log("test_tokenManager");
+            // }, 5000);
+        }, 5000);
 
-                setTimeout(function() {
-                    console.log("================================================");
-                    console.log("test_tokenManager");
-                    test_tokenManager(tokenManager);
-                }, 8000);
-            }, 5000);
+    </script>
 
-        </script>
+    
 
 </body>
 </html>

@@ -1,7 +1,16 @@
 
 // userManager
+
+function getSession() {
+    user = JSON.parse(sessionStorage.getItem("user"));
+    return user;
+
+}
 function profil(userManager) {
-    userManager.getUser("2@gmail.com", "a123", function (error, result) {
+    
+    email= getSession().email;
+    mdp = getSession().password;
+    userManager.getUser(email, mdp, function (error, result) {
         if (!error) {
             var userAddress_return = result;
             var balance = result[4].c[0];
@@ -13,8 +22,8 @@ function profil(userManager) {
 
             console.log("SOLDE:");
             console.log(result);
-            console.log(result[3].c[0]);
-            console.log(result[1]);
+            console.log(result[4].c[0]);
+            console.log(result[2]);
         } else {
             console.log("error_getbsolde:");
             console.log(error);
@@ -46,6 +55,4 @@ async function getList_email_and_address() {
 
     return list_email_and_address;
 }
-
-
 
