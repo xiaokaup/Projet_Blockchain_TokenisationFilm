@@ -154,6 +154,10 @@ contract FilmManager {
         return true;
     }
 
+    function getNextFilmIndex() public constant returns(uint nextFIlmIndex) {
+        return count;
+    }
+
     function getNumberFilm() public constant returns(uint numberFilm) {
         return filmIndexes.length;
     }
