@@ -81,7 +81,11 @@
                 <h2 class="text-center">My Movies</h2>
                 <p class="text-center">Your uploaded movies.</p>
             </div>
+
             <div class="row articles" id="listFilms_forProducer">
+            </div>
+
+            <!-- <div class="row articles">
                 <div class="col-sm-6 col-md-4 flex-wrap item">
                     <img class="img-fluid" src="assets/img/desk.jpg">
                     <h5 class="name">filmIndex: <span>{filmIndex}</span></h5>
@@ -101,7 +105,8 @@
                     <h3 class="name">MovieTitle3</h3>
                     <p class="description">ico data 2</p>
                 </div>
-            </div>
+            </div> -->
+
         </div>
     </div>
     <div class="footer-dark">
@@ -153,7 +158,7 @@
     <script src='../functionAboutTokenDistributionForUserManager.js'></script>
     <script src='../functionAboutTokenDistributionForTokenManager.js'></script>
 
-
+    <!-- token -->
     <script type="text/javascript">
         async function showListOfTokenMarket_forProducer(compte_producer, div_id, returnDataFunction) {
             var listTokens_forProducer = await returnDataFunction();
@@ -333,11 +338,59 @@
 
             await updateFilm(filmInfo.filmIndex, filmInfo.filmName, filmInfo.filmDescription, filmInfo.filmImageUrl, filmInfo.filmUrl, filmInfo.filmPrice, filmInfo.filmNumberVoir, filmInfo.filmNotation, filmInfo_Ico.filmPublished, filmInfo_Ico.filmIco);
         }
+    </script>
+
+    <!-- film -->
+    <script type="text/javascript">
+        async function showListOfFilms_forProducer(compte_producer, div_id) {
+            compte_producer["address"] = await getUserAddressBy_userEmail(compte_producer.email);
+            // console.log(compte_producer);
+            var listFilms_forProducer = await returnListFilms_forProducer(compte_producer["address"]);
+            console.log(listFilms_forProducer);
+            
+
+            var block = document.getElementById(div_id);
+
+            block_html = "";
+
+            for (var item in listFilms_forProducer) {
+                var oneFilmProducer = listFilms_forProducer[item]
+                // console.log(oneFilmProducer);
+
+                block_html +=
+                    "<div class='col-sm-6 col-md-4 flex-wrap item'>"+
+                        "<img class='img-fluid' src='"+random_img(imgs_web)+"'>"+
+                        "<h5 class='name'>filmIndex: <span>"+oneFilmProducer.filmIndex+"</span></h5>"+
+                        "<p>filmName: <span>"+oneFilmProducer.filmName+"</span></p>"+
+                        "<p>filmDescription: <span>"+oneFilmProducer.filmDescription+"</span></p>"+
+                        "<p>filmPrice: <span>"+oneFilmProducer.filmPrice+"</span></p>"+
+                        "<p>filmNumberVoir: <span>"+oneFilmProducer.filmNumberVoir+"</span></p>"+
+                        "<p>filmNotation: <span>"+oneFilmProducer.filmNotation+"</span></p>"+
+                    "</div>";
+            }
+
+            block.innerHTML = block_html;
+
+        }
 
 
+        async function returnListFilms_forProducer(userAddressProducer) {
+            var listFilms_forProducer = [];
 
+            var numberFilm = await getNumberFilm();
+            // console.log(numberFilm);
 
+            for (var i = 1; i < numberFilm + 1; i++) {
+                var filmInfo = await getFilm(i);
+                var filmInfo_Ico = await getFilmInfo_published_ico_producer(i);
+                // console.log(filmInfo_Ico);
+                if (filmInfo_Ico.userAddressProducer == userAddressProducer) {
+                    listFilms_forProducer.push(filmInfo);
+                }
+            }
 
+            return listFilms_forProducer;
+        }
     </script>
 
     <script>
@@ -348,8 +401,13 @@
             "password": getSession().password,
         }
 
+        
+
         profil(userManager);
+        
         showListOfTokenMarket_forProducer(compte_producer, "listTokens_forProducer", async () => { return await returnListTokens_forProducer() });
+
+        showListOfFilms_forProducer(compte_producer, "listFilms_forProducer");
 
 
     </script>
