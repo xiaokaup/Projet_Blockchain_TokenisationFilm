@@ -87,6 +87,21 @@ function getUserAddressBy_userEmail(userEmail) {
     });
 }
 
+function buyFilm(userEmail, userPassword, userEmailProducer, filmIndex, filmPrice) {
+    return new Promise((resolve, reject) => {
+        userManager.buyFilm(userEmail, userPassword, userEmailProducer, filmIndex, filmPrice, (error, response) => {
+            if(!error) {
+                console.log("buyFilm("+[userEmail, userPassword, userEmailProducer, filmIndex, filmPrice].join()+")_success:")
+                // console.log(response);
+                resolve(response);
+            } else {
+                console.log("buyFilm("+[userEmail, userPassword, userEmailProducer, filmIndex, filmPrice].join()+")_error:")
+                reject(error);
+            }
+        });
+    });
+}
+
 
 function buyToken(userEmail, userPassword, userEmailProducer, tokenPrice, buyTokenNumber) {
     return new Promise((resolve, reject) => {

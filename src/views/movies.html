@@ -90,55 +90,86 @@
     <script src='../functionAboutTokenManager.js'></script>
     <script src='../functionAboutTokenDistributionForUserManager.js'></script>
     <script src='../functionAboutTokenDistributionForTokenManager.js'></script>
+
+    <script type="text/javascript">
+        async function buyFilm_button(userEmail, userPassword, userEmailProducer, filmIndex, filmPrice) {
+            await buyFilm(userEmail, userPassword, userEmailProducer, filmIndex, filmPrice);
+        }
+    </script>
+
+    <!-- init page -->
     <script>
+        async function init_page() {
+            var list_email_and_address = await getList_email_and_address();
+            // console.log(list_email_and_address);
+            
+            filmManager.getNumberFilm(function (error, result) {
+                var nb_film = result.c[0];
+                pas = 0;
+                while (pas < nb_film) {
 
-        filmManager.getNumberFilm(function (error, result) {
-            var nb_film = result.c[0];
-            pas = 0;
-            while (pas < nb_film) {
+                    filmManager.getByIndex_filmIndexes(pas, function (error, result1) {
 
-                filmManager.getByIndex_filmIndexes(pas, function (error, result1) {
-
-                    //index_film=result.c[0];
+                        //index_film=result.c[0];
 
 
+                        var filmIndex = result1;
 
-                    filmManager.getFilmInfo_published_ico_producer(result1, function (error, result2) {
+                        filmManager.getFilmInfo_published_ico_producer(filmIndex, function (error, result2) {
+                            // console.log(result2);
+                            var addressProducer = result2[3];
+                            var userEmailProducer = "";
+                            for(var item in list_email_and_address) {
+                                var user = list_email_and_address[item];
+                                if(user.userAddress == addressProducer) {
+                                    userEmailProducer = user.userEmail;
+                                    // console.log(userEmailProducer);
+                                }
+                            }
 
-                        //document.getElementById('insertion').insertAdjacentHTML( 'beforeend',"<div class='col-sm-6 col-md-6 flex-wrap item'><a href='#'><img class='img-fluid' src='assets/img/desk.jpg'></a><h3>nom_film</h3></div> ");
-                        //filmManager.getFilm(result,function(error, result) {
+                            //document.getElementById('insertion').insertAdjacentHTML( 'beforeend',"<div class='col-sm-6 col-md-6 flex-wrap item'><a href='#'><img class='img-fluid' src='assets/img/desk.jpg'></a><h3>nom_film</h3></div> ");
+                            //filmManager.getFilm(result,function(error, result) {
 
-                        if (result2[1])
-                        //if (result2[1]==true)
-                        {
-                            filmManager.getFilm(result1, function (error, result3) {
-                                document.getElementById('insertion_film').insertAdjacentHTML('beforeend', "<div class='col-sm-6 col-md-6 flex-wrap item'><a href='#'><img class='img-fluid' src='assets/img/desk.jpg'></a><h3>" + result3[0] + "</h3><h3>" + result3[1] + "</h3><div><input type='button' value='          Buy the movie          '></div></div> ");
-                            });
+                            if (result2[1])
+                            //if (result2[1]==true)
+                            {
 
-                        }
-                        else {
-                            filmManager.getFilm(result1, function (error, result3) {
-                                document.getElementById('insertion_ico').insertAdjacentHTML('beforeend', "<div class='col-sm-6 col-md-6 flex-wrap item'><a href='#'><img class='img-fluid' src='assets/img/desk.jpg'></a><h3>" + result3[0] + "</h3><h3>" + result3[1] + "</h3><div><input type='button' background-color: green value='   Validate   '><input type='button' value='    Denied    ' > </div></div> ");
-                            });
-                        }
+
+
+                                filmManager.getFilm(filmIndex, function (error, result3) {
+                                    // console.log(result3);
+
+                                    document.getElementById('insertion_film').insertAdjacentHTML('beforeend', "<div class='col-sm-6 col-md-6 flex-wrap item'><a href='#'><img class='img-fluid' src='assets/img/desk.jpg'></a><h3>" + result3[0] + "</h3><h3>" + result3[1] + "</h3><div><input type='button' onclick=\"buyFilm_button('"+compte_user.email+"', '"+compte_user.password+"', '"+userEmailProducer+"','"+filmIndex+"','"+result3[4]+"');\" value='          Buy the movie          '></div></div> ");
+                                });
+
+                            }
+                            else {
+                                filmManager.getFilm(filmIndex, function (error, result3) {
+                                    document.getElementById('insertion_ico').insertAdjacentHTML('beforeend', "<div class='col-sm-6 col-md-6 flex-wrap item'><a href='#'><img class='img-fluid' src='assets/img/desk.jpg'></a><h3>" + result3[0] + "</h3><h3>" + result3[1] + "</h3><div><input type='button' background-color: green value='   Validate   '><input type='button' value='    Denied    ' > </div></div> ");
+                                });
+                            }
+                        });
+
+
                     });
 
 
-                });
 
-
-
-                pas += 1;
-            }
-        });
-
-
+                    pas += 1;
+                }
+            });
+        }
     </script>
 
     <script>
-        profil_username(userManager);
-    </script>
+        var compte_user = getSession();
+        // console.log(compte_user);
 
+        profil_username(userManager);
+        init_page();
+        
+    </script>
+    
 </body>
     
 </html>
