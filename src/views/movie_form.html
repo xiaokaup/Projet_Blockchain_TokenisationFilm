@@ -75,7 +75,7 @@
                     <div class="col-sm-6 input-column"><input class="form-control" type="text" name="synopsis" id="synopsis" placeholder="Movie Synopsis"></div>
                 </div>
                 <div class="form-row form-group">
-                    <div class="col-sm-4 label-column"><label class="col-form-label" for="name-input-field">Secured Link</label></div>
+                    <div class="col-sm-4 label-column"><label class="col-form-label" for="name-input-field">Secured Film Link</label></div>
                     <div class="col-sm-6 input-column"><input class="form-control" type="text" name="link_film" id="link_film" placeholder="Link of the film"></div>
                 </div>
                 <div class="form-row form-group">
@@ -86,7 +86,7 @@
                     <div class="col-sm-4 label-column"><label class="col-form-label" for="pawssword-input-field">Price</label></div>
                     <div class="col-sm-6 input-column"><input class="form-control" type="number" name="price" id="price" placeholder="Price"></div>
                 </div>
-                <button class="btn btn-light submit-button" type="button" onclick="insertFilm(filmManager);">Upload My New Movie</button></form>
+                <button class="btn btn-light submit-button" type="button" onclick="insertFilm(filmManager, getUserFromSession());">Upload My New Movie</button></form>
         </div>
     </div>
     <script src="../index.1_web3_smartContracts.js"></script>
@@ -125,15 +125,18 @@
         }
     );
 
-    function insertFilm(filmManager) {
+    async function insertFilm(filmManager, compte_producer) {
         console.log($("#title").val());
         console.log($("#synopsis").val());
         console.log($("#link_film").val());
         console.log($("#link_image").val());
         console.log($("#price").val());
-        console.log(compte_producer.address);
+        // console.log(compte_producer);
+        var addressProducer = await getUserAddressBy_userEmail(compte_producer.email);
+        // console.log(addressProducer);
 
-        filmManager.insertFilm($("#title").val(),$("#synopsis").val(),$("#link_image").val(), $("#link_film").val(),$("#price").val(),0,0,true,false,compte_producer.address,
+
+        filmManager.insertFilm($("#title").val(),$("#synopsis").val(),$("#link_image").val(), $("#link_film").val(),$("#price").val(),0,0,true,false,addressProducer,
             function(error, result) {
                 if(!error){
                     $('#success').css("display","block");

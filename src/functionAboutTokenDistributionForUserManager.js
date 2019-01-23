@@ -4,6 +4,39 @@
 
 // ======================================================================
 // from tokenDistributionForUserManager smartContract
+
+function insertUser_distributionForUserManager(userAddress) {
+    return new Promise((resolve, reject) => {
+        tokenDistributionForUserManager.insertUser(userAddress, (error, response) => {
+            if(!error) {
+                console.log("insertUser_distributionForUserManager("+[userAddress].join()+")_success:")
+                // console.log(distributionForThisUserThisToken);
+                resolve(response);
+            } else {
+                console.log("insertUser_distributionForUserManager("+[userAddress].join()+")_error:")
+                reject(error);
+            }
+        });
+    });
+}
+
+function insertTokenForUser_distributionForUserManager(userAddress, filmIndex, numberToken_thisUser) {
+    return new Promise((resolve, reject) => {
+        tokenDistributionForUserManager.insertTokenForUser(userAddress, filmIndex, "0", "0", numberToken_thisUser, (error, response) => {
+            if(!error) {
+                console.log("insertTokenForUser_distributionForUserManager("+[filmIndex, userAddress, numberToken_thisUser].join()+")_success:")
+                // console.log(distributionForThisUserThisToken);
+                resolve(response);
+            } else {
+                console.log("insertTokenForUser_distributionForUserManager("+[filmIndex, userAddress, numberToken_thisUser].join()+")_error:")
+                reject(error);
+            }
+        });
+    });
+}
+
+
+
 function getAllTokenForOneUser(userAddress) {
 	return new Promise((resolve, reject) => {
 		tokenDistributionForUserManager.getAllTokenForOneUser(userAddress, (error, response) => {

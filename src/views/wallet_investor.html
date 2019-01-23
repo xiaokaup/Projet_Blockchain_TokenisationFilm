@@ -134,6 +134,8 @@
 
         async function showListOfTokenMarket_investor(div_id) {
             var userBoughtTokens = await returnListToken_investor(compte_investor.email);
+            console.log("userBoughtTokens");
+            console.log(userBoughtTokens);
             var block = document.getElementById(div_id);
             var block_html = "";
             // console.log(userBoughtTokens);

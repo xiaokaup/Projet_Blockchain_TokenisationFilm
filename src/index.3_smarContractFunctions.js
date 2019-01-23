@@ -54,7 +54,8 @@ function profil_username(userManager) {
 }
 
 function getUserFromSession() {
-    return getSession();
+    var user = getSession(); 
+    return user;
 }
 
 

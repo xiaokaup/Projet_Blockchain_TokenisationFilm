@@ -43,6 +43,21 @@ function getFilm(filmIndex) {
     });
 }
 
+function getNextFilmIndex() {
+    return new Promise((resolve, reject) => {
+        filmManager.getNextFilmIndex((error, response) => {
+            if(!error) {
+                console.log("getNextFilmIndex()_success:");
+                // console.log(response);
+                resolve(response.c[0]);
+            } else {
+                console.log("getNextFilmIndex()_error:");
+                reject(error);
+            }
+        });
+    });
+}
+
 function getFilmInfo_published_ico_producer(filmIndex) {
     return new Promise((resolve, reject) => {
         filmManager.getFilmInfo_published_ico_producer(filmIndex, (error, response) => {

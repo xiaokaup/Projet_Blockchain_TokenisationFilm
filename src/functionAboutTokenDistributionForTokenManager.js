@@ -4,6 +4,36 @@
 // ======================================================================
 // from About TokenDistributionForTokenManager smartContract
 
+function insertToken_distributionForTokenManager(filmIndex) {
+    return new Promise((resolve, reject) => {
+        tokenDistributionForTokenManager.insertToken(filmIndex, "0", (error, response) => {
+            if(!error) {
+                console.log("insertToken_distributionForTokenManager("+[filmIndex].join()+")_success:")
+                // console.log(distributionForThisUserThisToken);
+                resolve(response);
+            } else {
+                console.log("insertToken_distributionForTokenManager("+[filmIndex].join()+")_error:")
+                reject(error);
+            }
+        });
+    });
+}
+
+function insertUserForToken_distributionForTokenManager(filmIndex, userAddress, numberToken_thisUser) {
+    return new Promise((resolve, reject) => {
+        tokenDistributionForTokenManager.insertUserForToken(filmIndex, userAddress, numberToken_thisUser, (error, response) => {
+            if(!error) {
+                console.log("insertUserForToken_distributionForTokenManager("+[filmIndex, userAddress, numberToken_thisUser].join()+")_success:")
+                // console.log(distributionForThisUserThisToken);
+                resolve(response);
+            } else {
+                console.log("insertUserForToken_distributionForTokenManager("+[filmIndex, userAddress, numberToken_thisUser].join()+")_error:")
+                reject(error);
+            }
+        });
+    });
+}
+
 function getTokenAndAllUsers(filmIndex) {
     return new Promise((resolve, reject) => {
         tokenDistributionForTokenManager.getTokenAndAllUsers(filmIndex, (error, response) => {

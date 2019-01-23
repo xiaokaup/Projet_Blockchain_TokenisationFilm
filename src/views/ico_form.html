@@ -99,7 +99,7 @@
                     <div class="col-sm-4 label-column"><label class="col-form-label" for="pawssword-input-field">Initial Film Price</label></div>
                     <div class="col-sm-6 input-column"><input class="form-control" type="number" name="price" id="price" placeholder="Price"></div>
                 </div>
-                <button class="btn btn-light submit-button" type="button" onclick="insertFilmAndIco(filmManager,tokenManager);">Create My ICO</button>
+                <button class="btn btn-light submit-button" type="button" onclick="insertFilmAndIco(filmManager, tokenManager, getUserFromSession());">Create My ICO</button>
             </form>
         </div>
     </div>
@@ -122,7 +122,9 @@
         console.log("contract_tokenManager:");
         console.log(tokenManager);
 
-        function insertFilmAndIco(filmManager, tokenManager) {
+        
+
+        async function insertFilmAndIco(filmManager, tokenManager, compte_producer) {
             console.log($("#title").val());
             console.log($("#description").val());
             console.log($("#issue").val());
@@ -144,8 +146,9 @@
             var budget = nb_tk * value;
             console.log("budget: ");
             console.log(budget);
+            var addressProducer = await getUserAddressBy_userEmail(compte_producer.email);
 
-            filmManager.insertFilm($("#title").val(), $("#description").val(), $("#link_image").val(), filmUrl, filmPrice, 0, 0, false, true, compte_producer.address,
+            filmManager.insertFilm($("#title").val(), $("#description").val(), $("#link_image").val(), filmUrl, filmPrice, 0, 0, false, true, addressProducer,
                 function (error, result) {
                     if (!error) {
                         $('#success').css("display", "block");
@@ -162,15 +165,16 @@
 
             filmManager.getNextFilmIndex(function (error, result) {
                 if (!error) {
-                    console.log(result);
-
-                    tokenManager.insertToken(result.c[0], budget, issueDate, maturity, value, nb_tk, 0,
+                    // console.log(result);
+                    var filmIndex = result.c[0];
+                    tokenManager.insertToken(filmIndex, budget, issueDate, maturity, value, nb_tk, 0,
                         function (error, result) {
                             if (!error) {
                                 $('#success').css("display", "block");
                                 console.log("insertICO:");
                                 console.log(result);
 
+                                // window.location.replace("./wallet_producer.html");
                             } else {
                                 $('#error').css("display", "block");
                                 console.log("error_insertFilm:");
@@ -183,6 +187,26 @@
                     console.log(error);
                 }
             });
+
+            async function addDistribution(reutrnfilmIndex, compte_producer) {
+                var filmIndex = await reutrnfilmIndex();
+                console.log(filmIndex);
+                compte_producer.userAddress = await getUserAddressBy_userEmail(compte_producer.email);
+                console.log(compte_producer);
+                // console.log(nb_tk);
+                await insertToken_distributionForTokenManager(filmIndex);
+                await insertUserForToken_distributionForTokenManager(filmIndex, compte_producer.userAddress, nb_tk);
+
+                await insertUser_distributionForUserManager(compte_producer.userAddress);
+                await insertTokenForUser_distributionForUserManager(compte_producer.userAddress, filmIndex, nb_tk)
+
+
+
+            }
+
+
+
+            addDistribution(async()=> {return await getNextFilmIndex()}, getUserFromSession());
 
 
 
