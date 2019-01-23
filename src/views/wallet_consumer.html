@@ -125,10 +125,14 @@
 
     <script>
         profil(userManager);
-        // async function test() {
-        //     var user = await getUser("1.2@gmail.com", "a123");
-        //     console.log(user);
-        // } 
+        compte_consumer = getUserFromSession();
+        // console.log(compte_consumer);
+
+        async function test() {
+            var user = await getUser(compte_consumer.email, compte_consumer.password);
+            console.log(user);
+        } 
+        test();
 
     </script>
 </body>

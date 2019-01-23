@@ -136,7 +136,7 @@
                     "<form class='form-inline' style='margin-left: 10px;'>" +
                     "<div class='form-group mb-6'><input type='number' class='form-control-plaintext' id='buyTokenNumberInput_" + oneToken.filmIndex + "' placeholder='buy token number' style='margin-bottom: 10px;'>" +
                     "</div>" +
-                    "<button type='button' class='btn btn-primary mb-2' style='margin-left: 15px;' onclick=buyToken_button('" + compte_investor.email + "','" + compte_investor.password + "','" + compte_producer.email + "','" + oneToken.filmIndex + "','" + (oneToken.tokenPrice + 0.001 * oneToken.tokenRecommend) + "')>Buy</button>" +
+                    "<button type='button' class='btn btn-primary mb-2' style='margin-left: 15px;' onclick=buyToken_button('" + compte_investor.email + "','" + compte_investor.password + "','" + oneToken.emailProducer + "','" + oneToken.filmIndex + "','" + (oneToken.tokenPrice + 0.001 * oneToken.tokenRecommend) + "')>Buy</button>" +
                     "</form>" +
                     "</div>";
                 block_html += "</div></div></div>";
@@ -148,14 +148,28 @@
 
         async function returnListToken() {
             var listToken = [];
+            list_email_and_address = await getList_email_and_address();
+            // console.log(list_email_and_address);
 
             var numbertoken = await getNumberToken();
             // console.log(numbertoken);
 
             for (var i = 0; i < numbertoken; i++) {
                 var filmIndex = await getByIndex_filmIndexes(i);
+                var filmInfo_Ico = await getFilmInfo_published_ico_producer(filmIndex);
                 // console.log(filmIndex);
+                // console.log(filmInfo_Ico);
+                var emailProducer;
+                for(var item in list_email_and_address) {
+                    var user = list_email_and_address[item];
+                    if(user.userAddress == filmInfo_Ico.userAddressProducer) {
+                        emailProducer = user.userEmail;
+                    }
+                }
+
                 var response = await getToken(filmIndex);
+
+                response.emailProducer = emailProducer;
                 listToken.push(response);
             }
 
@@ -258,14 +272,17 @@
     </script>
 
     <script type="text/javascript">
-        var compte_investor = {
-            "email": "3@gmail.com",
-            "password": "a123"
-        };
+        // var compte_investor = {
+        //     "email": "3@gmail.com",
+        //     "password": "a123"
+        // };
 
-        var compte_producer = {
-            "email": "2@gmail.com"
-        };
+        var compte_investor = getUserFromSession();
+
+        var list_email_and_address = [];
+        
+
+
 
         showListOfTokenMarket("tokenMarket", compte_investor, compte_producer);
 

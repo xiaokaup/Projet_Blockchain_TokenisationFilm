@@ -16,14 +16,14 @@ function profil(userManager) {
             var balance = result[4].c[0];
             var nom = result[2];
             var identite = result[3];
-           document.getElementById('solde').innerHTML = balance + " " + "eth";
+            document.getElementById('solde').innerHTML = balance + " " + "eth";
             document.getElementById('username').innerHTML = nom;
             document.getElementById('identity').innerHTML = identite;
 
-            console.log("SOLDE:");
-            console.log(result);
-            console.log(result[4].c[0]);
-            console.log(result[2]);
+            // console.log("SOLDE:");
+            // console.log(result);
+            // console.log(result[4].c[0]);
+            // console.log(result[2]);
         } else {
             console.log("error_getbsolde:");
             console.log(error);
@@ -45,12 +45,16 @@ function profil_username(userManager) {
             var nom = result[2];
             document.getElementById('username').innerHTML = nom;
        
-            console.log(result[2]);
+            // console.log(result[2]);
         } else {
             console.log("error_getbsolde:");
             console.log(error);
         }
     });
+}
+
+function getUserFromSession() {
+    return getSession();
 }
 
 

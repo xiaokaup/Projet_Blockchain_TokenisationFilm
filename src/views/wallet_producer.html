@@ -348,7 +348,7 @@
             compte_producer["address"] = await getUserAddressBy_userEmail(compte_producer.email);
             // console.log(compte_producer);
             var listFilms_forProducer = await returnListFilms_forProducer(compte_producer["address"]);
-            consol  e.log(listFilms_forProducer);
+            console.log(listFilms_forProducer);
             
 
             var block = document.getElementById(div_id);
@@ -376,9 +376,6 @@
 
         }
 
-
-    </script>
-
         async function returnListFilms_forProducer(userAddressProducer) {
             var listFilms_forProducer = [];
 
@@ -401,12 +398,13 @@
     <script>
 
 
-        var compte_producer = {
-            "email": getSession().email,
-            "password": getSession().password,
-        }
+        // var compte_producer = {
+        //     "email": getSession().email,
+        //     "password": getSession().password,
+        // }
 
-        
+        var compte_producer = getUserFromSession();
+        // console.log(compte_producer);
 
         profil(userManager);
         

@@ -139,7 +139,7 @@
                                 filmManager.getFilm(filmIndex, function (error, result3) {
                                     // console.log(result3);
 
-                                    document.getElementById('insertion_film').insertAdjacentHTML('beforeend', "<div class='col-sm-6 col-md-6 flex-wrap item'><a href='#'><img class='img-fluid' src='assets/img/desk.jpg'></a><h3>" + result3[0] + "</h3><h3>" + result3[1] + "</h3><div><input type='button' onclick=\"buyFilm_button('"+compte_user.email+"', '"+compte_user.password+"', '"+userEmailProducer+"','"+filmIndex+"','"+result3[4]+"');\" value='          Buy the movie          '></div></div> ");
+                                    document.getElementById('insertion_film').insertAdjacentHTML('beforeend', "<div class='col-sm-6 col-md-6 flex-wrap item'><a href='#'><img class='img-fluid' src='assets/img/desk.jpg'></a><h3>" + result3[0] + "</h3><h3>" + result3[1] + "</h3><div><input type='button' onclick=\"buyFilm_button('"+compte_consumer.email+"', '"+compte_consumer.password+"', '"+userEmailProducer+"','"+filmIndex+"','"+result3[4]+"');\" value='          Buy the movie          '></div></div> ");
                                 });
 
                             }
@@ -162,8 +162,8 @@
     </script>
 
     <script>
-        var compte_user = getSession();
-        // console.log(compte_user);
+        var compte_consumer = getSession();
+        // console.log(compte_consumer);
 
         profil_username(userManager);
         init_page();
