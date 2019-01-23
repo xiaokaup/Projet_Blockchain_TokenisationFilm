@@ -195,16 +195,17 @@
 
         }
 
-        async function returnListTokens_forProducer() {
+        async function returnListTokens_forProducer(userEmailProducer_input) {
             var listTokens_forProducer = [];
-
+            var userAddressProducer_input = await getUserAddressBy_userEmail(userEmailProducer_input);
+            // console.log(userAddressProducer_input);
             var numberFilm = await getNumberFilm();
             // console.log(numberFilm);
 
             for (var i = 1; i < numberFilm + 1; i++) {
                 var film_ICO = await getFilmInfo_published_ico_producer(i);
                 // console.log(film_ICO);
-                if (film_ICO.filmIco == true) {
+                if (film_ICO.filmIco == true && film_ICO.userAddressProducer == userAddressProducer_input) {
                     var tokenInfo = await getToken(film_ICO.filmIndex);
                     tokenInfo["filmIco"] = film_ICO.filmIco;
                     tokenInfo["filmPublished"] = film_ICO.filmPublished;
@@ -408,7 +409,7 @@
 
         profil(userManager);
         
-        showListOfTokenMarket_forProducer(compte_producer, "listTokens_forProducer", async () => { return await returnListTokens_forProducer() });
+        showListOfTokenMarket_forProducer(compte_producer, "listTokens_forProducer", async () => { return await returnListTokens_forProducer(compte_producer.email) });
 
         showListOfFilms_forProducer(compte_producer, "listFilms_forProducer");
 
