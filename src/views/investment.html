@@ -104,7 +104,7 @@
 
     <script type="text/javascript">
         // ======================================================================
-        async function showListOfTokenMarket(block_id, compte_investor, compte_producer) {
+        async function showListOfTokenMarket(block_id, compte_investor) {
             // data
             var allToken = await returnListToken();
             // view
@@ -148,29 +148,20 @@
 
         async function returnListToken() {
             var listToken = [];
-            list_email_and_address = await getList_email_and_address();
-            // console.log(list_email_and_address);
 
             var numbertoken = await getNumberToken();
             // console.log(numbertoken);
 
             for (var i = 0; i < numbertoken; i++) {
                 var filmIndex = await getByIndex_filmIndexes(i);
-                var filmInfo_Ico = await getFilmInfo_published_ico_producer(filmIndex);
+                var film_Ico = await getFilmInfo_published_ico_producer(filmIndex);
                 // console.log(filmIndex);
-                // console.log(filmInfo_Ico);
-                var emailProducer;
-                for(var item in list_email_and_address) {
-                    var user = list_email_and_address[item];
-                    if(user.userAddress == filmInfo_Ico.userAddressProducer) {
-                        emailProducer = user.userEmail;
-                    }
-                }
+                // console.log(film_Ico);
+                var token = await getToken(filmIndex);
+                // console.log(token);
+                token.emailProducer = film_Ico.userEmailProducer;
 
-                var response = await getToken(filmIndex);
-
-                response.emailProducer = emailProducer;
-                listToken.push(response);
+                listToken.push(token);
             }
 
             // console.log(listToken);
@@ -220,11 +211,11 @@
                 // console.log(buyToken_button_data.userDistributionToken_producer_forTokenManager);
 
 
-                // console.log("userDistributionToken_investor_forUserManager:");
-                // console.log(buyToken_button_data.userDistributionToken_investor_forUserManager);
+                console.log("userDistributionToken_investor_forUserManager:");
+                console.log(buyToken_button_data.userDistributionToken_investor_forUserManager);
 
-                // console.log("userDistributionToken_investor_forTokenManager:");
-                // console.log(buyToken_button_data.userDistributionToken_investor_forTokenManager);
+                console.log("userDistributionToken_investor_forTokenManager:");
+                console.log(buyToken_button_data.userDistributionToken_investor_forTokenManager);
 
                 if (true) {
                     // BuyToken -> give money from investor to producer
@@ -241,23 +232,43 @@
                     await updateTokenAndUser(
                         filmIndex,
                         buyToken_button_data.userAddress_producer,
-                        (await getToken(filmIndex)).tokenNumber,
+                        0,
                         buyToken_button_data.userDistributionToken_producer_forTokenManager.numberToken_thisUser - buyToken_button_data.buyTokenNumber
                     );
+                    
+
                     // Investor
-                    await updateTokenForUser(
-                        buyToken_button_data.userInvestor.userAddress,
-                        filmIndex,
-                        0,
-                        0,
-                        buyToken_button_data.userDistributionToken_investor_forUserManager.numberToken_user + buyToken_button_data.buyTokenNumber
-                    );
-                    await updateTokenAndUser(
-                        filmIndex,
-                        buyToken_button_data.userInvestor.userAddress,
-                        (await getToken(filmIndex)).tokenNumber,
-                        buyToken_button_data.userDistributionToken_investor_forTokenManager.numberToken_thisUser + buyToken_button_data.buyTokenNumber
-                    );
+                    if(buyToken_button_data.userDistributionToken_investor_forUserManager.numberToken_user) {
+                        await updateTokenForUser(
+                            buyToken_button_data.userInvestor.userAddress,
+                            filmIndex,
+                            0,
+                            0,
+                            buyToken_button_data.userDistributionToken_investor_forUserManager.numberToken_user + buyToken_button_data.buyTokenNumber
+                        );
+                    } else {
+                        await insertTokenForUser_distributionForUserManager(
+                            buyToken_button_data.userInvestor.userAddress, 
+                            filmIndex, 
+                            buyToken_button_data.buyTokenNumber
+                            );
+                    }
+                    
+
+                    if(buyToken_button_data.userDistributionToken_investor_forTokenManager.numberToken_thisUser) {
+                        await updateTokenAndUser(
+                            filmIndex,
+                            buyToken_button_data.userInvestor.userAddress,
+                            0,
+                            buyToken_button_data.userDistributionToken_investor_forTokenManager.numberToken_thisUser + buyToken_button_data.buyTokenNumber
+                        );
+                    } else {
+                        await insertUserForToken_distributionForTokenManager(
+                            filmIndex, 
+                            buyToken_button_data.userInvestor.userAddress, 
+                            buyToken_button_data.buyTokenNumber
+                        );
+                    }
                 }
 
 
@@ -279,12 +290,8 @@
 
         var compte_investor = getUserFromSession();
 
-        var list_email_and_address = [];
-        
 
-
-
-        showListOfTokenMarket("tokenMarket", compte_investor, compte_producer);
+        showListOfTokenMarket("tokenMarket", compte_investor);
 
 
     </script>
