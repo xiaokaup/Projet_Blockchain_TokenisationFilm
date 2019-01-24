@@ -99,10 +99,7 @@
 
     <!-- init page -->
     <script>
-        async function init_page() {
-            var list_email_and_address = await getList_email_and_address();
-            // console.log(list_email_and_address);
-            
+        async function init_page() {            
             filmManager.getNumberFilm(function (error, result) {
                 var nb_film = result.c[0];
                 pas = 0;
@@ -117,15 +114,8 @@
 
                         filmManager.getFilmInfo_published_ico_producer(filmIndex, function (error, result2) {
                             // console.log(result2);
-                            var addressProducer = result2[3];
-                            var userEmailProducer = "";
-                            for(var item in list_email_and_address) {
-                                var user = list_email_and_address[item];
-                                if(user.userAddress == addressProducer) {
-                                    userEmailProducer = user.userEmail;
-                                    // console.log(userEmailProducer);
-                                }
-                            }
+                            // var addressProducer = result2[3];
+                            var userEmailProducer = result2[3];
 
                             //document.getElementById('insertion').insertAdjacentHTML( 'beforeend',"<div class='col-sm-6 col-md-6 flex-wrap item'><a href='#'><img class='img-fluid' src='assets/img/desk.jpg'></a><h3>nom_film</h3></div> ");
                             //filmManager.getFilm(result,function(error, result) {
