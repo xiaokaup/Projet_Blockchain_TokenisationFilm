@@ -201,9 +201,10 @@
             var numberFilm = await getNumberFilm();
             // console.log(numberFilm);
 
-            for (var i = 1; i < numberFilm + 1; i++) {
+            for (var i = 0; i < numberFilm; i++) {
                 try {
-                    var film_ICO = await getFilmInfo_published_ico_producer(i);
+                    var filmIndex = await getByIndex_filmIndexes_filmManager(i);
+                    var film_ICO = await getFilmInfo_published_ico_producer(filmIndex);
                     // console.log(film_ICO);
                     if (film_ICO.filmIco == true && film_ICO.userEmailProducer == userEmailProducer_input) {
                         var tokenInfo = await getToken(film_ICO.filmIndex);
@@ -214,7 +215,7 @@
                         listTokens_forProducer.push(tokenInfo);
                     }
                 } catch(error) {
-                    console.log("filmIndex: "+i+" doesn't existe");
+                    console.log("filmIndex: "+filmIndex+" doesn't existe");
                 }
             }
             // console.log(listTokens_forProducer);
@@ -385,16 +386,17 @@
             var numberFilm = await getNumberFilm();
             // console.log(numberFilm);
 
-            for (var i = 1; i < numberFilm + 1; i++) {
+            for (var i = 0; i < numberFilm; i++) {
                 try {
-                    var filmInfo = await getFilm(i);
-                    var filmInfo_Ico = await getFilmInfo_published_ico_producer(i);
+                    var filmIndex = await getByIndex_filmIndexes_filmManager(i);
+                    var filmInfo = await getFilm(filmIndex);
+                    var filmInfo_Ico = await getFilmInfo_published_ico_producer(filmIndex);
                     // console.log(filmInfo_Ico);
                     if (filmInfo_Ico.userEmailProducer == userEmailProducer && filmInfo_Ico.filmPublished == true) {
                         listFilms_forProducer.push(filmInfo);
                     }
                 } catch(error) {
-                    console.log("filmIndex: "+i+" doesn't existe");
+                    console.log("filmIndex: "+filmIndex+" doesn't existe");
                 }
                 
             }
