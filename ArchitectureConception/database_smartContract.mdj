@@ -791,7 +791,7 @@
 											"top": 223,
 											"width": 1292.13525390625,
 											"height": 13,
-											"text": "+insertFilm(string filmName, string filmDescription, string filmImageUrl, string filmUrl, uint filmPrice, uint filmNumberVoir, uint filmNotation, bool filmPublished, bool filmIco, address userAddressProducer): uint index_filmIndexes",
+											"text": "+insertFilm(string filmName, string filmDescription, string filmImageUrl, string filmUrl, uint filmPrice, uint filmNumberVoir, uint filmNotation, bool filmPublished, bool filmIco, string userEmailProducer): uint index_filmIndexes",
 											"horizontalAlignment": 0
 										},
 										{
@@ -825,7 +825,7 @@
 											"top": 253,
 											"width": 1292.13525390625,
 											"height": 13,
-											"text": "+getFilmInfo_published_ico_producer(uint filmIndex): uint index_filmIndexes; bool filmPublished; bool filmIco; address userAddressProducer",
+											"text": "+getFilmInfo_published_ico_producer(uint filmIndex): uint index_filmIndexes; bool filmPublished; bool filmIco; string userEmailProducer",
 											"horizontalAlignment": 0
 										},
 										{
@@ -1922,7 +1922,7 @@
 											"top": 540,
 											"width": 302,
 											"height": 13,
-											"text": "+address userAddressProducer",
+											"text": "+string userEmailProducer",
 											"horizontalAlignment": 0
 										}
 									],
@@ -7896,8 +7896,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnaz227dq15wo="
 									},
-									"name": "string filmName",
-									"type": ""
+									"name": "string filmName"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7905,8 +7904,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnaz227dq15wo="
 									},
-									"name": "string filmDescription",
-									"type": ""
+									"name": "string filmDescription"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7914,8 +7912,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnaz227dq15wo="
 									},
-									"name": "string filmImageUrl",
-									"type": ""
+									"name": "string filmImageUrl"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7923,8 +7920,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnaz227dq15wo="
 									},
-									"name": "string filmUrl",
-									"type": ""
+									"name": "string filmUrl"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7932,8 +7928,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnaz227dq15wo="
 									},
-									"name": "uint filmPrice",
-									"type": ""
+									"name": "uint filmPrice"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7941,8 +7936,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnaz227dq15wo="
 									},
-									"name": "uint filmNumberVoir",
-									"type": ""
+									"name": "uint filmNumberVoir"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7950,8 +7944,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnaz227dq15wo="
 									},
-									"name": "uint filmNotation",
-									"type": ""
+									"name": "uint filmNotation"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7959,8 +7952,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnaz227dq15wo="
 									},
-									"name": "bool filmPublished",
-									"type": ""
+									"name": "bool filmPublished"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7968,8 +7960,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnaz227dq15wo="
 									},
-									"name": "bool filmIco",
-									"type": ""
+									"name": "bool filmIco"
 								},
 								{
 									"_type": "UMLParameter",
@@ -7977,8 +7968,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFnaz227dq15wo="
 									},
-									"name": "address userAddressProducer",
-									"type": ""
+									"name": "string userEmailProducer"
 								}
 							]
 						},
@@ -8024,8 +8014,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFndZas6jYmuO4="
 									},
-									"name": "uint filmIndex",
-									"type": ""
+									"name": "uint filmIndex"
 								},
 								{
 									"_type": "UMLParameter",
@@ -8033,7 +8022,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFndZas6jYmuO4="
 									},
-									"type": "uint index_filmIndexes; bool filmPublished; bool filmIco; address userAddressProducer",
+									"type": "uint index_filmIndexes; bool filmPublished; bool filmIco; string userEmailProducer",
 									"direction": "return"
 								}
 							]
@@ -8795,8 +8784,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFnbBDYG2+poZM="
 							},
-							"name": "address userAddressProducer",
-							"type": ""
+							"name": "string userEmailProducer"
 						}
 					]
 				},

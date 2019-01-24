@@ -12,7 +12,7 @@ contract FilmManager {
         uint filmNotation;
         bool filmPublished;
         bool filmIco;
-        address userAddressProducer;
+        string userEmailProducer;
     }
     
     event logFilm(
@@ -32,7 +32,7 @@ contract FilmManager {
         uint filmIndex,
         bool filmPublished,
         bool filmIco,
-        address userAddressProducer
+        string userEmailProducer
     );
 
     event operationFilm(
@@ -46,14 +46,14 @@ contract FilmManager {
     
     /* Constructor */
     function FilmManager() public {
-        // insertFilm(filmName, filmDescription, filmImageUrl, filmUrl, filmPrice, filmNumberVoir, filmNotation, filmPublished, filmIco, userAddressProducer)
+        // insertFilm(filmName, filmDescription, filmImageUrl, filmUrl, filmPrice, filmNumberVoir, filmNotation, filmPublished, filmIco, userEmailProducer)
         // published
-        insertFilm("film_1", "filmDescription_1", "imageUrl.com_1", "url.com_1", 3, 0, 0, true, false, 0x583031d1113ad414f02576bd6afabfb302140225);
-        insertFilm("film_2", "filmDescription_2", "imageUrl.com_2", "url.com_2", 5, 0, 0, true, false, 0x583031d1113ad414f02576bd6afabfb302140225);
-        insertFilm("film_3", "filmDescription_3", "imageUrl.com_3", "url.com_3", 30, 0, 0, true, false, 0x583031d1113ad414f02576bd6afabfb302140225);
+        insertFilm("film_1", "filmDescription_1", "imageUrl.com_1", "url.com_1", 3, 0, 0, true, false, "2@gmail.com");
+        insertFilm("film_2", "filmDescription_2", "imageUrl.com_2", "url.com_2", 5, 0, 0, true, false, "2@gmail.com");
+        insertFilm("film_3", "filmDescription_3", "imageUrl.com_3", "url.com_3", 30, 0, 0, true, false, "2@gmail.com");
         // ICO => index_filmIndexes = 3, 4
-        insertFilm("film_4", "filmDescription_4", "imageUrl.com_4", "url.com_4", 1, 0, 0, false, true, 0x583031d1113ad414f02576bd6afabfb302140225);
-        insertFilm("film_5", "filmDescription_5", "imageUrl.com_5", "url.com_5", 1, 0, 0, false, true, 0x583031d1113ad414f02576bd6afabfb302140225);
+        insertFilm("film_4", "filmDescription_4", "imageUrl.com_4", "url.com_4", 1, 0, 0, false, true, "2@gmail.com");
+        insertFilm("film_5", "filmDescription_5", "imageUrl.com_5", "url.com_5", 1, 0, 0, false, true, "2@gmail.com");
     }
 
     // verify the existence of film
@@ -64,7 +64,7 @@ contract FilmManager {
 
     function insertFilm(string filmName, string filmDescription, string filmImageUrl,
         string filmUrl, uint filmPrice, uint filmNumberVoir, uint filmNotation, 
-        bool filmPublished, bool filmIco, address userAddressProducer) 
+        bool filmPublished, bool filmIco, string userEmailProducer) 
     public returns(uint index_filmIndexes) {
         var filmIndex = count;
         count ++;
@@ -80,13 +80,13 @@ contract FilmManager {
         filmStructs[filmIndex].filmNotation = filmNotation;
         filmStructs[filmIndex].filmPublished = filmPublished;
         filmStructs[filmIndex].filmIco = filmIco;
-        filmStructs[filmIndex].userAddressProducer = userAddressProducer;
+        filmStructs[filmIndex].userEmailProducer = userEmailProducer;
 
 
         logFilm("insertFilm", filmStructs[filmIndex].filmIndex, filmName, filmDescription, 
             filmImageUrl, filmUrl, filmPrice, filmNumberVoir, filmNotation);
         logFilm_published_ico_producer("insertFilm", filmStructs[filmIndex].filmIndex, 
-            filmPublished, filmIco, userAddressProducer);
+            filmPublished, filmIco, userEmailProducer);
         return filmIndexes.length-1;
     }
 
@@ -107,13 +107,13 @@ contract FilmManager {
     }
 
     function getFilmInfo_published_ico_producer(uint filmIndex) public constant returns(
-        uint index_filmIndexes, bool filmPublished, bool filmIco, address userAddressProducer) {
+        uint index_filmIndexes, bool filmPublished, bool filmIco, string userEmailProducer) {
         if(!isFilm(filmIndex)) revert();
         return(
             filmStructs[filmIndex].filmIndex, 
             filmStructs[filmIndex].filmPublished,
             filmStructs[filmIndex].filmIco,
-            filmStructs[filmIndex].userAddressProducer
+            filmStructs[filmIndex].userEmailProducer
         );
     }
 
@@ -137,7 +137,7 @@ contract FilmManager {
             filmDescription, filmImageUrl, filmUrl, filmPrice, filmNumberVoir, 
             filmNotation);
         logFilm_published_ico_producer("updateFilm", filmStructs[filmIndex].filmIndex, 
-            filmPublished, filmIco, address(0));
+            filmPublished, filmIco, "");
         return true;
     }
 
