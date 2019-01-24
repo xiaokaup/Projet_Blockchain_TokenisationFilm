@@ -69,7 +69,7 @@ function getFilmInfo_published_ico_producer(filmIndex) {
                     "index_filmIndexes": response[0].c[0], 
                     "filmPublished": response[1], 
                     "filmIco": response[2], 
-                    "userAddressProducer": response[3], 
+                    "userEmailProducer": response[3], 
                 };
 
                 resolve(film_ICO);

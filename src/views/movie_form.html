@@ -75,7 +75,7 @@
                     <div class="col-sm-6 input-column"><input class="form-control" type="text" name="synopsis" id="synopsis" placeholder="Movie Synopsis"></div>
                 </div>
                 <div class="form-row form-group">
-                    <div class="col-sm-4 label-column"><label class="col-form-label" for="name-input-field">Secured Film Link</label></div>
+                    <div class="col-sm-4 label-column"><label class="col-form-label" for="name-input-field">Secured Link to Film</label></div>
                     <div class="col-sm-6 input-column"><input class="form-control" type="text" name="link_film" id="link_film" placeholder="Link of the film"></div>
                 </div>
                 <div class="form-row form-group">
@@ -132,11 +132,9 @@
         console.log($("#link_image").val());
         console.log($("#price").val());
         // console.log(compte_producer);
-        var addressProducer = await getUserAddressBy_userEmail(compte_producer.email);
-        // console.log(addressProducer);
 
 
-        filmManager.insertFilm($("#title").val(),$("#synopsis").val(),$("#link_image").val(), $("#link_film").val(),$("#price").val(),0,0,true,false,addressProducer,
+        filmManager.insertFilm($("#title").val(),$("#synopsis").val(),$("#link_image").val(), $("#link_film").val(),$("#price").val(),0,0,true,false,compte_producer.email,
             function(error, result) {
                 if(!error){
                     $('#success').css("display","block");

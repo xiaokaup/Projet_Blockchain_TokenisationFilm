@@ -197,24 +197,27 @@
 
         async function returnListTokens_forProducer(userEmailProducer_input) {
             var listTokens_forProducer = [];
-            var userAddressProducer_input = await getUserAddressBy_userEmail(userEmailProducer_input);
-            // console.log(userAddressProducer_input);
+
             var numberFilm = await getNumberFilm();
             // console.log(numberFilm);
 
             for (var i = 1; i < numberFilm + 1; i++) {
-                var film_ICO = await getFilmInfo_published_ico_producer(i);
-                // console.log(film_ICO);
-                if (film_ICO.filmIco == true && film_ICO.userAddressProducer == userAddressProducer_input) {
-                    var tokenInfo = await getToken(film_ICO.filmIndex);
-                    tokenInfo["filmIco"] = film_ICO.filmIco;
-                    tokenInfo["filmPublished"] = film_ICO.filmPublished;
-                    tokenInfo["userAddressProducer"] = film_ICO.userAddressProducer;
+                try {
+                    var film_ICO = await getFilmInfo_published_ico_producer(i);
+                    // console.log(film_ICO);
+                    if (film_ICO.filmIco == true && film_ICO.userEmailProducer == userEmailProducer_input) {
+                        var tokenInfo = await getToken(film_ICO.filmIndex);
+                        tokenInfo["filmIco"] = film_ICO.filmIco;
+                        tokenInfo["filmPublished"] = film_ICO.filmPublished;
+                        tokenInfo["userEmailProducer"] = film_ICO.userEmailProducer;
 
-                    listTokens_forProducer.push(tokenInfo);
+                        listTokens_forProducer.push(tokenInfo);
+                    }
+                } catch(error) {
+                    console.log("filmIndex: "+i+" doesn't existe");
                 }
             }
-
+            // console.log(listTokens_forProducer);
             return listTokens_forProducer;
         }
 
@@ -346,9 +349,7 @@
     <!-- film -->
     <script type="text/javascript">
         async function showListOfFilms_forProducer(compte_producer, div_id) {
-            compte_producer["address"] = await getUserAddressBy_userEmail(compte_producer.email);
-            // console.log(compte_producer);
-            var listFilms_forProducer = await returnListFilms_forProducer(compte_producer["address"]);
+            var listFilms_forProducer = await returnListFilms_forProducer(compte_producer.email);
             console.log(listFilms_forProducer);
             
 
@@ -377,19 +378,25 @@
 
         }
 
-        async function returnListFilms_forProducer(userAddressProducer) {
+        async function returnListFilms_forProducer(userEmailProducer) {
             var listFilms_forProducer = [];
+            console.log(userEmailProducer);
 
             var numberFilm = await getNumberFilm();
             // console.log(numberFilm);
 
             for (var i = 1; i < numberFilm + 1; i++) {
-                var filmInfo = await getFilm(i);
-                var filmInfo_Ico = await getFilmInfo_published_ico_producer(i);
-                // console.log(filmInfo_Ico);
-                if (filmInfo_Ico.userAddressProducer == userAddressProducer) {
-                    listFilms_forProducer.push(filmInfo);
+                try {
+                    var filmInfo = await getFilm(i);
+                    var filmInfo_Ico = await getFilmInfo_published_ico_producer(i);
+                    // console.log(filmInfo_Ico);
+                    if (filmInfo_Ico.userEmailProducer == userEmailProducer && filmInfo_Ico.filmPublished == true) {
+                        listFilms_forProducer.push(filmInfo);
+                    }
+                } catch(error) {
+                    console.log("filmIndex: "+i+" doesn't existe");
                 }
+                
             }
 
             return listFilms_forProducer;
