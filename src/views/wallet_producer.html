@@ -164,9 +164,9 @@
         async function showListOfTokenMarket_forProducer(compte_producer, div_id, returnDataFunction) {
             var listTokens_forProducer = await returnDataFunction();
             // console.log(listTokens_forProducer);
-            var block = document.getElementById(div_id);
+            var block_ico = document.getElementById(div_id);
 
-            block_html = "";
+            block_html_ico = "";
 
             for (var item in listTokens_forProducer) {
                 var oneTokenProducer = listTokens_forProducer[item]
@@ -175,7 +175,7 @@
                 var distributionProducer = await getTokenForUser(await getUserAddressBy_userEmail(compte_producer.email), oneTokenProducer.filmIndex);
                 // console.log(distributionProducer);
 
-                block_html +=
+                block_html_ico +=
                     "<div class='col-sm-6 col-md-4 flex-wrap item'>" +
                     "<img class='img-fluid' src='" + random_img(imgs_web) + "' style='height:139.78px;'>" +
                     "<h5>filmIndex: <span>" + oneTokenProducer.filmIndex + "</span></h5>" +
@@ -191,7 +191,7 @@
                     "</div>";
             }
 
-            block.innerHTML = block_html;
+            block_ico.innerHTML = block_html_ico;
 
         }
 
@@ -232,7 +232,7 @@
             var tokenInfo = await getToken(filmIndex);
             console.log(tokenInfo);
 
-            var userAddressProducer = filmInfo_Ico.userAddressProducer;
+            var userAddressProducer = await getUserAddressBy_userEmail(filmInfo_Ico.userEmailProducer);
             var distributionUserAddress_forOneToken = (await getTokenAndAllUsers(filmIndex)).boughtUserAddresses;
             // console.log(distributionUserAddress_forOneToken);
 
@@ -240,13 +240,13 @@
             // console.log(distributionUser_forOneToken);
 
 
-            // pay back many
+            // pay back many -> number of investor
             await payBackInvestor(compte_producer.email, compte_producer.password, distributionUser_forOneToken);
 
-            // Distribution
+            // Distribution -> 2 click
             await deleteTokenDistribution(distributionUser_forOneToken);
 
-            // tokenManager
+            // tokenManager 
             await deleteToken_TokenManager(filmIndex)
 
             // publish film
@@ -351,7 +351,7 @@
     <script type="text/javascript">
         async function showListOfFilms_forProducer(compte_producer, div_id) {
             var listFilms_forProducer = await returnListFilms_forProducer(compte_producer.email);
-            console.log(listFilms_forProducer);
+            // console.log(listFilms_forProducer);
             
 
             var block = document.getElementById(div_id);
