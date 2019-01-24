@@ -88,7 +88,11 @@
         //   }
         // }
 
-        function insertUser(userManager) {
+        async function addDistribution_register(userAddress) {
+        	await insertUser_distributionForUserManager(userAddress);
+        }
+
+        async function insertUser(userManager) {
             console.log($("#username").val());
             console.log($("#email").val());
             console.log($("#adresse").val());
@@ -112,8 +116,14 @@
 
                     }
                 });
+
+                if($("#identity").val() == "producer" || $("#identity").val() == "investor") {
+                	await addDistribution_register($("#adresse").val());
+                }
             }
         }
+
+        
     </script>
 </body>
 
