@@ -146,9 +146,8 @@
             var budget = nb_tk * value;
             console.log("budget: ");
             console.log(budget);
-            var addressProducer = await getUserAddressBy_userEmail(compte_producer.email);
 
-            filmManager.insertFilm($("#title").val(), $("#description").val(), $("#link_image").val(), filmUrl, filmPrice, 0, 0, false, true, addressProducer,
+            filmManager.insertFilm($("#title").val(), $("#description").val(), $("#link_image").val(), filmUrl, filmPrice, 0, 0, false, true, compte_producer.email,
                 function (error, result) {
                     if (!error) {
                         $('#success').css("display", "block");
@@ -198,10 +197,7 @@
                 await insertUserForToken_distributionForTokenManager(filmIndex, compte_producer.userAddress, nb_tk);
 
                 // await insertUser_distributionForUserManager(compte_producer.userAddress);
-                await insertTokenForUser_distributionForUserManager(compte_producer.userAddress, filmIndex, nb_tk)
-
-
-
+                await insertTokenForUser_distributionForUserManager(compte_producer.userAddress, filmIndex, nb_tk);
             }
 
 
