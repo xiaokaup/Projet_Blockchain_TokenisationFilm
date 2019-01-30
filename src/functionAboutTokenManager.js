@@ -59,7 +59,33 @@ function getToken(filmIndex) {
     });
 }
 
+function addOneTokenRecommend(filmIndex){
+    return new Promise((resolve, reject) => {
+        tokenManager.addOneTokenRecommend(filmIndex, (error,response) => {
+            if(!error){
+                console.log("addOneTokenRecommend_success -> numberToken :");
+                resolve(response);
+            } else {     
+                console.log("addOneTokenRecommend_error :");
+                reject(error);
+            }
+        });
+    });
+}
 
+function minusOneTokenRecommend(filmIndex){
+    return new Promise((resolve, reject) => {
+        tokenManager.minusOneTokenRecommend(filmIndex, (error,response) => {
+            if(!error){
+                console.log("minusOneTokenRecommend_success -> numberToken :");
+                resolve(response);
+            } else {     
+                console.log("minusOneTokenRecommend_error :");
+                reject(error);
+            }
+        });
+    });
+}
 
 function deleteToken_TokenManager(filmIndex) {
     return new Promise((resolve, reject) => {

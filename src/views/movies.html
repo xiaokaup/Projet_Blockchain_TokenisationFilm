@@ -135,7 +135,7 @@
                             }
                             else {
                                 filmManager.getFilm(filmIndex, function (error, result3) {
-                                    document.getElementById('insertion_ico').insertAdjacentHTML('beforeend', "<div class='col-sm-6 col-md-6 flex-wrap item'><a href='#'><img class='img-fluid' src='assets/img/desk.jpg'></a><h3>" + result3[0] + "</h3><h3>" + result3[1] + "</h3><div><input type='button' background-color: green value='   Validate   '><input type='button' value='    Denied    ' > </div></div> ");
+                                    document.getElementById('insertion_ico').insertAdjacentHTML('beforeend', "<div class='col-sm-6 col-md-6 flex-wrap item'><a href='#'><img class='img-fluid' src='assets/img/desk.jpg'></a><h3>" + result3[0] + "</h3><h3>" + result3[1] + "</h3><div><input type='button' style=\"background-color: green;\" onclick=\"upvoteMovie("+ result1 +");\" value='       Upvote      '><input type='button' style=\"background-color: red;\" onclick=\"downvoteMovie("+ result1 +");\" value='    Downvote    ' > </div></div> ");
                                 });
                             }
                         });
@@ -148,6 +148,15 @@
                     pas += 1;
                 }
             });
+        }
+
+        async function upvoteMovie(filmindex){
+            console.log(filmindex);
+            await addOneTokenRecommend(filmindex);
+        }
+
+        async function downvoteMovie(filmindex){
+            await minusOneTokenRecommend(filmindex);
         }
     </script>
 
