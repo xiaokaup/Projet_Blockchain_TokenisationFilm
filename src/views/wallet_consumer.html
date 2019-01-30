@@ -56,22 +56,8 @@
                 <h2 class="text-center">My movies</h2>
                 <p class="text-center">Enjoy unlimited access to these movies</p>
             </div>
-            <div class="row articles">
-                <div class="col-sm-6 col-md-4 item">
-                    <a href="#"><img class="img-fluid" src="assets/img/desk.jpg"></a>
-                    <h3 class="name">MovieTitle1</h3>
-                    <p class="description">link1</p><a href="#" class="action"></a>
-                </div>
-                <div class="col-sm-6 col-md-4 item">
-                    <a href="#"><img class="img-fluid" src="assets/img/building.jpg"></a>
-                    <h3 class="name">MovieTitle2</h3>
-                    <p class="description">link2</p><a href="#" class="action"></a>
-                </div>
-                <div class="col-sm-6 col-md-4 item">
-                    <a href="#"><img class="img-fluid" src="assets/img/loft.jpg"></a>
-                    <h3 class="name">MovieTitle3</h3>
-                    <p class="description">link3</p><a href="#" class="action"></a>
-                </div>
+            <div id="insertion_film" class="row articles">
+                
             </div>
         </div>
     </div>
@@ -126,14 +112,21 @@
     <script>
         profil(userManager);
         compte_consumer = getUserFromSession();
-        // console.log(compte_consumer);
-
+        console.log(compte_consumer);
         async function test() {
             var user = await getUser(compte_consumer.email, compte_consumer.password);
             console.log(user);
         } 
         test();
-
+                userManager.getUser(compte_consumer.email, compte_consumer.password,function(error, result) {
+            for(pas=0;pas<result[5].length;pas++)
+            {    
+                filmManager.getFilm(result[5][pas].c[0],function(error, result1){
+                    document.getElementById('insertion_film').insertAdjacentHTML( 'beforeend',"<div class='col-sm-6 col-md-4 item'><a href='#'><img class='img-fluid' src='assets/img/desk.jpg'></a><h3 class='name'>"+result1[0]+"</h3><p class='description'>"+result1[3]+"</p><a href='#' class='action'></a></div> ");
+                })                                                
+            }
+        }) 
+        
     </script>
 </body>
 
